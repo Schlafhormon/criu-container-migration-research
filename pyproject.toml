@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clm"
+version = "0.2.8"
+description = "Container Live Migration runner"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "PyYAML>=6.0",
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "matplotlib>=3.7",
+]
+
+[project.scripts]
+clm = "clm.cli:main"
+
+[tool.setuptools]
+packages = ["clm"]

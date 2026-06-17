@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+
+# Experiment outputs / logs
+Logs/
+logs/
+results/
+out/
+*.log
+*.pid
+*.ndjson
+
+# runc-bundle
+runc-bundle/
+tests/testläufe/
+tests/testruns/
+
+# Local lab configuration and diagnostics
+config/env.yaml
+scripts/hostinfo/

@@ -1,0 +1,629 @@
+version: 1
+
+ingest:
+  summary_filename: summary.json
+  on_missing_summary: nan
+  on_invalid_summary: nan
+  on_failed_analyze: nan
+
+group_by:
+  - method
+  - load
+  - control_run
+
+metrics:
+  - name: cutover_ms
+    path: cutover_ms
+    dtype: float
+  - name: cutover_ms_event
+    path: cutover_ms_event
+    dtype: float
+  - name: cutover_strategy
+    path: cutover_strategy
+    dtype: str
+  - name: http_downtime_ms
+    path: http_downtime_ms
+    dtype: float
+  - name: l4_downtime_ms
+    path: l4_downtime_ms
+    dtype: float
+  - name: vip_http_client_visible_total_down_ms
+    path: vip_http_client_visible_total_down_ms
+    dtype: float
+  - name: vip_http_client_visible_down_segments
+    path: vip_http_client_visible_down_segments
+    dtype: float
+  - name: vip_http_client_visible_outage_span_ms
+    path: vip_http_client_visible_outage_span_ms
+    dtype: float
+  - name: vip_http_cutover_near_downtime_ms
+    path: vip_http_cutover_near_downtime_ms
+    dtype: float
+  - name: vip_http_downtime_ms
+    path: vip_http_downtime_ms
+    dtype: float
+  - name: vip_l4_downtime_ms
+    path: vip_l4_downtime_ms
+    dtype: float
+  - name: vip_http_cutover_gap_ms
+    path: vip_http_cutover_gap_ms
+    dtype: float
+  - name: vip_l4_cutover_gap_ms
+    path: vip_l4_cutover_gap_ms
+    dtype: float
+  - name: vip_http_downphase_ms
+    path: vip_http_downphase_ms
+    dtype: float
+  - name: vip_l4_downphase_ms
+    path: vip_l4_downphase_ms
+    dtype: float
+  - name: vip_http_samples_before
+    path: vip_http_samples_before
+    dtype: float
+  - name: vip_http_samples_after
+    path: vip_http_samples_after
+    dtype: float
+  - name: vip_http_transport_err_before
+    path: vip_http_transport_err_before
+    dtype: float
+  - name: vip_http_transport_err_after
+    path: vip_http_transport_err_after
+    dtype: float
+  - name: vip_http_non_200_before
+    path: vip_http_non_200_before
+    dtype: float
+  - name: vip_http_non_200_after
+    path: vip_http_non_200_after
+    dtype: float
+  - name: vip_l4_samples_before
+    path: vip_l4_samples_before
+    dtype: float
+  - name: vip_l4_samples_after
+    path: vip_l4_samples_after
+    dtype: float
+  - name: vip_l4_up_before
+    path: vip_l4_up_before
+    dtype: float
+  - name: vip_l4_up_after
+    path: vip_l4_up_after
+    dtype: float
+  - name: vip_l4_down_before
+    path: vip_l4_down_before
+    dtype: float
+  - name: vip_l4_down_after
+    path: vip_l4_down_after
+    dtype: float
+  - name: vip_http_segment_start_ms
+    path: vip_http_segment_start_ms
+    dtype: float
+  - name: vip_http_segment_end_ms
+    path: vip_http_segment_end_ms
+    dtype: float
+  - name: precopy_final_dump_ms
+    path: precopy_final_dump_ms
+    dtype: float
+  - name: precopy_transfer_prepare_ms
+    path: precopy_transfer_prepare_ms
+    dtype: float
+  - name: precopy_vip_prepare_ms
+    path: precopy_vip_prepare_ms
+    dtype: float
+  - name: precopy_dest_container_cleanup_ms
+    path: precopy_dest_container_cleanup_ms
+    dtype: float
+  - name: precopy_transfer_to_restore_ms
+    path: precopy_transfer_to_restore_ms
+    dtype: float
+  - name: precopy_restore_call_ms
+    path: precopy_restore_call_ms
+    dtype: float
+  - name: precopy_transfer_to_restore_exec_ms
+    path: precopy_transfer_to_restore_exec_ms
+    dtype: float
+  - name: precopy_restore_launch_overhead_ms
+    path: precopy_restore_launch_overhead_ms
+    dtype: float
+  - name: precopy_restore_exec_ms
+    path: precopy_restore_exec_ms
+    dtype: float
+  - name: precopy_restore_return_overhead_ms
+    path: precopy_restore_return_overhead_ms
+    dtype: float
+  - name: precopy_restore_to_cutover_ms
+    path: precopy_restore_to_cutover_ms
+    dtype: float
+  - name: precopy_restore_exec_to_cutover_ms
+    path: precopy_restore_exec_to_cutover_ms
+    dtype: float
+  - name: precopy_transfer_mode
+    path: precopy_transfer_mode
+    dtype: str
+  - name: precopy_transfer_verify_mode
+    path: precopy_transfer_verify_mode
+    dtype: str
+  - name: postcopy_restore_to_readiness_ms
+    path: postcopy_restore_to_readiness_ms
+    dtype: float
+  - name: postcopy_readiness_gate_ms
+    path: postcopy_readiness_gate_ms
+    dtype: float
+  - name: postcopy_warmup_duration_ms
+    path: postcopy_warmup_duration_ms
+    dtype: float
+  - name: postcopy_cutover_duration_ms
+    path: postcopy_cutover_duration_ms
+    dtype: float
+  - name: postcopy_cutover_to_health_ok_ms
+    path: postcopy_cutover_to_health_ok_ms
+    dtype: float
+  - name: monitor_http_timeout_ms
+    path: monitor_params.http_timeout_ms
+    dtype: float
+  - name: monitor_l4_timeout_ms
+    path: monitor_params.l4_timeout_ms
+    dtype: float
+  - name: monitor_precision_mode
+    path: monitor_params.precision_mode
+    dtype: bool
+  - name: monitor_burst_window_ms
+    path: monitor_params.burst_window_ms
+    dtype: float
+  - name: migration_vip_garp_count
+    path: migration_params.vip_garp_count
+    dtype: float
+  - name: migration_vip_garp_interval_ms
+    path: migration_params.vip_garp_interval_ms
+    dtype: float
+  - name: migration_vip_garp_mode
+    path: migration_params.vip_garp_mode
+    dtype: str
+  - name: migration_vip_conntrack_clear_src
+    path: migration_params.vip_conntrack_clear_src
+    dtype: bool
+  - name: migration_precopy_image_mode
+    path: migration_params.precopy_image_mode
+    dtype: str
+  - name: migration_precopy_pre_dump_rounds
+    path: migration_params.precopy_pre_dump_rounds
+    dtype: float
+  - name: migration_precopy_tcp_established
+    path: migration_params.precopy_tcp_established
+    dtype: float
+  - name: migration_postcopy_readiness_stable_successes
+    path: migration_params.postcopy_readiness_stable_successes
+    dtype: float
+  - name: migration_postcopy_readiness_interval_ms
+    path: migration_params.postcopy_readiness_interval_ms
+    dtype: float
+  - name: migration_postcopy_readiness_timeout_ms
+    path: migration_params.postcopy_readiness_timeout_ms
+    dtype: float
+  - name: migration_postcopy_probe_max_time_s
+    path: migration_params.postcopy_probe_max_time_s
+    dtype: float
+  - name: migration_postcopy_warmup_rounds
+    path: migration_params.postcopy_warmup_rounds
+    dtype: float
+  - name: migration_postcopy_warmup_interval_ms
+    path: migration_params.postcopy_warmup_interval_ms
+    dtype: float
+  - name: migration_postcopy_warmup_max_duration_ms
+    path: migration_params.postcopy_warmup_max_duration_ms
+    dtype: float
+  - name: latency_src_p50_ms
+    path: latency.src.p50_ms
+    dtype: float
+  - name: latency_src_avg_ms
+    path: latency.src.avg_ms
+    dtype: float
+  - name: latency_dst_p50_ms
+    path: latency.dst.p50_ms
+    dtype: float
+  - name: latency_dst_avg_ms
+    path: latency.dst.avg_ms
+    dtype: float
+  - name: latency_vip_p50_ms
+    path: latency.vip.p50_ms
+    dtype: float
+  - name: latency_vip_avg_ms
+    path: latency.vip.avg_ms
+    dtype: float
+  - name: stream_disconnects
+    path: stream.disconnects
+    dtype: float
+  - name: stream_max_gap_ms
+    path: stream.max_gap_ms
+    dtype: float
+  - name: stream_avg_bps
+    path: stream.avg_bps
+    dtype: float
+  - name: download_bytes_total
+    path: download.aggregate.bytes_total
+    dtype: float
+  - name: download_duration_ms
+    path: download.aggregate.duration_ms
+    dtype: float
+  - name: dl_avg_bps
+    path: download.aggregate.avg_bps
+    dtype: float
+  - name: download_disconnects
+    path: download.aggregate.disconnects
+    dtype: float
+  - name: download_max_gap_ms
+    path: download.aggregate.max_gap_ms
+    dtype: float
+  - name: upload_bytes_total
+    path: upload.aggregate.bytes_total
+    dtype: float
+  - name: upload_duration_ms
+    path: upload.aggregate.duration_ms
+    dtype: float
+  - name: upload_avg_bps
+    path: upload.aggregate.avg_bps
+    dtype: float
+  - name: upload_disconnects
+    path: upload.aggregate.disconnects
+    dtype: float
+  - name: upload_max_gap_ms
+    path: upload.aggregate.max_gap_ms
+    dtype: float
+
+derived_metrics:
+  - name: latency_delta_dst_src_p50_ms
+    expr: latency_dst_p50_ms - latency_src_p50_ms
+  - name: latency_delta_dst_src_avg_ms
+    expr: latency_dst_avg_ms - latency_src_avg_ms
+  - name: vip_http_client_visible_minus_l4_downtime_ms
+    expr: vip_http_client_visible_total_down_ms - vip_l4_downtime_ms
+  - name: vip_http_minus_l4_downtime_ms
+    expr: vip_http_downtime_ms - vip_l4_downtime_ms
+
+exclude_rules:
+  - name: missing_summary
+    field: summary_present
+    op: "=="
+    value: false
+    action: exclude
+  - name: run_status_not_ok
+    field: status
+    op: "!="
+    value: ok
+    action: exclude
+  - name: analyze_failed
+    field: analyze_rc
+    op: "!="
+    value: 0
+    action: exclude
+  - name: stream_gap_missing
+    field: stream_max_gap_ms
+    op: isnull
+    action: nan
+    fields:
+      - stream_max_gap_ms
+
+stats:
+  enabled: true
+  group_by:
+    - method
+    - load
+    - control_run
+  ci_level: 0.95
+  ci_method: normal
+  bootstrap_samples: 1000
+  bootstrap_seed: 42
+  metrics:
+    - vip_http_client_visible_total_down_ms
+    - vip_http_client_visible_down_segments
+    - vip_http_client_visible_outage_span_ms
+    - vip_http_cutover_near_downtime_ms
+    - vip_http_downtime_ms
+    - vip_l4_downtime_ms
+    - http_downtime_ms
+    - l4_downtime_ms
+    - vip_http_downphase_ms
+    - postcopy_restore_to_readiness_ms
+    - postcopy_readiness_gate_ms
+    - postcopy_warmup_duration_ms
+    - postcopy_cutover_to_health_ok_ms
+    - latency_src_p50_ms
+    - latency_dst_p50_ms
+    - latency_vip_p50_ms
+    - latency_src_avg_ms
+    - latency_dst_avg_ms
+    - latency_vip_avg_ms
+    - latency_delta_dst_src_p50_ms
+    - dl_avg_bps
+    - stream_disconnects
+    - download_disconnects
+    - upload_disconnects
+
+output:
+  metrics_file: metrics.csv
+  downtime_segments_file: downtime_segments.csv
+  metrics_extra_formats: []
+  stats_file: summary_stats.json
+  stats_csv_file: summary_stats.csv
+  plots_dir: plots
+
+plots:
+  enabled: true
+  dpi: 160
+  formats:
+    - png
+  definitions:
+    - id: box_vip_http_client_visible_total_down
+      enabled: true
+      kind: box
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      title: VIP HTTP Client-Visible Total Down by Method and Load
+    - id: median_ci_vip_http_client_visible_total_down_scenario_method
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      ci_level: 0.95
+      title: VIP HTTP Client-Visible Total Down Median with 95% Bootstrap CI
+    - id: violin_vip_http_client_visible_total_down
+      enabled: false
+      kind: violin
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      title: VIP HTTP Client-Visible Total Down Violin by Method and Load
+    - id: box_vip_l4_downtime
+      enabled: true
+      kind: box
+      y: vip_l4_downtime_ms
+      group_by: [method, load]
+      title: VIP L4 Downtime by Method and Load
+    - id: box_http_downtime
+      enabled: false
+      kind: box
+      y: http_downtime_ms
+      group_by: [method, load]
+      title: HTTP Downtime by Method and Load
+    - id: box_l4_downtime
+      enabled: false
+      kind: box
+      y: l4_downtime_ms
+      group_by: [method, load]
+      title: L4 Downtime by Method and Load
+    - id: hist_vip_http_client_visible_total_down
+      enabled: true
+      kind: hist
+      x: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      bins: 30
+      alpha: 0.45
+      title: VIP HTTP Client-Visible Total Down Histogram
+    - id: scatter_vip_downphase_vs_downtime
+      enabled: true
+      kind: scatter
+      x: vip_http_downphase_ms
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      title: VIP HTTP Downphase vs Client-Visible Total Down
+    - id: scatter_vip_http_vs_l4_downtime
+      enabled: true
+      kind: scatter
+      x: vip_http_client_visible_total_down_ms
+      y: vip_l4_downtime_ms
+      group_by: [method, load]
+      title: VIP HTTP Client-Visible Total Down vs VIP L4 Downtime
+    - id: box_latency_src_p50
+      enabled: true
+      kind: box
+      y: latency_src_p50_ms
+      group_by: [method, load]
+      title: Latency SRC p50 by Method and Load
+    - id: box_latency_dst_p50
+      enabled: true
+      kind: box
+      y: latency_dst_p50_ms
+      group_by: [method, load]
+      title: Latency DST p50 by Method and Load
+    - id: box_latency_vip_p50
+      enabled: true
+      kind: box
+      y: latency_vip_p50_ms
+      group_by: [method, load]
+      title: Latency VIP p50 by Method and Load
+    - id: box_latency_src_avg
+      enabled: true
+      kind: box
+      y: latency_src_avg_ms
+      group_by: [method, load]
+      title: Latency SRC avg by Method and Load
+    - id: box_latency_dst_avg
+      enabled: true
+      kind: box
+      y: latency_dst_avg_ms
+      group_by: [method, load]
+      title: Latency DST avg by Method and Load
+    - id: box_latency_vip_avg
+      enabled: true
+      kind: box
+      y: latency_vip_avg_ms
+      group_by: [method, load]
+      title: Latency VIP avg by Method and Load
+    - id: box_latency_delta_dst_src_p50
+      enabled: true
+      kind: box
+      y: latency_delta_dst_src_p50_ms
+      group_by: [method, load]
+      title: Latency Delta DST-SRC p50 by Method and Load
+    - id: scatter_download_vs_vip_http_client_visible_total_down
+      enabled: true
+      kind: scatter
+      x: dl_avg_bps
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      filter: download_bytes_total > 0
+      title: Download Average Throughput vs VIP HTTP Client-Visible Total Down
+    - id: box_stream_disconnects
+      enabled: true
+      kind: box
+      y: stream_disconnects
+      group_by: [method, load]
+      title: Stream Disconnects by Method and Load
+    - id: box_download_disconnects
+      enabled: true
+      kind: box
+      y: download_disconnects
+      group_by: [method, load]
+      title: Download Disconnects by Method and Load
+    # Downtime-Segmentplots (Long-Format aus downtime_segments.csv):
+    # Allgemeine Felder:
+    # - dataset: downtime_segments
+    # - breakdown_kind: event_critical_path | client_visible_vip_http
+    # - filter: pandas query, z.B. "excluded == False"
+    # - group_by: [..] fuer gruppierte Modi
+    # - fig_width, bar_height: optionale Layoutsteuerung
+    #
+    # kind: downtime_segments_barh
+    # - mode: per_run | group_median
+    # - aggregate (nur group_median): median | mean
+    # - sort_by/sort_ascending (v.a. per_run): basis_total_ms, run_id, ...
+    #
+    # kind: downtime_segments_timeline
+    # - mode: per_run | group_per_run | group_timeline_quantiles
+    # - per_run/group_per_run: echte Segmentfenster rel_start_ms -> rel_end_ms
+    # - group_timeline_quantiles:
+    #   - q_low/q_mid/q_high (Default: 0.25/0.5/0.75)
+    #   - show_band: Unsicherheitsdarstellung anzeigen
+    #   - band_style: whisker | fill (Default: whisker, weniger Ueberlappung)
+    #   - show_phase_counts: n_phase_available/n_total anzeigen (Default: false)
+    #   - show_phase_lanes: pro Phase eigene Mini-Lane (Default: true, Ueberlappung besser sichtbar)
+    #   - phase_lane_span: vertikaler Anteil pro Gruppe fuer Lanes (0.35..0.95)
+    # - show_basis_labels: Basisfensterlaenge beschriften (Default: true)
+    # - show_vip_downtime_overlay: client-visible VIP-HTTP-Down-Segmente als getrennte rote Overlay-Markierungen anzeigen
+    #   (Default: true fuer event_critical_path-Timelines)
+    # - sort_by/sort_ascending (per_run, group_per_run): basis_window_ms, run_id, ...
+    #
+    # kind: probe_state_timeline
+    # - Single-Run-Diagnoseplot aus Rohdaten (`monitor/*-http.csv`, `monitor/*-l4.csv`)
+    # - zeigt VIP HTTP und VIP L4 Samples, raw Down-Segmente, client-visible Down-Segmente und cutover-nahe Downtime-Fenster
+    # - per `filter` oder `run_id` auf genau einen Run eingrenzen
+    # - auto_focus_to_activity: X-Achse auf Events/Down-Segmente/Downtime-Fenster fokussieren
+    # - focus_padding_before_ms/focus_padding_after_ms: Kontext um den Fokusbereich
+    # - min_focus_span_ms: Mindestbreite des fokussierten Fensters
+    # - event_label_min_gap_ms: Mindestabstand fuer Event-Beschriftungen
+    # - lane_height: vertikale Lesbarkeit
+    # - sample_tick_height/sample_tick_line_width: Granularitaet der einzelnen Probe-Samples
+    # - x_major_ticks/x_minor_ticks_per_major: feinere X-Achsen-Skalierung
+    # - raw_down_line_width/selected_segment_line_width: Linienstaerke fuer Down-/Downtime-Intervalle
+    - id: probe_state_timeline_single_run
+      enabled: true
+      kind: probe_state_timeline
+      dataset: metrics
+      target: vip
+      protocols: [http, l4]
+      window_ms_before: 5000
+      window_ms_after: 8000
+      show_extra_events: true
+      auto_focus_to_activity: true
+      focus_padding_before_ms: 700
+      focus_padding_after_ms: 1300
+      min_focus_span_ms: 3500
+      event_label_min_gap_ms: 320
+      lane_height: 0.72
+      sample_tick_height: 0.34
+      sample_tick_line_width: 1.15
+      x_major_ticks: 14
+      x_minor_ticks_per_major: 2
+      raw_down_line_width: 4.5
+      selected_segment_line_width: 2.1
+      auto_expand_to_selected: true
+      # filter: run_id == "20260406_162828_precopy_01_f37398"
+      title: Single-Run VIP HTTP/L4 Probe State Timeline
+    - id: downtime_segments_group_event_critical_path
+      enabled: true
+      kind: downtime_segments_barh
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_median
+      aggregate: median
+      group_by: [method, load]
+      title: Median Event Critical Path Composition by Method and Load
+    - id: downtime_timeline_quantiles_event_critical_path_precopy
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: method == "precopy"
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PreCopy Event Critical Path Timeline (p50 with p25/p75 Band)
+    - id: downtime_timeline_quantiles_event_critical_path_postcopy
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: method == "postcopy"
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PostCopy Event Critical Path Timeline (p50 with p25/p75 Band)
+    - id: downtime_segments_group_client_visible_http
+      enabled: true
+      kind: downtime_segments_barh
+      dataset: downtime_segments
+      breakdown_kind: client_visible_vip_http
+      mode: group_median
+      aggregate: median
+      group_by: [method, load]
+      title: Median Client-Visible VIP HTTP Downtime Composition
+    - id: downtime_timeline_quantiles_client_visible_http
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: client_visible_vip_http
+      mode: group_timeline_quantiles
+      group_by: [method, load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      title: Client-Visible VIP HTTP Timeline (p50 with p25/p75 Band)
+    - id: downtime_segments_per_run_event_path
+      enabled: false
+      kind: downtime_segments_barh
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: per_run
+      sort_by: basis_total_ms
+      sort_ascending: false
+      title: Per-Run Event Critical Path Breakdown
+    - id: downtime_timeline_per_run_event_path
+      enabled: false
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: per_run
+      sort_by: basis_window_ms
+      sort_ascending: false
+      filter: excluded == False
+      title: Per-Run Event Critical Path Timeline
+    - id: downtime_timeline_group_per_run_event_path
+      enabled: false
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_per_run
+      group_by: [method, load]
+      sort_by: basis_window_ms
+      sort_ascending: false
+      filter: excluded == False
+      title: Grouped Per-Run Event Critical Path Timeline

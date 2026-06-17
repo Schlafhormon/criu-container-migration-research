@@ -1,0 +1,143 @@
+version: 1
+extends: analysis.yaml
+
+plots:
+  # Ergaenzt config/analysis.yaml um Paper-Views fuer die Einzelszenarien:
+  # idle, cpu, wrk1, wrk2, wrk3, download, upload, stream.
+  # Das alte wrk-Szenario wird bewusst nicht gefiltert.
+  definitions_extra:
+    - id: paper_all_scenarios_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [method, load]
+      filter: control_run == False and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: VIP HTTP Client-Visible Downtime by Method and Scenario
+
+    - id: paper_all_scenarios_vip_l4_downtime
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_l4_downtime_ms
+      group_by: [method, load]
+      filter: control_run == False and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: VIP L4 Downtime by Method and Scenario
+
+    - id: paper_precopy_all_scenarios_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'precopy' and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: PreCopy VIP HTTP Client-Visible Downtime by Scenario
+
+    - id: paper_postcopy_all_scenarios_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'postcopy' and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: PostCopy VIP HTTP Client-Visible Downtime by Scenario
+
+    - id: paper_precopy_no_wrk_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'precopy' and load in ['idle', 'cpu', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: PreCopy VIP HTTP Client-Visible Downtime by Scenario without wrk Profiles
+
+    - id: paper_postcopy_no_wrk_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'postcopy' and load in ['idle', 'cpu', 'download', 'upload', 'stream']
+      ci_level: 0.95
+      title: PostCopy VIP HTTP Client-Visible Downtime by Scenario without wrk Profiles
+
+    - id: paper_precopy_wrk_only_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'precopy' and load in ['wrk1', 'wrk2', 'wrk3']
+      ci_level: 0.95
+      title: PreCopy VIP HTTP Client-Visible Downtime by wrk Profile
+
+    - id: paper_postcopy_wrk_only_vip_http_client_visible_total_down
+      enabled: true
+      kind: median_ci_errorbar
+      y: vip_http_client_visible_total_down_ms
+      group_by: [load]
+      filter: control_run == False and method == 'postcopy' and load in ['wrk1', 'wrk2', 'wrk3']
+      ci_level: 0.95
+      title: PostCopy VIP HTTP Client-Visible Downtime by wrk Profile
+
+    - id: paper_precopy_all_scenarios_event_path
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: control_run == False and method == 'precopy' and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PreCopy Downtime Event Timeline by Scenario
+
+    - id: paper_postcopy_all_scenarios_event_path
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: control_run == False and method == 'postcopy' and load in ['idle', 'cpu', 'wrk1', 'wrk2', 'wrk3', 'download', 'upload', 'stream']
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PostCopy Downtime Event Timeline by Scenario
+
+    - id: paper_precopy_wrk_only_event_path
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: control_run == False and method == 'precopy' and load in ['wrk1', 'wrk2', 'wrk3']
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PreCopy Downtime Event Timeline by wrk Profile
+
+    - id: paper_postcopy_wrk_only_event_path
+      enabled: true
+      kind: downtime_segments_timeline
+      dataset: downtime_segments
+      breakdown_kind: event_critical_path
+      mode: group_timeline_quantiles
+      filter: control_run == False and method == 'postcopy' and load in ['wrk1', 'wrk2', 'wrk3']
+      group_by: [load]
+      show_band: true
+      band_style: whisker
+      show_phase_counts: false
+      show_phase_lanes: true
+      phase_lane_span: 0.84
+      show_vip_downtime_overlay: true
+      title: PostCopy Downtime Event Timeline by wrk Profile
