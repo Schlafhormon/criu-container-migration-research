@@ -26,6 +26,7 @@ from clm.analysis_pipeline import (
 LOADS = ("idle", "cpu", "wrk1", "wrk2", "wrk3", "download", "upload", "stream")
 WRK_LOADS = ("wrk1", "wrk2", "wrk3")
 NO_WRK_LOADS = tuple(load for load in LOADS if load not in WRK_LOADS)
+ALL_SCENARIOS_WO_WRK3_LOADS = tuple(load for load in LOADS if load != "wrk3")
 METHODS = ("precopy", "postcopy")
 SINGLE_RUN_DATE_PREFIX = "20260517"
 
@@ -218,32 +219,37 @@ def _targets_for(batches: Sequence[BatchInfo]) -> List[Dict[str, Any]]:
     return targets
 
 
-def _plot_title(metric_title: str, group_title: str) -> str:
-    return f"{metric_title} by {group_title}" if group_title else metric_title
+def _method_display_name(method: str) -> str:
+    return {"precopy": "Precopy", "postcopy": "Postcopy"}.get(str(method).lower(), str(method).title())
 
 
-def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> List[Dict[str, Any]]:
+def _plot_title(metric_title: str, group_title: str, method_title: str = "") -> str:
+    title = f"{method_title} {metric_title}" if method_title else metric_title
+    return f"{title} by {group_title}" if group_title else title
+
+
+def _measurement_plot_definitions(group_by: Sequence[str], group_title: str, method_title: str = "") -> List[Dict[str, Any]]:
     return [
         {
             "id": "box_latency_src_p50",
             "kind": "box",
             "y": "latency_src_p50_ms",
             "group_by": list(group_by),
-            "title": _plot_title("Source HTTP Latency p50", group_title),
+            "title": _plot_title("Source HTTP Latency p50", group_title, method_title),
         },
         {
             "id": "box_latency_dst_p50",
             "kind": "box",
             "y": "latency_dst_p50_ms",
             "group_by": list(group_by),
-            "title": _plot_title("Destination HTTP Latency p50", group_title),
+            "title": _plot_title("Destination HTTP Latency p50", group_title, method_title),
         },
         {
             "id": "box_latency_vip_p50",
             "kind": "box",
             "y": "latency_vip_p50_ms",
             "group_by": list(group_by),
-            "title": _plot_title("VIP HTTP Latency p50", group_title),
+            "title": _plot_title("VIP HTTP Latency p50", group_title, method_title),
         },
         {
             "id": "median_ci_latency_vip_p50",
@@ -251,14 +257,14 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "y": "latency_vip_p50_ms",
             "group_by": list(group_by),
             "ci_level": 0.95,
-            "title": _plot_title("VIP HTTP Latency p50 Median with 95% CI", group_title),
+            "title": _plot_title("VIP HTTP Latency p50 Median with 95% CI", group_title, method_title),
         },
         {
             "id": "box_vip_http_client_visible_downtime",
             "kind": "box",
             "y": "vip_http_client_visible_total_down_ms",
             "group_by": list(group_by),
-            "title": _plot_title("VIP HTTP Client-Visible Downtime", group_title),
+            "title": _plot_title("VIP HTTP Client-Visible Downtime", group_title, method_title),
         },
         {
             "id": "median_ci_vip_http_client_visible_downtime",
@@ -266,14 +272,14 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "y": "vip_http_client_visible_total_down_ms",
             "group_by": list(group_by),
             "ci_level": 0.95,
-            "title": _plot_title("VIP HTTP Client-Visible Downtime Median with 95% CI", group_title),
+            "title": _plot_title("VIP HTTP Client-Visible Downtime Median with 95% CI", group_title, method_title),
         },
         {
             "id": "box_vip_l4_downtime",
             "kind": "box",
             "y": "vip_l4_downtime_ms",
             "group_by": list(group_by),
-            "title": _plot_title("VIP L4 Downtime", group_title),
+            "title": _plot_title("VIP L4 Downtime", group_title, method_title),
         },
         {
             "id": "median_ci_vip_l4_downtime",
@@ -281,14 +287,14 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "y": "vip_l4_downtime_ms",
             "group_by": list(group_by),
             "ci_level": 0.95,
-            "title": _plot_title("VIP L4 Downtime Median with 95% CI", group_title),
+            "title": _plot_title("VIP L4 Downtime Median with 95% CI", group_title, method_title),
         },
         {
             "id": "box_stream_disconnects",
             "kind": "box",
             "y": "stream_disconnects",
             "group_by": list(group_by),
-            "title": _plot_title("Stream Disconnects", group_title),
+            "title": _plot_title("Stream Disconnects", group_title, method_title),
         },
         {
             "id": "median_ci_stream_disconnects",
@@ -296,7 +302,7 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "y": "stream_disconnects",
             "group_by": list(group_by),
             "ci_level": 0.95,
-            "title": _plot_title("Stream Disconnects Median with 95% CI", group_title),
+            "title": _plot_title("Stream Disconnects Median with 95% CI", group_title, method_title),
         },
         {
             "id": "downtime_event_timeline",
@@ -312,7 +318,7 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "phase_lane_span": 0.84,
             "show_vip_downtime_overlay": True,
             "vip_downtime_overlay_label": "Client-visible VIP HTTP downtime",
-            "title": _plot_title("Downtime Event Timeline", group_title),
+            "title": _plot_title("Downtime Event Timeline", group_title, method_title),
         },
         {
             "id": "downtime_event_composition",
@@ -322,12 +328,12 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str) -> 
             "mode": "group_median",
             "aggregate": "median",
             "group_by": list(group_by),
-            "title": _plot_title("Median Downtime Event Composition", group_title),
+            "title": _plot_title("Median Downtime Event Composition", group_title, method_title),
         },
     ]
 
 
-def _single_run_plot_definitions() -> List[Dict[str, Any]]:
+def _single_run_plot_definitions(method_title: str = "") -> List[Dict[str, Any]]:
     return [
         {
             "id": "probe_state_timeline",
@@ -343,7 +349,7 @@ def _single_run_plot_definitions() -> List[Dict[str, Any]]:
             "focus_padding_after_ms": 1300,
             "min_focus_span_ms": 3500,
             "event_label_min_gap_ms": 320,
-            "title": "VIP HTTP and L4 Probe State Timeline",
+            "title": _plot_title("VIP HTTP and L4 Probe State Timeline", "", method_title),
         },
         {
             "id": "downtime_event_timeline",
@@ -351,9 +357,10 @@ def _single_run_plot_definitions() -> List[Dict[str, Any]]:
             "dataset": "downtime_segments",
             "breakdown_kind": "event_critical_path",
             "mode": "per_run",
+            "short_run_labels": True,
             "show_vip_downtime_overlay": True,
             "vip_downtime_overlay_label": "Client-visible VIP HTTP downtime",
-            "title": "Downtime Event Timeline",
+            "title": _plot_title("Downtime Event Timeline", "", method_title),
         },
         {
             "id": "client_visible_vip_http_timeline",
@@ -361,7 +368,8 @@ def _single_run_plot_definitions() -> List[Dict[str, Any]]:
             "dataset": "downtime_segments",
             "breakdown_kind": "client_visible_vip_http",
             "mode": "per_run",
-            "title": "Client-Visible VIP HTTP Downtime Segments",
+            "short_run_labels": True,
+            "title": _plot_title("Client-Visible VIP HTTP Downtime Segments", "", method_title),
         },
     ]
 
@@ -379,11 +387,11 @@ def _prepare_directories(plots_root: Path) -> None:
     for method in METHODS:
         for load in LOADS:
             (plots_root / method / load).mkdir(parents=True, exist_ok=True)
-        for subset in ("all_scenarios", "only_wrk", "no_wrk", "single_run"):
+        for subset in ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk", "single_run"):
             (plots_root / method / subset).mkdir(parents=True, exist_ok=True)
     for load in LOADS:
         (plots_root / "combined" / load).mkdir(parents=True, exist_ok=True)
-    for subset in ("all_scenarios", "only_wrk", "no_wrk"):
+    for subset in ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk"):
         (plots_root / "combined" / subset).mkdir(parents=True, exist_ok=True)
 
 
@@ -431,7 +439,13 @@ def _select(batches: Sequence[BatchInfo], *, method: Optional[str] = None, loads
     return sorted(out, key=lambda item: (item.method, item.load, item.batch_id))
 
 
-def run_analysis(data_root: Path, plots_root: Path, base_config: str, dry_run: bool = False) -> int:
+def run_analysis(
+    data_root: Path,
+    plots_root: Path,
+    base_config: str,
+    dry_run: bool = False,
+    refresh_summaries: bool = False,
+) -> int:
     _prepare_directories(plots_root)
     batches = discover_batches(data_root)
     hundred_runs = [batch for batch in batches if not batch.is_single_run]
@@ -445,16 +459,26 @@ def run_analysis(data_root: Path, plots_root: Path, base_config: str, dry_run: b
     if dry_run:
         return 0
 
-    _refreshed, failed = refresh_run_summaries(batches)
-    if failed:
-        print(f"WARN: {failed} run summaries could not be refreshed cleanly")
+    if refresh_summaries:
+        _refreshed, failed = refresh_run_summaries(batches)
+        if failed:
+            print(f"WARN: {failed} run summaries could not be refreshed cleanly")
+    else:
+        print("Keeping measurement data unchanged; using existing run summaries")
 
-    per_load_cfg = _analysis_config(base_config, _measurement_plot_definitions(["method", "load"], "Method and Scenario"))
-    method_subset_cfg = _analysis_config(base_config, _measurement_plot_definitions(["load"], "Scenario"))
     combined_cfg = _analysis_config(base_config, _measurement_plot_definitions(["method", "load"], "Method and Scenario"))
-    single_cfg = _analysis_config(base_config, _single_run_plot_definitions())
 
     for method in METHODS:
+        method_title = _method_display_name(method)
+        per_load_cfg = _analysis_config(
+            base_config,
+            _measurement_plot_definitions(["method", "load"], "Method and Scenario", method_title),
+        )
+        method_subset_cfg = _analysis_config(
+            base_config,
+            _measurement_plot_definitions(["load"], "Scenario", method_title),
+        )
+        single_cfg = _analysis_config(base_config, _single_run_plot_definitions(method_title))
         for load in LOADS:
             selected = _select(hundred_runs, method=method, loads=[load], single=False)
             _analyze_batch_group(selected, plots_root / method / load, per_load_cfg, print)
@@ -462,6 +486,12 @@ def run_analysis(data_root: Path, plots_root: Path, base_config: str, dry_run: b
         _analyze_batch_group(
             _select(hundred_runs, method=method, loads=LOADS, single=False),
             plots_root / method / "all_scenarios",
+            method_subset_cfg,
+            print,
+        )
+        _analyze_batch_group(
+            _select(hundred_runs, method=method, loads=ALL_SCENARIOS_WO_WRK3_LOADS, single=False),
+            plots_root / method / "all_scenarios_wo_wrk3",
             method_subset_cfg,
             print,
         )
@@ -499,6 +529,12 @@ def run_analysis(data_root: Path, plots_root: Path, base_config: str, dry_run: b
         print,
     )
     _analyze_batch_group(
+        _select(hundred_runs, loads=ALL_SCENARIOS_WO_WRK3_LOADS, single=False),
+        plots_root / "combined" / "all_scenarios_wo_wrk3",
+        combined_cfg,
+        print,
+    )
+    _analyze_batch_group(
         _select(hundred_runs, loads=WRK_LOADS, single=False),
         plots_root / "combined" / "only_wrk",
         combined_cfg,
@@ -519,12 +555,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--plots-root", default="plots")
     parser.add_argument("--config", default="config/analysis.yaml")
     parser.add_argument("--dry-run", action="store_true", help="Only discover batches and create directories")
+    parser.add_argument(
+        "--refresh-summaries",
+        action="store_true",
+        help="Recompute summaries inside the measurement-data tree before plotting",
+    )
     args = parser.parse_args(argv)
     return run_analysis(
         data_root=Path(args.data_root).expanduser().resolve(),
         plots_root=Path(args.plots_root).expanduser().resolve(),
         base_config=args.config,
         dry_run=bool(args.dry_run),
+        refresh_summaries=bool(args.refresh_summaries),
     )
 
 

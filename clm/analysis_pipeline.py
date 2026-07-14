@@ -1497,6 +1497,32 @@ def _style_axes(ax, y_only: bool) -> None:
     ax.spines["right"].set_visible(False)
 
 
+def _place_legend_outside(ax: Any, *, handles: Optional[Sequence[Any]] = None, fontsize: float = 8.5, ncol: int = 1, **kwargs: Any) -> Any:
+    """Keep legends from covering plotted data."""
+    legend_kwargs = {
+        "loc": "upper left",
+        "bbox_to_anchor": (1.01, 1.0),
+        "borderaxespad": 0.0,
+        "fontsize": fontsize,
+        "ncol": ncol,
+    }
+    legend_kwargs.update(kwargs)
+    if handles is None:
+        return ax.legend(**legend_kwargs)
+    return ax.legend(handles=handles, **legend_kwargs)
+
+
+def _short_run_label(value: Any) -> str:
+    """Return a compact label for timestamp-based measurement run IDs."""
+    text = str(value or "run").strip()
+    match = re.match(r"^\d{8}_\d{6}_(?:precopy|postcopy)_(\d+)(?:_|$)", text, flags=re.IGNORECASE)
+    if match:
+        return f"Run {match.group(1)}"
+    if len(text) <= 24:
+        return text
+    return f"{text[:10]}...{text[-8:]}"
+
+
 def _padded_limits(values: np.ndarray, pad_fraction: float = 0.06) -> Optional[Tuple[float, float]]:
     arr = np.asarray(values, dtype=float)
     arr = arr[np.isfinite(arr)]
@@ -1831,10 +1857,32 @@ def _aggregate_vip_downtime_overlay_group_quantiles(
             if field not in work.columns:
                 work[field] = ""
 
+    # Postcopy commonly has several disjoint client-visible downtime intervals
+    # per run. Aggregate matching segment positions separately; pooling every
+    # interval into one quantile creates a synthetic span that was never down.
+    segment_keys = pd.Series(np.nan, index=work.index, dtype=object)
+    if "phase_order" in work.columns:
+        phase_order = pd.to_numeric(work["phase_order"], errors="coerce")
+        segment_keys = phase_order.where(phase_order.notna(), segment_keys)
+    if "phase_id" in work.columns:
+        parsed = work["phase_id"].astype(str).str.extract(r"(?:down_)?segment_(\d+)", expand=False)
+        parsed = pd.to_numeric(parsed, errors="coerce")
+        segment_keys = segment_keys.where(segment_keys.notna(), parsed)
+    has_segment_keys = segment_keys.notna().any()
+    if has_segment_keys:
+        work["_vip_segment_order"] = segment_keys
+        aggregate_fields = group_fields + ["_vip_segment_order"]
+    else:
+        aggregate_fields = group_fields
+
     rows: List[Dict[str, Any]] = []
-    for group_values, group_df in work.groupby(group_fields, dropna=False):
-        starts = pd.to_numeric(group_df["vip_rel_start_ms"], errors="coerce").dropna().to_numpy(dtype=float)
-        ends = pd.to_numeric(group_df["vip_rel_end_ms"], errors="coerce").dropna().to_numpy(dtype=float)
+    for aggregate_values, group_df in work.groupby(aggregate_fields, dropna=False):
+        valid = group_df.copy()
+        valid["_start"] = pd.to_numeric(valid["vip_rel_start_ms"], errors="coerce")
+        valid["_end"] = pd.to_numeric(valid["vip_rel_end_ms"], errors="coerce")
+        valid = valid.loc[valid["_start"].notna() & valid["_end"].notna() & (valid["_end"] > valid["_start"])]
+        starts = valid["_start"].to_numpy(dtype=float)
+        ends = valid["_end"].to_numpy(dtype=float)
         starts = starts[np.isfinite(starts)]
         ends = ends[np.isfinite(ends)]
         n = int(min(starts.size, ends.size))
@@ -1848,9 +1896,12 @@ def _aggregate_vip_downtime_overlay_group_quantiles(
         p50_end = float(np.quantile(ends, q_mid))
         if p50_end <= p50_start:
             continue
-        if not isinstance(group_values, tuple):
-            group_values = (group_values,)
+        if not isinstance(aggregate_values, tuple):
+            aggregate_values = (aggregate_values,)
+        group_values = aggregate_values[: len(group_fields)]
         row = {field: value for field, value in zip(group_fields, group_values)}
+        if has_segment_keys:
+            row["vip_segment_order"] = aggregate_values[-1]
         row.update(
             {
                 "p25_start_ms": float(np.quantile(starts, q_low)),
@@ -1860,7 +1911,11 @@ def _aggregate_vip_downtime_overlay_group_quantiles(
                 "p50_end_ms": p50_end,
                 "p75_end_ms": float(np.quantile(ends, q_high)),
                 "duration_p50_ms": float(max(0.0, p50_end - p50_start)),
-                "n_vip_available": int(n),
+                "n_vip_available": (
+                    int(valid["_run_key"].nunique())
+                    if "_run_key" in valid.columns
+                    else int(n)
+                ),
             }
         )
         rows.append(row)
@@ -2651,7 +2706,7 @@ def generate_plots(
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        ax.legend(loc="best", fontsize=9)
+                        _place_legend_outside(ax, fontsize=9)
                     x_limits = _padded_limits(np.concatenate([arr for _, arr in grouped_data]), pad_fraction=0.05)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -2744,7 +2799,7 @@ def generate_plots(
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        ax.legend(loc="best", fontsize=9)
+                        _place_legend_outside(ax, fontsize=9)
                     x_limits = _padded_limits(np.concatenate([xvals for _, xvals, _ in grouped_data]), pad_fraction=0.06)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -3068,7 +3123,7 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            ax.legend(handles=handles, loc="best", fontsize=8.5, ncol=2)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=1)
 
                         if xmax <= 0:
                             xmax = float(segment_data["rel_end_ms"].max()) if "rel_end_ms" in segment_data.columns else 1.0
@@ -3076,7 +3131,7 @@ def generate_plots(
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(y_labels)
                         ax.set_title(title, fontweight="semibold")
-                        ax.set_xlabel("Zeit relativ zum Breakdown-Start [ms]")
+                        ax.set_xlabel("Time relative to breakdown start [ms]")
                         ax.set_ylabel("Run")
                         _style_axes(ax, y_only=False)
 
@@ -3165,7 +3220,7 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            ax.legend(handles=handles, loc="best", fontsize=8.5, ncol=2)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=1)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["right_ms"], errors="coerce").max())
@@ -3173,8 +3228,8 @@ def generate_plots(
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(groups_meta["group_label"].astype(str).tolist())
                         ax.set_title(title, fontweight="semibold")
-                        ax.set_xlabel("Zeit relativ zum Breakdown-Start [ms]")
-                        ax.set_ylabel("Gruppe")
+                        ax.set_xlabel("Time relative to breakdown start [ms]")
+                        ax.set_ylabel("Group")
                         _style_axes(ax, y_only=False)
 
                     else:
@@ -3222,6 +3277,8 @@ def generate_plots(
 
                     def _run_label(run_row: pd.Series) -> str:
                         run_id = str(run_row.get("run_id") or run_row.get("_run_key") or "run")
+                        if bool(spec.get("short_run_labels", False)):
+                            return _short_run_label(run_id)
                         extras = []
                         if include_source:
                             src = str(run_row.get("analysis_source") or "").strip()
@@ -3320,12 +3377,12 @@ def generate_plots(
                             xmax = max(xmax, _draw_run_row(ax, float(y_pos), run_row))
                             if not vip_overlay_rows.empty:
                                 vip_match = vip_overlay_rows.loc[vip_overlay_rows["_run_key"].astype(str) == str(run_row.get("_run_key"))]
-                                if not vip_match.empty:
+                                for _, vip_row in vip_match.sort_values(by="vip_rel_start_ms").iterrows():
                                     vip_start, vip_end = _draw_vip_overlay_marker(
                                         ax,
                                         float(y_pos),
-                                        vip_match.iloc[0].get("vip_rel_start_ms"),
-                                        vip_match.iloc[0].get("vip_rel_end_ms"),
+                                        vip_row.get("vip_rel_start_ms"),
+                                        vip_row.get("vip_rel_end_ms"),
                                         bar_height * 0.58,
                                     )
                                     xmin = min(xmin, vip_start)
@@ -3349,7 +3406,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            ax.legend(handles=handles, loc="best", fontsize=8.3, ncol=2)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.3, ncol=1)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3358,7 +3415,7 @@ def generate_plots(
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(y_labels)
                         ax.set_title(title, fontweight="semibold")
-                        ax.set_xlabel("Zeit relativ zum Basisfenster-Start [ms]")
+                        ax.set_xlabel("Time relative to basis-window start [ms]")
                         ax.set_ylabel("Run")
                         _style_axes(ax, y_only=False)
 
@@ -3411,12 +3468,12 @@ def generate_plots(
                             xmax = max(xmax, _draw_run_row(ax, float(y_pos), run_row))
                             if not vip_overlay_rows.empty:
                                 vip_match = vip_overlay_rows.loc[vip_overlay_rows["_run_key"].astype(str) == str(run_row.get("_run_key"))]
-                                if not vip_match.empty:
+                                for _, vip_row in vip_match.sort_values(by="vip_rel_start_ms").iterrows():
                                     vip_start, vip_end = _draw_vip_overlay_marker(
                                         ax,
                                         float(y_pos),
-                                        vip_match.iloc[0].get("vip_rel_start_ms"),
-                                        vip_match.iloc[0].get("vip_rel_end_ms"),
+                                        vip_row.get("vip_rel_start_ms"),
+                                        vip_row.get("vip_rel_end_ms"),
                                         bar_height * 0.58,
                                     )
                                     xmin = min(xmin, vip_start)
@@ -3443,7 +3500,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            ax.legend(handles=handles, loc="best", fontsize=8.2, ncol=2)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.2, ncol=1)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3452,8 +3509,8 @@ def generate_plots(
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(y_labels)
                         ax.set_title(title, fontweight="semibold")
-                        ax.set_xlabel("Zeit relativ zum Basisfenster-Start [ms]")
-                        ax.set_ylabel("Gruppierter Run")
+                        ax.set_xlabel("Time relative to basis-window start [ms]")
+                        ax.set_ylabel("Grouped run")
                         _style_axes(ax, y_only=False)
 
                     elif mode in ("group_timeline_quantiles", "group_quantiles", "quantiles"):
@@ -3627,25 +3684,26 @@ def generate_plots(
                                 else:
                                     vip_group = vip_overlay_agg.copy()
                                 if not vip_group.empty:
-                                    vip_row = vip_group.iloc[0]
                                     vip_y = float(y_pos) + min(0.43, phase_lane_span / 2.0 + 0.03)
-                                    p25_start = pd.to_numeric(vip_row.get("p25_start_ms"), errors="coerce")
-                                    p75_end = pd.to_numeric(vip_row.get("p75_end_ms"), errors="coerce")
-                                    if show_band and np.isfinite(p25_start) and np.isfinite(p75_end) and float(p75_end) > float(p25_start):
-                                        ax.hlines(vip_y, float(p25_start), float(p75_end), color=vip_overlay_color, linewidth=4.0, alpha=0.20, zorder=4)
-                                    vip_start, vip_end = _draw_vip_overlay_marker(
-                                        ax,
-                                        float(y_pos),
-                                        vip_row.get("p50_start_ms"),
-                                        vip_row.get("p50_end_ms"),
-                                        min(0.43, phase_lane_span / 2.0 + 0.03),
-                                    )
-                                    xmin = min(xmin, vip_start)
-                                    xmax = max(xmax, vip_end)
-                                    if np.isfinite(p75_end):
-                                        xmax = max(xmax, float(p75_end))
-                                    if np.isfinite(p25_start):
-                                        xmin = min(xmin, float(p25_start))
+                                    vip_sort = "vip_segment_order" if "vip_segment_order" in vip_group.columns else "p50_start_ms"
+                                    for _, vip_row in vip_group.sort_values(by=vip_sort).iterrows():
+                                        p25_start = pd.to_numeric(vip_row.get("p25_start_ms"), errors="coerce")
+                                        p75_end = pd.to_numeric(vip_row.get("p75_end_ms"), errors="coerce")
+                                        if show_band and np.isfinite(p25_start) and np.isfinite(p75_end) and float(p75_end) > float(p25_start):
+                                            ax.hlines(vip_y, float(p25_start), float(p75_end), color=vip_overlay_color, linewidth=4.0, alpha=0.20, zorder=4)
+                                        vip_start, vip_end = _draw_vip_overlay_marker(
+                                            ax,
+                                            float(y_pos),
+                                            vip_row.get("p50_start_ms"),
+                                            vip_row.get("p50_end_ms"),
+                                            min(0.43, phase_lane_span / 2.0 + 0.03),
+                                        )
+                                        xmin = min(xmin, vip_start)
+                                        xmax = max(xmax, vip_end)
+                                        if np.isfinite(p75_end):
+                                            xmax = max(xmax, float(p75_end))
+                                        if np.isfinite(p25_start):
+                                            xmin = min(xmin, float(p25_start))
 
                             total = pd.to_numeric(group_row.get("total_p50_ms"), errors="coerce")
                             if np.isfinite(total):
@@ -3682,7 +3740,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_agg.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            ax.legend(handles=handles, loc="best", fontsize=8.1, ncol=2)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.1, ncol=1)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["p75_end_ms"], errors="coerce").max())
@@ -3691,13 +3749,13 @@ def generate_plots(
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(groups_meta["group_label"].astype(str).tolist())
                         ax.set_title(title, fontweight="semibold")
-                        ax.set_xlabel("Zeit relativ zum Basisfenster-Start [ms]")
-                        ax.set_ylabel("Gruppe")
+                        ax.set_xlabel("Time relative to basis-window start [ms]")
+                        ax.set_ylabel("Group")
                         if show_phase_counts:
                             ax.text(
                                 0.99,
                                 -0.08,
-                                "Beschriftung rechts: n_phase_available / n_total",
+                                "Right-hand labels: n_phase_available / n_total",
                                 transform=ax.transAxes,
                                 ha="right",
                                 va="top",
@@ -3931,7 +3989,7 @@ def generate_plots(
                     ax.axvline(0.0, color="#111111", linewidth=1.35, alpha=0.9, zorder=4)
                     run_label = str(run_row.get("run_id") or (run_dir.name if run_dir else "run"))
                     ax.set_title(str(spec.get("title") or f"Probe State Timeline: {run_label}"), fontweight="semibold")
-                    ax.set_xlabel("Zeit relativ zu VIP-Cutover/Analyzer-Anker [ms]")
+                    ax.set_xlabel("Time relative to VIP cutover/analyzer anchor [ms]")
                     ax.set_ylabel("Signal")
                     ax.set_yticks(y_positions)
                     ax.set_yticklabels([lane[0] for lane in lanes])
@@ -3954,7 +4012,13 @@ def generate_plots(
                         ]
                     )
                     legend_cols = min(4, max(2, int(math.ceil(len(handles) / 3)))) if handles else 1
-                    ax.legend(handles=handles, loc="upper right", fontsize=8.0, ncol=legend_cols, framealpha=0.92)
+                    _place_legend_outside(
+                        ax,
+                        handles=handles,
+                        fontsize=8.0,
+                        ncol=min(2, legend_cols),
+                        framealpha=0.92,
+                    )
                     _style_axes(ax, y_only=False)
                     ax.grid(True, which="minor", axis="x", color="#F2F2F2", linewidth=0.45, alpha=0.72)
 
