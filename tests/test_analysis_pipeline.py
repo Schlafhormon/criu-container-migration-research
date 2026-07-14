@@ -494,6 +494,25 @@ class AnalysisPipelineTests(unittest.TestCase):
         self.assertAlmostEqual(float(row["p50_end_ms"]), 400.0)
         self.assertEqual(int(row["n_vip_available"]), 2)
 
+    def test_vip_overlay_group_quantiles_keep_postcopy_segments_separate(self):
+        overlay = pd.DataFrame(
+            [
+                {"_run_key": "r1", "method": "postcopy", "load": "idle", "phase_id": "down_segment_1", "phase_order": 1, "vip_rel_start_ms": 100, "vip_rel_end_ms": 300},
+                {"_run_key": "r1", "method": "postcopy", "load": "idle", "phase_id": "down_segment_2", "phase_order": 2, "vip_rel_start_ms": 700, "vip_rel_end_ms": 900},
+                {"_run_key": "r2", "method": "postcopy", "load": "idle", "phase_id": "down_segment_1", "phase_order": 1, "vip_rel_start_ms": 200, "vip_rel_end_ms": 400},
+                {"_run_key": "r2", "method": "postcopy", "load": "idle", "phase_id": "down_segment_2", "phase_order": 2, "vip_rel_start_ms": 800, "vip_rel_end_ms": 1000},
+            ]
+        )
+        agg = _aggregate_vip_downtime_overlay_group_quantiles(overlay, group_by=["method", "load"])
+        self.assertEqual(len(agg), 2)
+        first = agg.sort_values("vip_segment_order").iloc[0]
+        second = agg.sort_values("vip_segment_order").iloc[1]
+        self.assertAlmostEqual(float(first["p50_start_ms"]), 150.0)
+        self.assertAlmostEqual(float(first["p50_end_ms"]), 350.0)
+        self.assertAlmostEqual(float(second["p50_start_ms"]), 750.0)
+        self.assertAlmostEqual(float(second["p50_end_ms"]), 950.0)
+        self.assertEqual(int(first["n_vip_available"]), 2)
+
     def test_generate_plots_supports_downtime_segments_timeline_quantiles(self):
         with tempfile.TemporaryDirectory() as tmp:
             out_dir = Path(tmp) / "plots"
