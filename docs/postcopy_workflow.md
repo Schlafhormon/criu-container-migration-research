@@ -36,9 +36,11 @@ export RUN_ID="$(cat /mnt/criu/logs/.runid)"
 
 ## Monitoring
 
-Use the same monitor setup as the pre-copy workflow. The critical targets are
-VIP HTTP and VIP L4, with optional direct `src` and `dst` targets to distinguish
-client-visible availability from internal handoff behavior.
+Use the same monitor setup as the pre-copy workflow. VIP HTTP and VIP L4 show
+client-visible availability; direct `src` and `dst` targets distinguish the
+internal handoff. For the primary internal post-copy metric, also preserve the
+detailed source CRIU log: the application freeze begins when CRIU freezes or
+seizes the workload and ends at CRIU unfreeze.
 
 ```bash
 BASE="/mnt/criu/logs/mon-$RUN_ID/mon"
@@ -108,47 +110,64 @@ export RUNC_BIN="sudo runc" RUNC_ROOT="--root=/run/runc"
 export RUNC_CP_FLAGS="--manage-cgroups-mode soft --shell-job"
 export RUNC_RUN_FLAGS="--no-pivot"
 export RUNC_RESTORE_FLAGS="--detach --manage-cgroups-mode soft"
+export CP_NAME="pcpost-$RUN_ID"
 export RUNC_BUNDLE_SRC=/mnt/criu/runc-bundle
-export RUNC_BUNDLE_DST=/mnt/criu/runc-bundle
+export RUNC_BUNDLE_DST_SHARED=/mnt/criu/runc-bundle
+export RUNC_BUNDLE_DST_LOCAL="/var/lib/criu-local/runc-bundle/$NAME/$CP_NAME"
+export POSTCOPY_BUNDLE_PREPARE_MODE=copy
 export SRC_NFS_ROOT=/mnt/criu
 export REMOTE_NFS_ROOT=/mnt/criu
 export LOG_DIR=/mnt/criu/logs
 export EVENTS_LOG="/mnt/criu/logs/mon-${RUN_ID}-events.ndjson"
 export DST_LOCAL_ROOT=/var/lib/criu-local
+export IMAGES_BASE_SRC="$SRC_NFS_ROOT/runc/$NAME/$CP_NAME"
+export IMAGES_BASE_DST="$DST_LOCAL_ROOT/runc/$NAME/$CP_NAME"
+export IMAGES_BASE_DST_SHARED_SRC="$REMOTE_NFS_ROOT/runc/$NAME/$CP_NAME"
 export DST_HOST=192.168.13.15 DST_USER=<dest-user>
 export NET_MODE=host
 export VIP_ADDR=192.168.13.50 VIP_CIDR=/24 VIP_PORT=8080
 export VIP_IF_SRC=enp1s0 VIP_IF_DST=enp1s0
-export CP_NAME="pcpost-$RUN_ID"
 export LAZY_PORT=27027
 export SRC_LAZY_IP=192.168.13.10
 export POSTCOPY_SRC_FORWARD_ENABLE=1
 export POSTCOPY_SRC_FORWARD_MODE=iptables_dnat
 export POSTCOPY_SRC_FORWARD_TARGET_HOST=192.168.13.15
 export POSTCOPY_SRC_FORWARD_TARGET_PORT=8080
-export POSTCOPY_READINESS_URLS=http://192.168.13.15:8080/health
+export POSTCOPY_FORWARD_READY_URL=http://192.168.13.15:8080/health
+export POSTCOPY_FORWARD_READY_TIMEOUT_MS=5000
+export POSTCOPY_FORWARD_READY_INTERVAL_MS=20
+export POSTCOPY_FORWARD_PROBE_MAX_TIME_S=0.25
+export POSTCOPY_READINESS_URL=http://192.168.13.15:8080/health
 export POSTCOPY_READINESS_STABLE_SUCCESSES=3
 export POSTCOPY_READINESS_INTERVAL_MS=200
 export POSTCOPY_READINESS_TIMEOUT_MS=10000
 export POSTCOPY_PROBE_MAX_TIME_S=2
-export POSTCOPY_WARMUP_URLS=http://192.168.13.15:8080/ready,http://192.168.13.15:8080/counter
-export POSTCOPY_WARMUP_ROUNDS=1
-export POSTCOPY_WARMUP_INTERVAL_MS=0
-export POSTCOPY_WARMUP_MAX_DURATION_MS=400
 
 "$REPO/scripts/migrate_postcopy_lazy_pages_vip_cutover.sh" | tee "/mnt/criu/logs/migrate-post-$(date -u +%Y%m%dT%H%M%SZ).log"
 ```
 
 Current script order:
 
-- create the lazy-pages checkpoint,
-- copy/prepare images on the destination,
-- start the lazy-pages daemon,
-- restore on the destination,
-- enable temporary forwarding on the source,
-- wait for destination readiness,
-- run warmup probes,
-- move the VIP, stop forwarding, send GARP, and wait for VIP health.
+- copy or reuse the runc bundle on destination-local storage,
+- prepare VIP/NAT state and inactive source-forwarding rules,
+- start the lazy-pages checkpoint,
+- copy the final images from shared storage to destination-local storage,
+- start the lazy-pages daemon and restore from the local bundle/images,
+- after the first direct destination HTTP 200, activate the prepared source DNAT
+  rule,
+- wait for checkpoint completion and the configured destination readiness gate,
+- add and verify the destination VIP and send GARP before deleting the source VIP,
+- verify VIP health, then remove temporary forwarding.
+
+The standard script performs no warmup rounds. The image copy remains a
+destination-side shared-to-local copy; the failed v23 direct-tar experiment is
+not part of the current path.
+
+The script reads `POSTCOPY_READINESS_URL` (singular). The runner still exports
+the older plural readiness and warmup variables as metadata/configuration, but
+the v22 script does not consume them. With the current testbed defaults this
+still resolves to the direct destination `/health` URL; set the singular
+variable explicitly for a custom manual target.
 
 ## Postflight
 
@@ -180,11 +199,19 @@ sudo runc --root=/run/runc delete -f "$NAME" 2>/dev/null || true
 sudo ip addr del "${VIP_ADDR}${VIP_CIDR}" dev "${VIP_IF_DST}" 2>/dev/null || true
 sudo conntrack -D -d "$VIP_ADDR" 2>/dev/null || true
 sudo rm -rf "/var/lib/criu-local/runc/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
+sudo rm -rf "/var/lib/criu-local/runc-bundle/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
 ```
 
 ## Interpretation Note
 
-Post-copy can expose a large direct `src` to `dst` HTTP handoff while keeping
-VIP downtime much smaller if temporary source-to-destination forwarding is
-enabled. Interpret VIP metrics as the client-visible result and direct metrics
-as internal handoff diagnostics.
+Do not use VIP cutover as a proxy for the post-copy source freeze. Interpret the
+signals independently:
+
+- CRIU freeze/seize through unfreeze is the exact source application freeze;
+- `checkpoint_start` through `checkpoint_done` is a script-level upper bound;
+- VIP HTTP downtime is the client-visible outcome;
+- direct `src`/`dst` and VIP L4 are diagnostic signals.
+
+Temporary forwarding can make VIP downtime much shorter than the source freeze.
+The investigation and v1-v23 history are recorded in
+[Post-Copy Freeze-Path Forensics](archive/postcopy_freeze_forensics_2026-07-16.md).

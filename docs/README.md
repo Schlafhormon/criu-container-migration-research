@@ -25,6 +25,10 @@ development, troubleshooting, and tuning iterations. These files are retained to
 explain older batches and design decisions, but they are not the primary reading
 path for the paper artifact.
 
+For the resolved post-copy freeze investigation, including the v1-v23 script
+history and the transition to the v22 standard, see
+[Post-Copy Freeze-Path Forensics](archive/postcopy_freeze_forensics_2026-07-16.md).
+
 The archived thesis PDF is retained as source-background material and contains
 personal thesis metadata. It should not be treated as a cleaned public methods
 note.

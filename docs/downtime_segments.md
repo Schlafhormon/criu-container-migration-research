@@ -22,6 +22,11 @@ The plot separates two concepts:
 This distinction is essential for post-copy with temporary forwarding: the
 internal handoff can remain long while VIP downtime is short.
 
+The exact source application freeze is another distinct basis. It starts at the
+first detailed CRIU cgroup/process freeze or task seize and ends at CRIU
+unfreeze. It is not reconstructed from VIP segments; preserve and inspect the
+source CRIU log for this measurement.
+
 ## Data Sources
 
 | Source | Use |
@@ -42,11 +47,19 @@ Use these markers for V1 segment construction when present:
 | Method | Markers |
 |---|---|
 | Pre-copy | `final_dump_start`, `final_dump_done`, `transfer_start`, `transfer_done`, `restore_start`, `restore_done`, `vip_cutover_start`, `vip_cutover_done`, `health_wait_start`, `health_ok` |
-| Post-copy | `transfer_start`, `transfer_done`, `restore_start`, `restore_done`, `dest_readiness_wait_start`, `dest_readiness_ok`, `postcopy_warmup_start`, `postcopy_warmup_done`, `vip_cutover_start`, `vip_cutover_done`, `health_wait_start`, `health_ok` |
+| Post-copy | `checkpoint_start`, `checkpoint_done`, `transfer_start`, `transfer_done`, `restore_start`, `restore_done`, `dest_readiness_start` or legacy `dest_readiness_wait_start`, `dest_readiness_ok`, optional `postcopy_warmup_start`/`postcopy_warmup_done`, `vip_cutover_start`, `vip_cutover_done`, `health_wait_start`, `health_ok` |
 | Observed VIP | `vip_http_segment_start_ms`, `vip_http_segment_end_ms`, `vip_l4_segment_start_ms`, `vip_l4_segment_end_ms` |
 
 Destination-side remote markers are useful for diagnostics, but should not be
 primary segment boundaries unless monotonic and clock-corrected.
+
+The standard v22 script emits `dest_readiness_start`, whereas the current V1
+analyzer still looks for the legacy `dest_readiness_wait_start`. Until the
+analyzer accepts both names, the raw event is authoritative and the generated
+readiness segment may be missing. The same compatibility limitation applies to
+the v22 forwarding-stop pair (`postcopy_src_forward_stop`,
+`postcopy_src_forward_done`) versus the older analyzer names ending in
+`_stop_start` and `_stop_done`.
 
 ## Segment Templates
 
@@ -72,15 +85,18 @@ Optional restore subsegments may be added for pre-copy when exact
 | 1 | `transfer` | `transfer_start -> transfer_done` |
 | 2 | `transfer_to_restore` | `transfer_done -> restore_start` |
 | 3 | `restore` | `restore_start -> restore_done` |
-| 4 | `readiness_gate` | `dest_readiness_wait_start -> dest_readiness_ok` |
-| 5 | `warmup` | `postcopy_warmup_start -> postcopy_warmup_done` |
-| 6 | `warmup_to_cutover` | `postcopy_warmup_done -> vip_cutover_start`, fallback `dest_readiness_ok -> vip_cutover_start` |
+| 4 | `readiness_gate` | `dest_readiness_start -> dest_readiness_ok`, legacy start marker `dest_readiness_wait_start` |
+| 5 | `warmup` | Optional `postcopy_warmup_start -> postcopy_warmup_done` |
+| 6 | `readiness_to_cutover` | `dest_readiness_ok -> vip_cutover_start`; if legacy warmup markers exist, use `postcopy_warmup_done -> vip_cutover_start` |
 | 7 | `vip_cutover` | `vip_cutover_start -> vip_cutover_done` |
 | 8 | `health_wait` | `health_wait_start -> health_ok`, fallback `vip_cutover_done -> health_ok` |
 | 9 | `unknown` | Any unexplained interval inside the basis |
 
 `postcopy_src_forward_*` markers should be annotations in V1, not mandatory main
 segments.
+
+The standard v22 script has no warmup phase. Missing warmup markers are expected
+for current runs and must not by themselves produce an `unknown` segment.
 
 ### Client-Visible VIP HTTP
 

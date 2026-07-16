@@ -11,6 +11,8 @@ and build analysis outputs. It is not the primary research object.
 
 - How do pre-copy and post-copy differ in client-visible availability?
 - Which migration phases dominate downtime?
+- How long is the post-copy source application frozen from CRIU freeze/seize to
+  CRIU unfreeze?
 - How much downtime is caused by CRIU restore/checkpoint work, application
   readiness, storage transfer, and VIP cutover behavior?
 - How do idle, CPU, transfer, stream, and HTTP load profiles affect the result?
@@ -47,10 +49,11 @@ standalone script default.
 |---|---|
 | Workload process | Gunicorn, 1 worker, 4 threads. |
 | Pre-copy | `pre_dump_rounds: 0`, `image_mode: shared`, `tcp_established: 1`. |
-| Post-copy forwarding | Enabled, `iptables_dnat`, source forwards to destination `:8080`. |
+| Post-copy storage | Source images on shared storage; destination restore from a local image copy and local bundle. |
+| Post-copy forwarding | Enabled, `iptables_dnat`; prepared before checkpoint and activated after the first direct destination HTTP 200. |
 | Post-copy readiness | Destination `/health`, 3 stable successes, 200 ms interval, 10 s timeout. |
-| Post-copy warmup | `/ready` and `/counter`, 1 round, 400 ms max duration. |
-| VIP cutover | 3 GARPs, 200 ms interval, ARP mode `A`. |
+| Post-copy warmup | None in the standard v22 script. Legacy configuration fields may still be recorded as metadata. |
+| VIP cutover | Make-before-break: destination VIP add/verify and GARP before source VIP removal. |
 | Monitoring | VIP/src/dst HTTP and L4 at 50 ms; stream/info/counter enabled by default. |
 
 ## Run Structure
@@ -71,11 +74,15 @@ Batch analysis writes aggregate outputs such as `metrics.csv`,
 
 ## Measurement Perspective
 
-The primary availability metric is client-visible VIP reachability from the
-monitor host.
+Client-visible VIP reachability from the monitor host is the primary service
+availability metric. Post-copy also has a separate primary internal metric: the
+source application freeze from the first CRIU freeze/seize event through CRIU
+unfreeze. Neither metric replaces the other.
 
 | Signal | Meaning |
 |---|---|
+| Source CRIU freeze | Exact interval in which the source application cannot execute. |
+| Checkpoint event window | Script-level upper bound around the source checkpoint process. |
 | VIP HTTP | End-to-end application availability from the client perspective. |
 | VIP L4 | TCP reachability of the service port through the VIP. |
 | Direct `src`/`dst` | Infrastructure handoff behavior without the VIP path. |
@@ -84,6 +91,9 @@ monitor host.
 VIP metrics and direct `src`/`dst` metrics intentionally answer different
 questions. In post-copy with temporary source-to-destination forwarding, direct
 handoff metrics can remain high while VIP downtime is much smaller.
+
+The current post-copy design and its v1-v23 forensic history are documented in
+[Post-Copy Freeze-Path Forensics](archive/postcopy_freeze_forensics_2026-07-16.md).
 
 ## Scenario Matrix
 

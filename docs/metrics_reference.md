@@ -147,7 +147,7 @@ restore fields are only populated when the corresponding events exist.
 
 | Field | Meaning |
 |---|---|
-| `postcopy_checkpoint_ms` | Source-side post-copy checkpoint duration. |
+| `postcopy_checkpoint_ms` | Script event window from `checkpoint_start` to `checkpoint_done`; an upper bound for, not an exact measurement of, source application freeze. |
 | `postcopy_restore_to_readiness_ms` | Time from restore completion to readiness-gate start or completion. |
 | `postcopy_restore_to_health_ok_ms` | Time from restore completion to destination health confirmation. |
 | `postcopy_readiness_gate_ms` | Destination readiness-gate duration. |
@@ -166,6 +166,27 @@ restore fields are only populated when the corresponding events exist.
 When forwarding is enabled, `http_downtime_ms` may remain high while
 `vip_http_downtime_ms` is low. This is expected: the former is internal handoff,
 the latter is client-visible VIP availability.
+
+### Exact Source Application Freeze
+
+The exact post-copy source freeze is currently a CRIU-log measurement rather
+than a standard scalar analyzer field. Derive it from the first detailed source
+CRIU `freezing`/task `seized` timestamp through `Unfreezing tasks`. Preserve the
+raw CRIU log and report this interval explicitly when investigating the
+post-copy critical path.
+
+Do not substitute `postcopy_checkpoint_ms`, VIP downtime, or VIP L4 downtime for
+this value. The checkpoint event window is normally slightly wider. Temporary
+source forwarding can make client-visible VIP downtime considerably shorter
+than the actual source freeze.
+
+The current minimal script emits `dest_readiness_start` and
+`postcopy_src_forward_stop`/`postcopy_src_forward_done`. Some older analyzer
+fields were keyed to `dest_readiness_wait_start` and
+`postcopy_src_forward_stop_start`/`postcopy_src_forward_stop_done`; these derived
+values can therefore be null even when the raw current events are present.
+Treat raw events as authoritative when comparing historical diagnostic scripts
+with the v22 standard.
 
 ## Latency Metrics
 
@@ -216,6 +237,10 @@ Latency is computed from successful HTTP samples only.
 ## Practical Interpretation
 
 - Use VIP metrics for client-facing conclusions.
+- Use detailed source CRIU freeze/seize-to-unfreeze timing for the internal
+  post-copy application freeze.
+- Treat `postcopy_checkpoint_ms` as an event-level upper bound when detailed
+  CRIU timing is unavailable, and label it accordingly.
 - Use direct `src`/`dst` metrics to diagnose internal migration phases.
 - A large VIP-minus-direct delta usually indicates VIP, ARP, neighbor, or
   cutover effects.

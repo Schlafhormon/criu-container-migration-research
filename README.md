@@ -255,6 +255,10 @@ The primary client-visible HTTP metric is:
 
 Related metrics:
 
+- source CRIU freeze/seize through unfreeze: exact internal post-copy
+  application freeze, derived from the detailed source CRIU log
+- `postcopy_checkpoint_ms`: script event window and upper bound for that freeze,
+  not an exact substitute
 - `vip_http_client_visible_down_segments`: number of downtime segments
 - `vip_http_client_visible_outage_span_ms`: time from first failure to final
   recovery, including successful gaps
@@ -281,7 +285,10 @@ bash scripts/migrate_postcopy_lazy_pages_vip_cutover.sh
 
 The scripts are configured through environment variables. Review
 `config/env.example.yaml` and the corresponding script defaults before
-running them.
+running them. The current post-copy order and environment are documented in
+[`docs/postcopy_workflow.md`](docs/postcopy_workflow.md); the v1-v23 freeze-path
+investigation is preserved in
+[`docs/archive/postcopy_freeze_forensics_2026-07-16.md`](docs/archive/postcopy_freeze_forensics_2026-07-16.md).
 
 ## License
 

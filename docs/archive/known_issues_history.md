@@ -192,3 +192,25 @@ Interpretation:
 
 - VIP metrics are the client-facing result; direct handoff metrics remain useful
   internal diagnostics.
+
+## Post-Copy Source Freeze Critical Path
+
+Finding:
+
+- CRIU seized Gunicorn almost immediately after `checkpoint_start`, while the
+  destination connected to lazy pages several seconds later. v19.3 measured
+  approximately 7.302 s from source freeze/seize to unfreeze.
+
+Resolution:
+
+- v21 removed diagnostic work and unnecessary orchestration from the freeze
+  path and used destination-local restore images and bundle, reducing the exact
+  measured source freeze to approximately 3.439 s.
+- v22 activated pre-staged source-to-destination forwarding after the first
+  destination HTTP 200 and used make-before-break VIP cutover. Representative
+  VIP HTTP downtime fell from 4.962 s in v21 to 2.917 s in v22.
+- The v23 direct-tar transfer failed and was rejected; v22 became the standard
+  post-copy script.
+
+The complete v1-v23 history and measurement caveats are in
+[Post-Copy Freeze-Path Forensics](postcopy_freeze_forensics_2026-07-16.md).
