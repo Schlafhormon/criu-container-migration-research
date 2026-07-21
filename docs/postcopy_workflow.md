@@ -200,7 +200,15 @@ sudo ip addr del "${VIP_ADDR}${VIP_CIDR}" dev "${VIP_IF_DST}" 2>/dev/null || tru
 sudo conntrack -D -d "$VIP_ADDR" 2>/dev/null || true
 sudo rm -rf "/var/lib/criu-local/runc/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
 sudo rm -rf "/var/lib/criu-local/runc-bundle/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
+sudo rm -rf "/var/lib/criu-local/work/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
+sudo rm -rf "/var/lib/criu-local/runtime/$NAME/pcpost-$RUN_ID" 2>/dev/null || true
 ```
+
+The automated `clm` path removes all four destination-local paths after a
+successful run. Its destination baseline cleanup also removes stale
+container-specific paths before the next run, including remnants from an
+aborted run. Batch logs and copied run artifacts under `runs_root` are not
+removed by this cleanup.
 
 ## Interpretation Note
 

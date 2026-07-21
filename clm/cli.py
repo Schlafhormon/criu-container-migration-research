@@ -1168,13 +1168,27 @@ def _checkpoint_artifact_paths(cfg: dict, *, method: str, run_id: str) -> tuple[
     share_root = str((cfg.get("paths") or {}).get("share_root") or "/mnt/criu").rstrip("/")
     container_name = str((cfg.get("container") or {}).get("name") or "testweb")
     shared_path = f"{share_root}/runc/{container_name}/{cp_name}"
-    local_path = f"/var/lib/criu-local/runc/{container_name}/{cp_name}"
+    local_path = _local_run_artifact_paths(cfg, method=method, run_id=run_id)["images"]
     return cp_name, shared_path, local_path
+
+
+def _local_run_artifact_paths(cfg: dict, *, method: str, run_id: str) -> dict:
+    # Build all destination-local, run-specific artifact paths.
+    cp_name = checkpoint_name_for_run(method, run_id)
+    container_name = str((cfg.get("container") or {}).get("name") or "testweb")
+    local_root = "/var/lib/criu-local"
+    return {
+        "images": f"{local_root}/runc/{container_name}/{cp_name}",
+        "bundle": f"{local_root}/runc-bundle/{container_name}/{cp_name}",
+        "work": f"{local_root}/work/{container_name}/{cp_name}",
+        "runtime": f"{local_root}/runtime/{container_name}/{cp_name}",
+    }
 
 
 def cleanup_skipped_checkpoint_artifacts(cfg: dict, *, method: str, run_id: str, reason: str) -> dict:
     # Clean up skipped checkpoint artifacts.
     cp_name, shared_path, local_path = _checkpoint_artifact_paths(cfg, method=method, run_id=run_id)
+    local_paths = _local_run_artifact_paths(cfg, method=method, run_id=run_id)
     return {
         "skipped": True,
         "reason": reason,
@@ -1188,6 +1202,7 @@ def cleanup_skipped_checkpoint_artifacts(cfg: dict, *, method: str, run_id: str,
         "local": {
             "policy": "skipped",
             "path": local_path,
+            "paths": local_paths,
             "attempted": False,
             "ok": None,
         },
@@ -1202,6 +1217,7 @@ def cleanup_run_checkpoint_artifacts(cfg: dict, *, method: str, run_id: str, run
     run_ok = str(run_status) == "ok"
 
     cp_name, shared_path, local_path = _checkpoint_artifact_paths(cfg, method=method, run_id=run_id)
+    local_paths = _local_run_artifact_paths(cfg, method=method, run_id=run_id)
 
     result = {
         "run_status": run_status,
@@ -1215,6 +1231,7 @@ def cleanup_run_checkpoint_artifacts(cfg: dict, *, method: str, run_id: str, run
         "local": {
             "policy": local_policy,
             "path": local_path,
+            "paths": local_paths,
             "attempted": False,
             "ok": None,
         },
@@ -1241,10 +1258,16 @@ def cleanup_run_checkpoint_artifacts(cfg: dict, *, method: str, run_id: str, run
         if dst:
             result["local"]["attempted"] = True
             script = build_remote_script(
-                {"IMG_DIR": local_path},
+                {
+                    "IMG_DIR": local_paths["images"],
+                    "BUNDLE_DIR": local_paths["bundle"],
+                    "WORK_DIR": local_paths["work"],
+                    "RUNTIME_DIR": local_paths["runtime"],
+                },
                 [
-                    "sudo rm -rf \"$IMG_DIR\" 2>/dev/null || true",
-                    "sudo rmdir \"$(dirname \"$IMG_DIR\")\" 2>/dev/null || true",
+                    "sudo rm -rf -- \"$IMG_DIR\" \"$BUNDLE_DIR\" \"$WORK_DIR\" \"$RUNTIME_DIR\" 2>/dev/null || true",
+                    "for dir in \"$IMG_DIR\" \"$BUNDLE_DIR\" \"$WORK_DIR\" \"$RUNTIME_DIR\"; do "
+                    "sudo rmdir \"$(dirname \"$dir\")\" 2>/dev/null || true; done",
                 ],
             )
             res = run_remote(dst, script, check=False, capture=True)
@@ -1306,12 +1329,17 @@ def cleanup_dest(cfg: dict, *, output_tag: str = "baseline:dest") -> None:
         "VIP_ADDR": vip["addr"],
         "VIP_CIDR": vip["cidr"],
         "VIP_IF_DST": vip["if_dest"],
+        "LOCAL_IMAGES_ROOT": f"/var/lib/criu-local/runc/{container['name']}",
+        "LOCAL_BUNDLE_ROOT": f"/var/lib/criu-local/runc-bundle/{container['name']}",
+        "LOCAL_WORK_ROOT": f"/var/lib/criu-local/work/{container['name']}",
+        "LOCAL_RUNTIME_ROOT": f"/var/lib/criu-local/runtime/{container['name']}",
     }
     commands = [
         "sudo runc --root=/run/runc delete -f \"$NAME\" 2>/dev/null || true",
         "sudo ip addr del \"${VIP_ADDR}${VIP_CIDR}\" dev \"$VIP_IF_DST\" 2>/dev/null || true",
         "sudo conntrack -D -d \"$VIP_ADDR\" 2>/dev/null || true",
-        f"sudo rm -rf /var/lib/criu-local/runc/{shlex.quote(container['name'])} 2>/dev/null || true",
+        "sudo rm -rf -- \"$LOCAL_IMAGES_ROOT\" \"$LOCAL_BUNDLE_ROOT\" "
+        "\"$LOCAL_WORK_ROOT\" \"$LOCAL_RUNTIME_ROOT\" 2>/dev/null || true",
     ]
     script = build_remote_script(env_vars, commands)
     _run_remote_streamed(dst, script, check=True, tag=output_tag)

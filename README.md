@@ -109,7 +109,6 @@ Install the CLM runner on the monitoring host:
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -e .
-cp config/env.example.yaml config/env.yaml
 ```
 
 Adjust `config/env.yaml` for the hosts, interfaces, VIP, bundle paths, and

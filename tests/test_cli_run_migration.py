@@ -205,8 +205,70 @@ class RunMigrationTests(unittest.TestCase):
         self.assertEqual(info["cp_name"], "pc-20260325_190000")
         self.assertEqual(info["shared"]["path"], "/mnt/criu/runc/testweb/pc-20260325_190000")
         self.assertEqual(info["local"]["path"], "/var/lib/criu-local/runc/testweb/pc-20260325_190000")
+        self.assertEqual(
+            info["local"]["paths"],
+            {
+                "images": "/var/lib/criu-local/runc/testweb/pc-20260325_190000",
+                "bundle": "/var/lib/criu-local/runc-bundle/testweb/pc-20260325_190000",
+                "work": "/var/lib/criu-local/work/testweb/pc-20260325_190000",
+                "runtime": "/var/lib/criu-local/runtime/testweb/pc-20260325_190000",
+            },
+        )
         self.assertFalse(info["shared"]["attempted"])
         self.assertFalse(info["local"]["attempted"])
+
+    def test_successful_run_cleanup_removes_all_destination_local_artifacts(self):
+        cfg = deepcopy(cli.DEFAULTS)
+        calls = []
+
+        def fake_run_remote(host, script, **kwargs):
+            calls.append((host, script))
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with patch("clm.cli.run_remote", side_effect=fake_run_remote):
+            info = cli.cleanup_run_checkpoint_artifacts(
+                cfg,
+                method="postcopy",
+                run_id="20260720_153313_postcopy_67_65e019",
+                run_status="ok",
+            )
+
+        self.assertTrue(info["shared"]["attempted"])
+        self.assertTrue(info["local"]["attempted"])
+        self.assertTrue(info["local"]["ok"])
+        local_script = next(script for host, script in calls if host == "benke2")
+        self.assertIn(
+            "export BUNDLE_DIR=/var/lib/criu-local/runc-bundle/testweb/"
+            "pcpost-20260720_153313_postcopy_67_65e019",
+            local_script,
+        )
+        self.assertIn(
+            'sudo rm -rf -- "$IMG_DIR" "$BUNDLE_DIR" "$WORK_DIR" "$RUNTIME_DIR"',
+            local_script,
+        )
+
+    def test_destination_baseline_cleanup_removes_stale_postcopy_artifact_roots(self):
+        cfg = deepcopy(cli.DEFAULTS)
+        captured = {}
+
+        def fake_run_remote_streamed(host, script, **kwargs):
+            captured["host"] = host
+            captured["script"] = script
+            return SimpleNamespace(returncode=0)
+
+        with patch("clm.cli._run_remote_streamed", side_effect=fake_run_remote_streamed):
+            cli.cleanup_dest(cfg)
+
+        self.assertEqual(captured["host"], "benke2")
+        self.assertIn("export LOCAL_IMAGES_ROOT=/var/lib/criu-local/runc/testweb", captured["script"])
+        self.assertIn("export LOCAL_BUNDLE_ROOT=/var/lib/criu-local/runc-bundle/testweb", captured["script"])
+        self.assertIn("export LOCAL_WORK_ROOT=/var/lib/criu-local/work/testweb", captured["script"])
+        self.assertIn("export LOCAL_RUNTIME_ROOT=/var/lib/criu-local/runtime/testweb", captured["script"])
+        self.assertIn(
+            'sudo rm -rf -- "$LOCAL_IMAGES_ROOT" "$LOCAL_BUNDLE_ROOT" '
+            '"$LOCAL_WORK_ROOT" "$LOCAL_RUNTIME_ROOT"',
+            captured["script"],
+        )
 
     def test_run_cli_no_cleanup_skips_checkpoint_artifact_cleanup(self):
         cfg = deepcopy(cli.DEFAULTS)
