@@ -15,10 +15,13 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+import pandas as pd
+
 from clm.analysis_pipeline import (
     analyze_runs_dir,
     analyze_targets_collection,
     discover_run_dirs,
+    generate_plots,
     load_analysis_config,
 )
 
@@ -29,6 +32,7 @@ NO_WRK_LOADS = tuple(load for load in LOADS if load not in WRK_LOADS)
 ALL_SCENARIOS_WO_WRK3_LOADS = tuple(load for load in LOADS if load != "wrk3")
 METHODS = ("precopy", "postcopy")
 SINGLE_RUN_DATE_PREFIX = "20260517"
+REPRESENTATIVE_PROBE_SCENARIOS = frozenset({("precopy", "wrk3")})
 
 
 @dataclass(frozen=True)
@@ -374,12 +378,31 @@ def _single_run_plot_definitions(method_title: str = "") -> List[Dict[str, Any]]
     ]
 
 
+def _scenario_probe_plot_definition(
+    load: str,
+    method_title: str = "",
+    *,
+    run_id: Optional[str] = None,
+    legend_bbox_y: Optional[float] = None,
+) -> Dict[str, Any]:
+    definition = copy.deepcopy(_single_run_plot_definitions(method_title)[0])
+    definition["id"] = f"{_safe_name(load)}_probe_state_timeline_single_run"
+    if run_id:
+        definition["run_id"] = run_id
+    if legend_bbox_y is not None:
+        definition["legend_bbox_y"] = float(legend_bbox_y)
+    return definition
+
+
 def _analysis_config(base_config: str, definitions: List[Dict[str, Any]]) -> Dict[str, Any]:
     cfg = copy.deepcopy(load_analysis_config(base_config))
     cfg.setdefault("normalization", {})
     cfg["normalization"]["vip_l4_no_observed_down_as_zero"] = True
     cfg.setdefault("plots", {})
     cfg["plots"]["enabled"] = True
+    cfg["plots"]["show_titles"] = False
+    cfg["plots"]["legend_position"] = "top"
+    cfg["plots"]["legend_ncol"] = 4
     cfg["plots"]["definitions"] = definitions
     cfg["plots"].pop("definitions_extra", None)
     return cfg
@@ -387,6 +410,7 @@ def _analysis_config(base_config: str, definitions: List[Dict[str, Any]]) -> Dic
 
 def _prepare_directories(plots_root: Path) -> None:
     for method in METHODS:
+        (plots_root / method / "single_run").mkdir(parents=True, exist_ok=True)
         for load in LOADS:
             (plots_root / method / load).mkdir(parents=True, exist_ok=True)
         for subset in ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk"):
@@ -439,6 +463,95 @@ def _select(batches: Sequence[BatchInfo], *, method: Optional[str] = None, loads
             continue
         out.append(batch)
     return sorted(out, key=lambda item: (item.method, item.load, item.batch_id))
+
+
+def _representative_probe_run_id(metrics: pd.DataFrame) -> Optional[str]:
+    """Pick the run closest to the HTTP/L4 downtime medians."""
+    fields = ["vip_http_downtime_ms", "vip_l4_downtime_ms"]
+    if metrics.empty or "run_id" not in metrics.columns or any(field not in metrics.columns for field in fields):
+        return None
+
+    work = metrics.copy()
+    if "excluded" in work.columns:
+        excluded = work["excluded"].astype(str).str.strip().str.lower().isin(("true", "1", "yes"))
+        work = work.loc[~excluded]
+    for field in fields:
+        work[field] = pd.to_numeric(work[field], errors="coerce")
+    work = work.dropna(subset=fields)
+    if work.empty:
+        return None
+
+    score = pd.Series(0.0, index=work.index)
+    for field in fields:
+        median = float(work[field].median())
+        scale = abs(median) if median else max(float(work[field].abs().median()), 1.0)
+        score += (work[field] - median).abs() / scale
+    work["_probe_selection_score"] = score
+    if "run_index" in work.columns:
+        work["_probe_selection_run_index"] = pd.to_numeric(work["run_index"], errors="coerce")
+    else:
+        work["_probe_selection_run_index"] = float("nan")
+    work = work.sort_values(
+        by=["_probe_selection_score", "_probe_selection_run_index", "run_id"],
+        na_position="last",
+    )
+    return str(work.iloc[0]["run_id"])
+
+
+def generate_scenario_probe_plots(
+    batches: Sequence[BatchInfo],
+    plots_root: Path,
+    base_config: str,
+    logger=print,
+    methods: Sequence[str] = METHODS,
+    loads: Sequence[str] = LOADS,
+) -> int:
+    """Generate one probe-state timeline from every regular method/load batch."""
+    failures = 0
+    regular_batches = [batch for batch in batches if not batch.is_single_run]
+    for method in methods:
+        method_title = _method_display_name(method)
+        output_dir = plots_root / method / "single_run"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        for load in loads:
+            selected = _select(regular_batches, method=method, loads=[load], single=False)
+            if not selected:
+                logger(f"SKIP {output_dir}: no regular {method}/{load} batch")
+                continue
+
+            metrics_path = plots_root / method / load / "metrics.csv"
+            if not metrics_path.exists():
+                logger(f"ERROR: cannot generate {method}/{load} single-run probe plot; missing {metrics_path}")
+                failures += 1
+                continue
+
+            try:
+                metrics = pd.read_csv(metrics_path)
+                representative = (method, load) in REPRESENTATIVE_PROBE_SCENARIOS
+                run_id = _representative_probe_run_id(metrics) if representative else None
+                config = _analysis_config(
+                    base_config,
+                    [
+                        _scenario_probe_plot_definition(
+                            load,
+                            method_title,
+                            run_id=run_id,
+                            legend_bbox_y=1.12 if representative else None,
+                        )
+                    ],
+                )
+                outputs = generate_plots(metrics, config, output_dir, logger=logger)
+            except Exception as exc:
+                logger(f"ERROR: failed to generate {method}/{load} single-run probe plot ({exc})")
+                failures += 1
+                continue
+
+            if not outputs:
+                logger(f"ERROR: no {method}/{load} single-run probe plot was generated")
+                failures += 1
+            else:
+                logger(f"Generated {outputs[0]}")
+    return failures
 
 
 def run_analysis(
@@ -548,7 +661,8 @@ def run_analysis(
         combined_cfg,
         print,
     )
-    return 0
+    probe_failures = generate_scenario_probe_plots(hundred_runs, plots_root, base_config, logger=print)
+    return 1 if probe_failures else 0
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -558,14 +672,34 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--config", default="config/analysis.yaml")
     parser.add_argument("--dry-run", action="store_true", help="Only discover batches and create directories")
     parser.add_argument(
+        "--single-run-probes-only",
+        action="store_true",
+        help="Only regenerate the flat per-scenario probe-state timelines from existing metrics.csv files",
+    )
+    parser.add_argument("--probe-method", choices=METHODS, help="Limit --single-run-probes-only to one method")
+    parser.add_argument("--probe-load", choices=LOADS, help="Limit --single-run-probes-only to one load")
+    parser.add_argument(
         "--refresh-summaries",
         action="store_true",
         help="Recompute summaries inside the measurement-data tree before plotting",
     )
     args = parser.parse_args(argv)
+    data_root = Path(args.data_root).expanduser().resolve()
+    plots_root = Path(args.plots_root).expanduser().resolve()
+    if args.single_run_probes_only:
+        _prepare_directories(plots_root)
+        failures = generate_scenario_probe_plots(
+            discover_batches(data_root),
+            plots_root,
+            args.config,
+            logger=print,
+            methods=[args.probe_method] if args.probe_method else METHODS,
+            loads=[args.probe_load] if args.probe_load else LOADS,
+        )
+        return 1 if failures else 0
     return run_analysis(
-        data_root=Path(args.data_root).expanduser().resolve(),
-        plots_root=Path(args.plots_root).expanduser().resolve(),
+        data_root=data_root,
+        plots_root=plots_root,
         base_config=args.config,
         dry_run=bool(args.dry_run),
         refresh_summaries=bool(args.refresh_summaries),

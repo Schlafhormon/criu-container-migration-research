@@ -1541,19 +1541,41 @@ def _style_axes(ax, y_only: bool) -> None:
     ax.spines["right"].set_visible(False)
 
 
-def _place_legend_outside(ax: Any, *, handles: Optional[Sequence[Any]] = None, fontsize: float = 8.5, ncol: int = 1, **kwargs: Any) -> Any:
+def _place_legend_outside(
+    ax: Any,
+    *,
+    handles: Optional[Sequence[Any]] = None,
+    fontsize: float = 8.5,
+    ncol: int = 1,
+    position: str = "right",
+    **kwargs: Any,
+) -> Any:
     """Keep legends from covering plotted data."""
-    legend_kwargs = {
-        "loc": "upper left",
-        "bbox_to_anchor": (1.01, 1.0),
-        "borderaxespad": 0.0,
-        "fontsize": fontsize,
-        "ncol": ncol,
-    }
+    if str(position).strip().lower() in ("top", "above"):
+        legend_kwargs = {
+            "loc": "lower center",
+            "bbox_to_anchor": (0.5, 1.02),
+            "borderaxespad": 0.0,
+            "fontsize": fontsize,
+            "ncol": ncol,
+        }
+    else:
+        legend_kwargs = {
+            "loc": "upper left",
+            "bbox_to_anchor": (1.01, 1.0),
+            "borderaxespad": 0.0,
+            "fontsize": fontsize,
+            "ncol": ncol,
+        }
     legend_kwargs.update(kwargs)
     if handles is None:
         return ax.legend(**legend_kwargs)
     return ax.legend(handles=handles, **legend_kwargs)
+
+
+def _plot_title_value(spec: Dict[str, Any], plot_id: str, plots_cfg: Dict[str, Any]) -> str:
+    show_title = bool(spec.get("show_title", plots_cfg.get("show_titles", True)))
+    return str(spec.get("title") or plot_id) if show_title else ""
 
 
 def _short_run_label(value: Any) -> str:
@@ -2552,7 +2574,9 @@ def generate_plots(
             kind = str(spec.get("kind", "box")).lower()
             x = spec.get("x")
             y = spec.get("y")
-            title = spec.get("title") or plot_id
+            title = _plot_title_value(spec, str(plot_id), plots_cfg)
+            legend_position = str(spec.get("legend_position", plots_cfg.get("legend_position", "right")))
+            legend_ncol = max(1, int(spec.get("legend_ncol", plots_cfg.get("legend_ncol", 1))))
             group_by = spec.get("group_by") or config.get("group_by") or []
             hue = spec.get("hue")
             bins = int(spec.get("bins", 30))
@@ -2750,7 +2774,7 @@ def generate_plots(
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        _place_legend_outside(ax, fontsize=9)
+                        _place_legend_outside(ax, fontsize=9, ncol=legend_ncol, position=legend_position)
                     x_limits = _padded_limits(np.concatenate([arr for _, arr in grouped_data]), pad_fraction=0.05)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -2843,7 +2867,7 @@ def generate_plots(
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        _place_legend_outside(ax, fontsize=9)
+                        _place_legend_outside(ax, fontsize=9, ncol=legend_ncol, position=legend_position)
                     x_limits = _padded_limits(np.concatenate([xvals for _, xvals, _ in grouped_data]), pad_fraction=0.06)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -3167,7 +3191,7 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=1)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=legend_ncol, position=legend_position)
 
                         if xmax <= 0:
                             xmax = float(segment_data["rel_end_ms"].max()) if "rel_end_ms" in segment_data.columns else 1.0
@@ -3264,7 +3288,7 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=1)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=legend_ncol, position=legend_position)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["right_ms"], errors="coerce").max())
@@ -3450,7 +3474,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.3, ncol=1)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.3, ncol=legend_ncol, position=legend_position)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3544,7 +3568,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.2, ncol=1)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.2, ncol=legend_ncol, position=legend_position)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3784,7 +3808,7 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_agg.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.1, ncol=1)
+                            _place_legend_outside(ax, handles=handles, fontsize=8.1, ncol=legend_ncol, position=legend_position)
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["p75_end_ms"], errors="coerce").max())
@@ -4009,13 +4033,23 @@ def generate_plots(
 
                     labeled_event_positions: List[float] = []
                     min_label_gap = float(spec.get("event_label_min_gap_ms", 260))
+                    priority_event_positions = [
+                        float(event_ms - anchor)
+                        for event_label, event_ms in event_markers
+                        if "cutover start" in event_label
+                    ]
                     for idx_event, (event_label, event_ms) in enumerate(event_markers):
                         rel = int(event_ms - anchor)
                         if rel < x_min or rel > x_max:
                             continue
                         color = "#252525" if "cutover start" in event_label else "#636363"
                         ax.axvline(rel, color=color, linewidth=1.0, linestyle=(0, (3, 2)), alpha=0.82, zorder=2)
-                        should_label = "cutover start" in event_label or all(abs(rel - prev) >= min_label_gap for prev in labeled_event_positions)
+                        is_priority = "cutover start" in event_label
+                        clear_of_priority = all(abs(rel - priority) >= min_label_gap for priority in priority_event_positions)
+                        should_label = is_priority or (
+                            clear_of_priority
+                            and all(abs(rel - prev) >= min_label_gap for prev in labeled_event_positions)
+                        )
                         if should_label:
                             labeled_event_positions.append(float(rel))
                             ax.text(
@@ -4032,7 +4066,7 @@ def generate_plots(
 
                     ax.axvline(0.0, color="#111111", linewidth=1.35, alpha=0.9, zorder=4)
                     run_label = str(run_row.get("run_id") or (run_dir.name if run_dir else "run"))
-                    ax.set_title(str(spec.get("title") or f"Probe State Timeline: {run_label}"), fontweight="semibold")
+                    ax.set_title(title, fontweight="semibold")
                     ax.set_xlabel("Time relative to VIP cutover/analyzer anchor [ms]")
                     ax.set_ylabel("Signal")
                     ax.set_yticks(y_positions)
@@ -4056,12 +4090,17 @@ def generate_plots(
                         ]
                     )
                     legend_cols = min(4, max(2, int(math.ceil(len(handles) / 3)))) if handles else 1
+                    legend_extra: Dict[str, Any] = {}
+                    if legend_position.strip().lower() in ("top", "above") and spec.get("legend_bbox_y") is not None:
+                        legend_extra["bbox_to_anchor"] = (0.5, float(spec["legend_bbox_y"]))
                     _place_legend_outside(
                         ax,
                         handles=handles,
                         fontsize=8.0,
-                        ncol=min(2, legend_cols),
+                        ncol=legend_ncol if legend_position.strip().lower() in ("top", "above") else min(2, legend_cols),
+                        position=legend_position,
                         framealpha=0.92,
+                        **legend_extra,
                     )
                     _style_axes(ax, y_only=False)
                     ax.grid(True, which="minor", axis="x", color="#F2F2F2", linewidth=0.45, alpha=0.72)

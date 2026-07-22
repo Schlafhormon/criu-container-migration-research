@@ -18,6 +18,8 @@ try:
         _build_vip_downtime_overlay_windows,
         _median_ci_bootstrap,
         _plot_group_labels,
+        _plot_title_value,
+        _place_legend_outside,
         _probe_http_status_color,
         _probe_http_status_label,
         _probe_state_timeline_bounds,
@@ -86,6 +88,25 @@ class AnalysisPipelineTests(unittest.TestCase):
         )
         labels = _plot_group_labels(df, ["method", "load"])
         self.assertEqual(labels.tolist(), ["precopy / idle", "postcopy / cpu"])
+
+    def test_plot_titles_can_be_disabled_globally_and_overridden(self):
+        plots_cfg = {"show_titles": False}
+        self.assertEqual(_plot_title_value({"title": "Hidden"}, "plot-a", plots_cfg), "")
+        self.assertEqual(_plot_title_value({"title": "Visible", "show_title": True}, "plot-a", plots_cfg), "Visible")
+
+    def test_plot_legend_can_be_placed_above_axes(self):
+        import matplotlib.pyplot as plt
+        from matplotlib.lines import Line2D
+
+        fig, ax = plt.subplots()
+        try:
+            handles = [Line2D([0], [0], label="A"), Line2D([0], [0], label="B")]
+            legend = _place_legend_outside(ax, handles=handles, position="top", ncol=2)
+            anchor = legend.get_bbox_to_anchor()._bbox
+            self.assertGreater(float(anchor.y0), 1.0)
+            self.assertAlmostEqual(float(anchor.x0), 0.5)
+        finally:
+            plt.close(fig)
 
     def test_adaptive_hist_bins_for_small_and_large_samples(self):
         small = np.array([8102.0, 8771.0, 8923.0, 9278.0], dtype=float)
