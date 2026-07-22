@@ -1137,6 +1137,50 @@ def apply_derived_metrics(df: pd.DataFrame, config: Dict[str, Any], logger=print
     return df
 
 
+def apply_metric_normalizations(df: pd.DataFrame, config: Dict[str, Any], logger=print) -> pd.DataFrame:
+    """Apply opt-in, evidence-backed normalizations before statistics and plots."""
+    normalization_cfg = config.get("normalization", {}) or {}
+    if not normalization_cfg.get("vip_l4_no_observed_down_as_zero", False) or df.empty:
+        return df
+
+    metric = "vip_l4_downtime_ms"
+    flag = "vip_l4_downtime_zero_from_continuous_up"
+    required = {
+        metric,
+        "vip_l4_samples_before",
+        "vip_l4_samples_after",
+        "vip_l4_down_before",
+        "vip_l4_down_after",
+    }
+    missing = sorted(required.difference(df.columns))
+    if missing:
+        logger(f"WARN: VIP L4 zero normalization skipped; missing fields {missing}")
+        return df
+
+    metric_values = pd.to_numeric(df[metric], errors="coerce")
+    samples_before = pd.to_numeric(df["vip_l4_samples_before"], errors="coerce")
+    samples_after = pd.to_numeric(df["vip_l4_samples_after"], errors="coerce")
+    down_before = pd.to_numeric(df["vip_l4_down_before"], errors="coerce")
+    down_after = pd.to_numeric(df["vip_l4_down_after"], errors="coerce")
+    zero_mask = (
+        metric_values.isna()
+        & samples_before.gt(0)
+        & samples_after.gt(0)
+        & down_before.eq(0)
+        & down_after.eq(0)
+    )
+
+    df[flag] = False
+    if zero_mask.any():
+        df.loc[zero_mask, metric] = 0.0
+        df.loc[zero_mask, flag] = True
+    logger(
+        "INFO: normalized VIP L4 downtime to 0 ms for "
+        f"{int(zero_mask.sum())} run(s) with continuous valid up samples"
+    )
+    return df
+
+
 def _eval_rule_mask(df: pd.DataFrame, rule: Dict[str, Any]) -> pd.Series:
     field = rule.get("field")
     op = str(rule.get("op", "==")).lower()
@@ -4103,6 +4147,7 @@ def _finalize_analysis_dataframe(
     output_dir.mkdir(parents=True, exist_ok=True)
     work = df.copy()
     if not work.empty:
+        work = apply_metric_normalizations(work, config=config, logger=logger)
         work = apply_derived_metrics(work, config=config, logger=logger)
         work = apply_exclude_rules(work, config=config, logger=logger)
 

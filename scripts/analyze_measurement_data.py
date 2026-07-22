@@ -376,6 +376,8 @@ def _single_run_plot_definitions(method_title: str = "") -> List[Dict[str, Any]]
 
 def _analysis_config(base_config: str, definitions: List[Dict[str, Any]]) -> Dict[str, Any]:
     cfg = copy.deepcopy(load_analysis_config(base_config))
+    cfg.setdefault("normalization", {})
+    cfg["normalization"]["vip_l4_no_observed_down_as_zero"] = True
     cfg.setdefault("plots", {})
     cfg["plots"]["enabled"] = True
     cfg["plots"]["definitions"] = definitions
@@ -387,7 +389,7 @@ def _prepare_directories(plots_root: Path) -> None:
     for method in METHODS:
         for load in LOADS:
             (plots_root / method / load).mkdir(parents=True, exist_ok=True)
-        for subset in ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk", "single_run"):
+        for subset in ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk"):
             (plots_root / method / subset).mkdir(parents=True, exist_ok=True)
     for load in LOADS:
         (plots_root / "combined" / load).mkdir(parents=True, exist_ok=True)

@@ -23,6 +23,7 @@ try:
         _probe_state_timeline_bounds,
         analyze_runs_dir,
         analyze_targets_collection,
+        apply_metric_normalizations,
         build_downtime_segments_rows,
         generate_plots,
         get_nested_value,
@@ -94,6 +95,50 @@ class AnalysisPipelineTests(unittest.TestCase):
         bins = _adaptive_hist_bin_count(large, requested_bins=30)
         self.assertGreaterEqual(bins, 4)
         self.assertLessEqual(bins, 30)
+
+    def test_vip_l4_no_observed_down_normalization_is_evidence_backed(self):
+        df = pd.DataFrame(
+            [
+                {
+                    "vip_l4_downtime_ms": np.nan,
+                    "vip_l4_samples_before": 120,
+                    "vip_l4_samples_after": 80,
+                    "vip_l4_down_before": 0,
+                    "vip_l4_down_after": 0,
+                },
+                {
+                    "vip_l4_downtime_ms": 150.0,
+                    "vip_l4_samples_before": 120,
+                    "vip_l4_samples_after": 80,
+                    "vip_l4_down_before": 2,
+                    "vip_l4_down_after": 1,
+                },
+                {
+                    "vip_l4_downtime_ms": np.nan,
+                    "vip_l4_samples_before": 0,
+                    "vip_l4_samples_after": 80,
+                    "vip_l4_down_before": 0,
+                    "vip_l4_down_after": 0,
+                },
+                {
+                    "vip_l4_downtime_ms": np.nan,
+                    "vip_l4_samples_before": 120,
+                    "vip_l4_samples_after": 80,
+                    "vip_l4_down_before": 1,
+                    "vip_l4_down_after": 0,
+                },
+            ]
+        )
+        config = {"normalization": {"vip_l4_no_observed_down_as_zero": True}}
+
+        result = apply_metric_normalizations(df.copy(), config=config, logger=lambda _msg: None)
+
+        self.assertEqual(float(result.loc[0, "vip_l4_downtime_ms"]), 0.0)
+        self.assertTrue(bool(result.loc[0, "vip_l4_downtime_zero_from_continuous_up"]))
+        self.assertEqual(float(result.loc[1, "vip_l4_downtime_ms"]), 150.0)
+        self.assertFalse(bool(result.loc[1, "vip_l4_downtime_zero_from_continuous_up"]))
+        self.assertTrue(pd.isna(result.loc[2, "vip_l4_downtime_ms"]))
+        self.assertTrue(pd.isna(result.loc[3, "vip_l4_downtime_ms"]))
 
     def test_median_ci_bootstrap_handles_empty_single_and_reproducible(self):
         lo, hi = _median_ci_bootstrap(np.array([], dtype=float), ci_level=0.95, bootstrap_samples=300, bootstrap_seed=42)
