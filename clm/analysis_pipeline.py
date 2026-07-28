@@ -1578,6 +1578,37 @@ def _plot_title_value(spec: Dict[str, Any], plot_id: str, plots_cfg: Dict[str, A
     return str(spec.get("title") or plot_id) if show_title else ""
 
 
+def _axis_tick_label(label: Any, count: int, show_count: bool, *, multiline: bool = False) -> str:
+    text = str(label)
+    if not show_count:
+        return text
+    separator = "\n" if multiline else " "
+    return f"{text}{separator}(n={int(count)})"
+
+
+def _downtime_right_limit(xmax: float, spec: Dict[str, Any], data: pd.DataFrame) -> float:
+    fallback = xmax * 1.18 if xmax > 0 else 1.0
+    padding_fraction = spec.get("xmax_padding_fraction")
+    if padding_fraction is not None and xmax > 0:
+        padded = xmax * (1.0 + max(0.0, float(padding_fraction)))
+        round_to = max(1.0, float(spec.get("xmax_round_to_ms", 1.0)))
+        return math.ceil(padded / round_to) * round_to
+    configured = spec.get("xmax_ms")
+    by_method = spec.get("xmax_ms_by_method") or {}
+    if configured is None and isinstance(by_method, dict) and "method" in data.columns:
+        method_limits = []
+        for method in data["method"].dropna().astype(str).str.lower().unique().tolist():
+            value = by_method.get(method)
+            if value is not None:
+                method_limits.append(float(value))
+        if method_limits:
+            configured = max(method_limits)
+    if configured is None:
+        return fallback
+    minimum_safe = xmax + max(40.0, 0.02 * xmax) if xmax > 0 else 1.0
+    return max(float(configured), minimum_safe)
+
+
 def _short_run_label(value: Any) -> str:
     """Return a compact label for timestamp-based measurement run IDs."""
     text = str(value or "run").strip()
@@ -2577,6 +2608,9 @@ def generate_plots(
             title = _plot_title_value(spec, str(plot_id), plots_cfg)
             legend_position = str(spec.get("legend_position", plots_cfg.get("legend_position", "right")))
             legend_ncol = max(1, int(spec.get("legend_ncol", plots_cfg.get("legend_ncol", 1))))
+            show_axis_sample_counts = bool(
+                spec.get("show_axis_sample_counts", plots_cfg.get("show_axis_sample_counts", True))
+            )
             group_by = spec.get("group_by") or config.get("group_by") or []
             hue = spec.get("hue")
             bins = int(spec.get("bins", 30))
@@ -2620,7 +2654,10 @@ def generate_plots(
                     fig, ax = plt.subplots(figsize=_category_figsize(len(labels)))
                     colors = _categorical_colors(len(labels), plt)
                     rng = np.random.default_rng(42 + idx)
-                    xtick_labels = [f"{label}\n(n={arr.size})" for label, arr in zip(labels, values)]
+                    xtick_labels = [
+                        _axis_tick_label(label, arr.size, show_axis_sample_counts, multiline=True)
+                        for label, arr in zip(labels, values)
+                    ]
                     sample_max = max(arr.size for arr in values)
                     small_sample = sample_max <= 8
                     if len(labels) == 1 and small_sample:
@@ -2944,7 +2981,10 @@ def generate_plots(
                             alpha=0.58,
                             zorder=3,
                         )
-                    xtick_labels = [f"{label}\n(n={arr.size})" for label, arr in zip(labels, samples)]
+                    xtick_labels = [
+                        _axis_tick_label(label, arr.size, show_axis_sample_counts, multiline=True)
+                        for label, arr in zip(labels, samples)
+                    ]
                     rotation = _category_tick_rotation(xtick_labels)
                     ax.set_xticks(x_pos)
                     ax.set_xticklabels(xtick_labels, rotation=rotation, ha="right" if rotation else "center")
@@ -3051,7 +3091,10 @@ def generate_plots(
                             alpha=0.96,
                         )
 
-                    xtick_labels = [f"{label}\n(n={n})" for label, n in zip(labels, counts)]
+                    xtick_labels = [
+                        _axis_tick_label(label, n, show_axis_sample_counts, multiline=True)
+                        for label, n in zip(labels, counts)
+                    ]
                     rotation = _category_tick_rotation(xtick_labels)
                     ax.set_xticks(x_pos)
                     ax.set_xticklabels(xtick_labels, rotation=rotation, ha="right" if rotation else "center")
@@ -3219,11 +3262,22 @@ def generate_plots(
                             counts = agg_rows.groupby(agg_group_by, dropna=False)["n_total"].max().reset_index(name="n_total")
                             groups_meta = totals.merge(counts, on=list(agg_group_by), how="left")
                             labels = _plot_group_labels(groups_meta, agg_group_by)
-                            groups_meta["group_label"] = [f"{label} (n={int(n)})" for label, n in zip(labels.tolist(), groups_meta["n_total"].tolist())]
+                            groups_meta["group_label"] = [
+                                _axis_tick_label(label, n, show_axis_sample_counts)
+                                for label, n in zip(labels.tolist(), groups_meta["n_total"].tolist())
+                            ]
                         else:
                             total_ms = float(agg_rows["right_ms"].max())
                             n_total = int(pd.to_numeric(agg_rows["n_total"], errors="coerce").max())
-                            groups_meta = pd.DataFrame([{"total_ms": total_ms, "n_total": n_total, "group_label": f"all (n={n_total})"}])
+                            groups_meta = pd.DataFrame(
+                                [
+                                    {
+                                        "total_ms": total_ms,
+                                        "n_total": n_total,
+                                        "group_label": _axis_tick_label("all", n_total, show_axis_sample_counts),
+                                    }
+                                ]
+                            )
 
                         groups_meta = groups_meta.sort_values(by="total_ms", ascending=False, na_position="last").reset_index(drop=True)
                         fig_h = max(3.4, min(16.0, 1.8 + 0.6 * len(groups_meta)))
@@ -3292,7 +3346,7 @@ def generate_plots(
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["right_ms"], errors="coerce").max())
-                        ax.set_xlim(0.0, xmax * 1.18 if xmax > 0 else 1.0)
+                        ax.set_xlim(0.0, _downtime_right_limit(xmax, spec, segment_data))
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(groups_meta["group_label"].astype(str).tolist())
                         ax.set_title(title, fontweight="semibold")
@@ -3625,7 +3679,10 @@ def generate_plots(
                                 .reset_index()
                             )
                             labels = _plot_group_labels(groups_meta, timeline_group_by)
-                            groups_meta["group_label"] = [f"{label} (n={int(n)})" for label, n in zip(labels.tolist(), groups_meta["n_total"].tolist())]
+                            groups_meta["group_label"] = [
+                                _axis_tick_label(label, n, show_axis_sample_counts)
+                                for label, n in zip(labels.tolist(), groups_meta["n_total"].tolist())
+                            ]
                         else:
                             groups_meta = pd.DataFrame(
                                 [
@@ -3633,7 +3690,11 @@ def generate_plots(
                                         "total_p50_ms": float(pd.to_numeric(agg_rows["p50_end_ms"], errors="coerce").max()),
                                         "total_p75_ms": float(pd.to_numeric(agg_rows["p75_end_ms"], errors="coerce").max()),
                                         "n_total": int(pd.to_numeric(agg_rows["n_total"], errors="coerce").max()),
-                                        "group_label": f"all (n={int(pd.to_numeric(agg_rows['n_total'], errors='coerce').max())})",
+                                        "group_label": _axis_tick_label(
+                                            "all",
+                                            int(pd.to_numeric(agg_rows["n_total"], errors="coerce").max()),
+                                            show_axis_sample_counts,
+                                        ),
                                     }
                                 ]
                             )
@@ -3813,7 +3874,7 @@ def generate_plots(
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["p75_end_ms"], errors="coerce").max())
                         left_lim = xmin * 1.08 if xmin < 0 else 0.0
-                        ax.set_xlim(left_lim, xmax * 1.18 if xmax > 0 else 1.0)
+                        ax.set_xlim(left_lim, _downtime_right_limit(xmax, spec, segment_data))
                         ax.set_yticks(y_positions)
                         ax.set_yticklabels(groups_meta["group_label"].astype(str).tolist())
                         ax.set_title(title, fontweight="semibold")

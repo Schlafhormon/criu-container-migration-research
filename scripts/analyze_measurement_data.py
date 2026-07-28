@@ -322,6 +322,8 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str, met
             "phase_lane_span": 0.84,
             "show_vip_downtime_overlay": True,
             "vip_downtime_overlay_label": "Client-visible VIP HTTP downtime",
+            "xmax_padding_fraction": 0.065,
+            "xmax_round_to_ms": 50,
             "title": _plot_title("Downtime Event Timeline", group_title, method_title),
         },
         {
@@ -332,6 +334,8 @@ def _measurement_plot_definitions(group_by: Sequence[str], group_title: str, met
             "mode": "group_median",
             "aggregate": "median",
             "group_by": list(group_by),
+            "xmax_padding_fraction": 0.065,
+            "xmax_round_to_ms": 50,
             "title": _plot_title("Median Downtime Event Composition", group_title, method_title),
         },
     ]
@@ -403,6 +407,7 @@ def _analysis_config(base_config: str, definitions: List[Dict[str, Any]]) -> Dic
     cfg["plots"]["show_titles"] = False
     cfg["plots"]["legend_position"] = "top"
     cfg["plots"]["legend_ncol"] = 4
+    cfg["plots"]["show_axis_sample_counts"] = False
     cfg["plots"]["definitions"] = definitions
     cfg["plots"].pop("definitions_extra", None)
     return cfg
@@ -554,6 +559,74 @@ def generate_scenario_probe_plots(
     return failures
 
 
+def _regenerate_existing_plot_group(
+    output_dir: Path,
+    config: Dict[str, Any],
+    logger=print,
+) -> int:
+    metrics_path = output_dir / "metrics.csv"
+    downtime_path = output_dir / "downtime_segments.csv"
+    if not metrics_path.exists() or not downtime_path.exists():
+        logger(f"ERROR: cannot regenerate plots in {output_dir}; metrics or downtime segments are missing")
+        return 1
+    try:
+        metrics = pd.read_csv(metrics_path)
+        downtime_segments = pd.read_csv(downtime_path)
+        outputs = generate_plots(
+            metrics,
+            config,
+            output_dir / "plots",
+            logger=logger,
+            datasets={"metrics": metrics, "downtime_segments": downtime_segments},
+        )
+    except Exception as exc:
+        logger(f"ERROR: failed to regenerate plots in {output_dir} ({exc})")
+        return 1
+    expected = len(config.get("plots", {}).get("definitions", []) or [])
+    if len(outputs) != expected:
+        logger(f"ERROR: regenerated {len(outputs)} of {expected} expected plots in {output_dir}")
+        return 1
+    logger(f"Regenerated {len(outputs)} plots in {output_dir}")
+    return 0
+
+
+def regenerate_existing_plots(
+    batches: Sequence[BatchInfo],
+    plots_root: Path,
+    base_config: str,
+    logger=print,
+) -> int:
+    """Regenerate every PNG from existing analysis CSVs without rewriting statistics."""
+    failures = 0
+    subset_names = ("all_scenarios", "all_scenarios_wo_wrk3", "only_wrk", "no_wrk")
+    combined_cfg = _analysis_config(
+        base_config,
+        _measurement_plot_definitions(["method", "load"], "Method and Scenario"),
+    )
+    for method in METHODS:
+        method_title = _method_display_name(method)
+        per_load_cfg = _analysis_config(
+            base_config,
+            _measurement_plot_definitions(["method", "load"], "Method and Scenario", method_title),
+        )
+        subset_cfg = _analysis_config(
+            base_config,
+            _measurement_plot_definitions(["load"], "Scenario", method_title),
+        )
+        for load in LOADS:
+            failures += _regenerate_existing_plot_group(plots_root / method / load, per_load_cfg, logger)
+        for subset in subset_names:
+            failures += _regenerate_existing_plot_group(plots_root / method / subset, subset_cfg, logger)
+
+    for load in LOADS:
+        failures += _regenerate_existing_plot_group(plots_root / "combined" / load, combined_cfg, logger)
+    for subset in subset_names:
+        failures += _regenerate_existing_plot_group(plots_root / "combined" / subset, combined_cfg, logger)
+
+    failures += generate_scenario_probe_plots(batches, plots_root, base_config, logger=logger)
+    return failures
+
+
 def run_analysis(
     data_root: Path,
     plots_root: Path,
@@ -676,6 +749,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         action="store_true",
         help="Only regenerate the flat per-scenario probe-state timelines from existing metrics.csv files",
     )
+    parser.add_argument(
+        "--plots-only",
+        action="store_true",
+        help="Regenerate the complete existing plot structure without rewriting metrics or statistics",
+    )
     parser.add_argument("--probe-method", choices=METHODS, help="Limit --single-run-probes-only to one method")
     parser.add_argument("--probe-load", choices=LOADS, help="Limit --single-run-probes-only to one load")
     parser.add_argument(
@@ -686,6 +764,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
     data_root = Path(args.data_root).expanduser().resolve()
     plots_root = Path(args.plots_root).expanduser().resolve()
+    if args.single_run_probes_only and args.plots_only:
+        parser.error("--single-run-probes-only and --plots-only are mutually exclusive")
+    if args.plots_only:
+        _prepare_directories(plots_root)
+        failures = regenerate_existing_plots(
+            discover_batches(data_root),
+            plots_root,
+            args.config,
+            logger=print,
+        )
+        return 1 if failures else 0
     if args.single_run_probes_only:
         _prepare_directories(plots_root)
         failures = generate_scenario_probe_plots(

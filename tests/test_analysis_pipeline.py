@@ -14,8 +14,10 @@ try:
         _aggregate_downtime_segments_group_timeline_quantiles,
         _aggregate_vip_downtime_overlay_group_quantiles,
         _adaptive_hist_bin_count,
+        _axis_tick_label,
         _build_downtime_segments_run_timeline_rows,
         _build_vip_downtime_overlay_windows,
+        _downtime_right_limit,
         _median_ci_bootstrap,
         _plot_group_labels,
         _plot_title_value,
@@ -93,6 +95,16 @@ class AnalysisPipelineTests(unittest.TestCase):
         plots_cfg = {"show_titles": False}
         self.assertEqual(_plot_title_value({"title": "Hidden"}, "plot-a", plots_cfg), "")
         self.assertEqual(_plot_title_value({"title": "Visible", "show_title": True}, "plot-a", plots_cfg), "Visible")
+
+    def test_axis_tick_labels_can_hide_sample_counts(self):
+        self.assertEqual(_axis_tick_label("precopy / idle", 100, False, multiline=True), "precopy / idle")
+        self.assertEqual(_axis_tick_label("precopy / idle", 100, True, multiline=True), "precopy / idle\n(n=100)")
+
+    def test_downtime_right_limit_compacts_and_rounds_from_drawn_data(self):
+        data = pd.DataFrame({"method": ["precopy", "postcopy"]})
+        spec = {"xmax_padding_fraction": 0.065, "xmax_round_to_ms": 50}
+        self.assertEqual(_downtime_right_limit(1693, spec, data), 1850)
+        self.assertEqual(_downtime_right_limit(3568, spec, data), 3800)
 
     def test_plot_legend_can_be_placed_above_axes(self):
         import matplotlib.pyplot as plt
