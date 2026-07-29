@@ -111,7 +111,7 @@ clm run --env "$ENV" --method precopy  --load wrk2 --repeats 100 --analyse --ana
 clm run --env "$ENV" --method postcopy --load wrk2 --repeats 100 --analyse --analysis-config "$AN"
 ```
 
-### wrk3 -
+### wrk3 - fertig
 
 ```bash
 clm run --env "$ENV" --method precopy  --load wrk3 --repeats 100 --analyse --analysis-config "$AN"

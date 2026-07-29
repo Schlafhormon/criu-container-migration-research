@@ -28,7 +28,7 @@ measurement reproducibility.
 | `stream` | Target `vip`, `format: raw`, `payload_kb: 64`, `interval_ms: 200`, `limit: 0`, `parallel: 1`. |
 | `wrk1` | Target `vip`, `threads: 1`, `connections: 10`, `duration: 30s`, `timeout: 2s`, `path: /health`, latency enabled. |
 | `wrk2` | Same as `wrk1`, but `connections: 20`. |
-| `wrk3` | Same as `wrk1`, but `connections: 50`. |
+| `wrk3` | Same as `wrk1`, but `connections: 30`. |
 
 The generic `wrk` profile remains available for exploratory runs. The paper
 scenario filter uses `idle`, `cpu`, `wrk1`, `wrk2`, `wrk3`, `download`,
