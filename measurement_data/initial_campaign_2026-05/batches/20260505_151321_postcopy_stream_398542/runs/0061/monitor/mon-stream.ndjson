@@ -1,0 +1,135 @@
+{"type": "stream_start", "ts": "2026-05-05T17:53:27.335Z", "ts_ms": 1777996407335, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:27.336Z", "ts_ms": 1777996407336, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:27.337Z", "ts_ms": 1777996407337, "name": "load_stream_vip", "url": "http://192.168.13.50:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:27.337Z", "ts_ms": 1777996407338, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:27.838Z", "ts_ms": 1777996407838, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:27.840Z", "ts_ms": 1777996407840, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:27.942Z", "ts_ms": 1777996407942, "name": "load_stream_vip", "mode": "raw", "bytes_total": 262144, "dt_ms": 605, "inst_bps": 433295.868}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:27.943Z", "ts_ms": 1777996407943, "name": "src", "mode": "raw", "bytes_total": 262144, "dt_ms": 608, "inst_bps": 431157.895}
+{"type": "stream_start", "ts": "2026-05-05T17:53:28.341Z", "ts_ms": 1777996408341, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:28.344Z", "ts_ms": 1777996408344, "name": "dst", "mode": "raw", "duration_ms": 3, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:28.544Z", "ts_ms": 1777996408544, "name": "src", "mode": "raw", "bytes_total": 458752, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:28.545Z", "ts_ms": 1777996408544, "name": "load_stream_vip", "mode": "raw", "bytes_total": 458752, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:28.845Z", "ts_ms": 1777996408845, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:28.847Z", "ts_ms": 1777996408847, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:29.145Z", "ts_ms": 1777996409145, "name": "load_stream_vip", "mode": "raw", "bytes_total": 655360, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:29.146Z", "ts_ms": 1777996409146, "name": "src", "mode": "raw", "bytes_total": 655360, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:29.347Z", "ts_ms": 1777996409347, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:29.349Z", "ts_ms": 1777996409349, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:29.747Z", "ts_ms": 1777996409747, "name": "load_stream_vip", "mode": "raw", "bytes_total": 851968, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:29.747Z", "ts_ms": 1777996409747, "name": "src", "mode": "raw", "bytes_total": 851968, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:29.850Z", "ts_ms": 1777996409849, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:29.852Z", "ts_ms": 1777996409852, "name": "dst", "mode": "raw", "duration_ms": 3, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:30.348Z", "ts_ms": 1777996410348, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1048576, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:30.349Z", "ts_ms": 1777996410349, "name": "src", "mode": "raw", "bytes_total": 1048576, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:30.355Z", "ts_ms": 1777996410355, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:30.362Z", "ts_ms": 1777996410362, "name": "dst", "mode": "raw", "duration_ms": 6, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:30.862Z", "ts_ms": 1777996410862, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:30.863Z", "ts_ms": 1777996410863, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:30.948Z", "ts_ms": 1777996410948, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1245184, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:30.949Z", "ts_ms": 1777996410949, "name": "src", "mode": "raw", "bytes_total": 1245184, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-05-05T17:53:31.363Z", "ts_ms": 1777996411363, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:31.365Z", "ts_ms": 1777996411365, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:31.550Z", "ts_ms": 1777996411550, "name": "src", "mode": "raw", "bytes_total": 1441792, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:31.550Z", "ts_ms": 1777996411550, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1441792, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:31.865Z", "ts_ms": 1777996411865, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:31.866Z", "ts_ms": 1777996411866, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:32.151Z", "ts_ms": 1777996412151, "name": "src", "mode": "raw", "bytes_total": 1638400, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:32.151Z", "ts_ms": 1777996412151, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1638400, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:32.366Z", "ts_ms": 1777996412366, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:32.368Z", "ts_ms": 1777996412368, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:32.868Z", "ts_ms": 1777996412868, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:32.870Z", "ts_ms": 1777996412870, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:33.371Z", "ts_ms": 1777996413371, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:33.372Z", "ts_ms": 1777996413372, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:33.873Z", "ts_ms": 1777996413873, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:33.874Z", "ts_ms": 1777996413874, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:34.375Z", "ts_ms": 1777996414375, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:34.375Z", "ts_ms": 1777996414375, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:34.876Z", "ts_ms": 1777996414876, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:34.877Z", "ts_ms": 1777996414877, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:35.377Z", "ts_ms": 1777996415377, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:35.379Z", "ts_ms": 1777996415379, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:35.879Z", "ts_ms": 1777996415879, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:35.881Z", "ts_ms": 1777996415881, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:36.381Z", "ts_ms": 1777996416381, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:36.383Z", "ts_ms": 1777996416383, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:36.883Z", "ts_ms": 1777996416883, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:36.885Z", "ts_ms": 1777996416885, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:37.385Z", "ts_ms": 1777996417385, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:37.386Z", "ts_ms": 1777996417386, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:37.886Z", "ts_ms": 1777996417886, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:37.888Z", "ts_ms": 1777996417888, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:38.388Z", "ts_ms": 1777996418388, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:38.389Z", "ts_ms": 1777996418389, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:38.890Z", "ts_ms": 1777996418889, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:38.891Z", "ts_ms": 1777996418891, "name": "dst", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:39.391Z", "ts_ms": 1777996419391, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:40.383Z", "ts_ms": 1777996420383, "name": "dst", "mode": "raw", "bytes_total": 65536, "dt_ms": 992, "inst_bps": 66064.516}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:40.982Z", "ts_ms": 1777996420982, "name": "dst", "mode": "raw", "bytes_total": 262144, "dt_ms": 599, "inst_bps": 328227.045}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:41.078Z", "ts_ms": 1777996421078, "name": "src", "mode": "raw", "duration_ms": 13743, "bytes": 1703936, "err": "IncompleteRead(0 bytes read)"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:41.087Z", "ts_ms": 1777996421087, "name": "load_stream_vip", "mode": "raw", "duration_ms": 13750, "bytes": 1703936, "err": "IncompleteRead(0 bytes read)"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:41.578Z", "ts_ms": 1777996421578, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:41.579Z", "ts_ms": 1777996421579, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:41.586Z", "ts_ms": 1777996421586, "name": "dst", "mode": "raw", "bytes_total": 458752, "dt_ms": 604, "inst_bps": 325509.934}
+{"type": "stream_start", "ts": "2026-05-05T17:53:41.588Z", "ts_ms": 1777996421588, "name": "load_stream_vip", "url": "http://192.168.13.50:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:42.080Z", "ts_ms": 1777996422080, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:42.081Z", "ts_ms": 1777996422081, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:42.188Z", "ts_ms": 1777996422188, "name": "dst", "mode": "raw", "bytes_total": 655360, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:42.195Z", "ts_ms": 1777996422195, "name": "load_stream_vip", "mode": "raw", "bytes_total": 262144, "dt_ms": 607, "inst_bps": 431868.204}
+{"type": "stream_start", "ts": "2026-05-05T17:53:42.582Z", "ts_ms": 1777996422581, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:42.583Z", "ts_ms": 1777996422583, "name": "src", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:42.789Z", "ts_ms": 1777996422789, "name": "dst", "mode": "raw", "bytes_total": 851968, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:42.796Z", "ts_ms": 1777996422795, "name": "load_stream_vip", "mode": "raw", "bytes_total": 458752, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-05-05T17:53:43.083Z", "ts_ms": 1777996423083, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:43.084Z", "ts_ms": 1777996423084, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:43.389Z", "ts_ms": 1777996423389, "name": "dst", "mode": "raw", "bytes_total": 1048576, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:43.396Z", "ts_ms": 1777996423396, "name": "load_stream_vip", "mode": "raw", "bytes_total": 655360, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:43.585Z", "ts_ms": 1777996423585, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:43.586Z", "ts_ms": 1777996423586, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:43.991Z", "ts_ms": 1777996423991, "name": "dst", "mode": "raw", "bytes_total": 1245184, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:43.999Z", "ts_ms": 1777996423999, "name": "load_stream_vip", "mode": "raw", "bytes_total": 851968, "dt_ms": 603, "inst_bps": 326049.751}
+{"type": "stream_start", "ts": "2026-05-05T17:53:44.086Z", "ts_ms": 1777996424086, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:44.088Z", "ts_ms": 1777996424088, "name": "src", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:44.588Z", "ts_ms": 1777996424588, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:44.589Z", "ts_ms": 1777996424589, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:44.591Z", "ts_ms": 1777996424591, "name": "dst", "mode": "raw", "bytes_total": 1441792, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-05-05T17:53:45.089Z", "ts_ms": 1777996425089, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:45.091Z", "ts_ms": 1777996425091, "name": "src", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:45.193Z", "ts_ms": 1777996425193, "name": "dst", "mode": "raw", "bytes_total": 1638400, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:45.591Z", "ts_ms": 1777996425591, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:45.592Z", "ts_ms": 1777996425592, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:45.794Z", "ts_ms": 1777996425794, "name": "dst", "mode": "raw", "bytes_total": 1835008, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:46.093Z", "ts_ms": 1777996426093, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:46.095Z", "ts_ms": 1777996426095, "name": "src", "mode": "raw", "duration_ms": 2, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:46.395Z", "ts_ms": 1777996426395, "name": "dst", "mode": "raw", "bytes_total": 2031616, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:46.595Z", "ts_ms": 1777996426595, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:46.596Z", "ts_ms": 1777996426596, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:46.996Z", "ts_ms": 1777996426996, "name": "dst", "mode": "raw", "bytes_total": 2228224, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:47.097Z", "ts_ms": 1777996427097, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:47.098Z", "ts_ms": 1777996427098, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:47.596Z", "ts_ms": 1777996427596, "name": "dst", "mode": "raw", "bytes_total": 2424832, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-05-05T17:53:47.599Z", "ts_ms": 1777996427598, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:47.599Z", "ts_ms": 1777996427600, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:48.100Z", "ts_ms": 1777996428100, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:48.101Z", "ts_ms": 1777996428101, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:48.197Z", "ts_ms": 1777996428197, "name": "dst", "mode": "raw", "bytes_total": 2621440, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:48.601Z", "ts_ms": 1777996428601, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:48.604Z", "ts_ms": 1777996428604, "name": "src", "mode": "raw", "duration_ms": 3, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:48.798Z", "ts_ms": 1777996428798, "name": "dst", "mode": "raw", "bytes_total": 2818048, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:49.104Z", "ts_ms": 1777996429104, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:49.106Z", "ts_ms": 1777996429106, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:49.399Z", "ts_ms": 1777996429399, "name": "dst", "mode": "raw", "bytes_total": 3014656, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:49.606Z", "ts_ms": 1777996429606, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:49.607Z", "ts_ms": 1777996429607, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:50.001Z", "ts_ms": 1777996430001, "name": "dst", "mode": "raw", "bytes_total": 3211264, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_start", "ts": "2026-05-05T17:53:50.107Z", "ts_ms": 1777996430107, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:50.115Z", "ts_ms": 1777996430115, "name": "src", "mode": "raw", "duration_ms": 8, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:50.602Z", "ts_ms": 1777996430602, "name": "dst", "mode": "raw", "bytes_total": 3407872, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-05-05T17:53:50.616Z", "ts_ms": 1777996430616, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:50.618Z", "ts_ms": 1777996430618, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-05-05T17:53:51.118Z", "ts_ms": 1777996431118, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:51.121Z", "ts_ms": 1777996431121, "name": "src", "mode": "raw", "duration_ms": 3, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_progress", "ts": "2026-05-05T17:53:51.205Z", "ts_ms": 1777996431205, "name": "dst", "mode": "raw", "bytes_total": 3604480, "dt_ms": 603, "inst_bps": 326049.751}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:51.405Z", "ts_ms": 1777996431405, "name": "dst", "mode": "raw", "duration_ms": 12014, "bytes": 3670016, "err": ""}
+{"type": "stream_disconnect", "ts": "2026-05-05T17:53:54.009Z", "ts_ms": 1777996434009, "name": "load_stream_vip", "mode": "raw", "duration_ms": 12421, "bytes": 851968, "err": "timed out"}

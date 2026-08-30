@@ -1,0 +1,479 @@
+{
+  "migration_method": "postcopy",
+  "cutover_ms": 1778496063738,
+  "cutover_ms_event": 1778496063738,
+  "cutover_ms_event_raw": 1778496064070,
+  "cutover_event_name": "vip_cutover_start",
+  "cutover_event_clock_domain": "source",
+  "cutover_strategy": "events(offset_corrected)",
+  "clock_offsets_ms": {
+    "monitor": 0,
+    "source": 332,
+    "dest": 316
+  },
+  "http_downtime_ms": 12785,
+  "l4_downtime_ms": 3300,
+  "vip_http_client_visible_total_down_ms": 10335,
+  "vip_http_client_visible_down_segments": 6,
+  "vip_http_client_visible_outage_span_ms": 14533,
+  "vip_http_client_visible_first_down_ms": 1778496051046,
+  "vip_http_client_visible_final_recovery_ms": 1778496065579,
+  "vip_http_client_visible_window_start_ms": 1778496050494,
+  "vip_http_client_visible_window_end_ms": 1778496067167,
+  "vip_http_client_visible_window_quality_flags": [],
+  "vip_http_client_visible_segments": [
+    {
+      "start_ms": 1778496051046,
+      "end_ms": 1778496059995,
+      "duration_ms": 8949,
+      "open_ended": false
+    },
+    {
+      "start_ms": 1778496061749,
+      "end_ms": 1778496061780,
+      "duration_ms": 31,
+      "open_ended": false
+    },
+    {
+      "start_ms": 1778496061851,
+      "end_ms": 1778496061879,
+      "duration_ms": 28,
+      "open_ended": false
+    },
+    {
+      "start_ms": 1778496062606,
+      "end_ms": 1778496062650,
+      "duration_ms": 44,
+      "open_ended": false
+    },
+    {
+      "start_ms": 1778496063419,
+      "end_ms": 1778496063439,
+      "duration_ms": 20,
+      "open_ended": false
+    },
+    {
+      "start_ms": 1778496064316,
+      "end_ms": 1778496065579,
+      "duration_ms": 1263,
+      "open_ended": false
+    }
+  ],
+  "vip_http_cutover_near_downtime_ms": 1263,
+  "vip_http_downtime_ms": 1263,
+  "vip_l4_downtime_ms": 1260,
+  "vip_http_cutover_gap_ms": 52,
+  "vip_l4_cutover_gap_ms": 51,
+  "vip_http_downphase_ms": 6205,
+  "vip_l4_downphase_ms": 1250,
+  "control_run": false,
+  "sampling_floor_http_ms": 50.0,
+  "sampling_floor_l4_ms": 50.0,
+  "segment_cutover_tolerance_http_ms": 2000,
+  "segment_cutover_tolerance_l4_ms": 2000,
+  "cutover_window_ms": 10000,
+  "downtime_interpretation": "migration_downtime",
+  "sanity_flags": [],
+  "final_dump_start_ms_event": null,
+  "final_dump_done_ms_event": null,
+  "transfer_start_ms_event": 1778496051169,
+  "transfer_done_ms_event": 1778496053568,
+  "checkpoint_start_ms_event": 1778496050494,
+  "checkpoint_done_ms_event": 1778496060232,
+  "vip_prepare_start_ms_event": 1778496053593,
+  "vip_prepare_done_ms_event": null,
+  "dest_container_cleanup_start_ms_event": null,
+  "dest_container_cleanup_done_ms_event": null,
+  "restore_start_ms_event": 1778496056834,
+  "restore_done_ms_event": 1778496058859,
+  "restore_exec_start_ms_event": null,
+  "restore_exec_done_ms_event": null,
+  "dest_readiness_wait_start_ms_event": 1778496060279,
+  "dest_readiness_ok_ms_event": 1778496062569,
+  "postcopy_warmup_start_ms_event": 1778496062674,
+  "postcopy_warmup_done_ms_event": 1778496063600,
+  "postcopy_src_forward_start_ms_event": 1778496058918,
+  "postcopy_src_forward_ready_ms_event": 1778496059242,
+  "postcopy_src_forward_stop_start_ms_event": 1778496063856,
+  "postcopy_src_forward_stop_done_ms_event": 1778496064090,
+  "vip_cutover_start_ms_event": 1778496063738,
+  "vip_cutover_done_ms_event": 1778496066613,
+  "health_wait_start_ms_event": 1778496066659,
+  "health_ok_ms_event": 1778496067159,
+  "precopy_transfer_mode": null,
+  "precopy_transfer_note": null,
+  "precopy_transfer_verify_mode": null,
+  "postcopy_checkpoint_ms": 9738,
+  "precopy_final_dump_ms": null,
+  "precopy_transfer_prepare_ms": 2399,
+  "precopy_vip_prepare_ms": null,
+  "precopy_dest_container_cleanup_ms": null,
+  "precopy_transfer_to_restore_ms": 3266,
+  "precopy_restore_call_ms": 2025,
+  "precopy_transfer_to_restore_exec_ms": null,
+  "precopy_restore_launch_overhead_ms": null,
+  "precopy_restore_exec_ms": null,
+  "precopy_restore_return_overhead_ms": null,
+  "precopy_restore_to_cutover_ms": 4879,
+  "precopy_restore_exec_to_cutover_ms": null,
+  "postcopy_src_forward_mode": "iptables_dnat",
+  "postcopy_src_forward_setup_ms": 324,
+  "postcopy_src_forward_active_to_cutover_ms": 4496,
+  "postcopy_src_forward_stop_ms": 234,
+  "postcopy_restore_to_readiness_ms": 3710,
+  "postcopy_readiness_gate_ms": 2290,
+  "postcopy_readiness_to_warmup_done_ms": 1031,
+  "postcopy_warmup_duration_ms": 926,
+  "postcopy_warmup_impl": "single_remote_batch",
+  "postcopy_warmup_url_count": 2,
+  "postcopy_warmup_requests": 2,
+  "postcopy_warmup_failures": 0,
+  "postcopy_warmup_budget_hit": 0,
+  "postcopy_warmup_remote_elapsed_ms": 156,
+  "postcopy_warmup_completed_rounds": 1,
+  "postcopy_warmup_configured_rounds": 1,
+  "postcopy_warmup_transport_error": null,
+  "postcopy_warmup_to_cutover_ms": 138,
+  "postcopy_cutover_duration_ms": 2875,
+  "postcopy_cutover_to_health_ok_ms": 3421,
+  "postcopy_restore_to_health_ok_ms": 10325,
+  "t_vip_last_200": 1778496063691,
+  "t_vip_first_200": 1778496063743,
+  "t_l4_src_last_up": 1778496060484,
+  "t_l4_dst_first_up": 1778496063784,
+  "t_l4_vip_last_up": 1778496063734,
+  "t_l4_vip_first_up": 1778496063785,
+  "vip_http_cutover_near_segment_start_ms": 1778496064316,
+  "vip_http_cutover_near_segment_end_ms": 1778496065579,
+  "vip_http_segment_start_ms": 1778496064316,
+  "vip_http_segment_end_ms": 1778496065579,
+  "vip_l4_segment_start_ms": 1778496064323,
+  "vip_l4_segment_end_ms": 1778496065583,
+  "downtime_breakdown": {
+    "version": 1,
+    "client_visible_vip_http": {
+      "basis_start_ms": 1778496051046,
+      "basis_end_ms": 1778496065579,
+      "total_ms": 10335,
+      "basis_metric": "vip_http_client_visible_total_down_ms",
+      "method": "postcopy",
+      "segments": [
+        {
+          "phase_id": "down_segment_1",
+          "label": "VIP HTTP down segment 1",
+          "phase_group": "http_down",
+          "start_ms": 1778496051046,
+          "end_ms": 1778496059995,
+          "duration_ms": 8949,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 1
+        },
+        {
+          "phase_id": "down_segment_2",
+          "label": "VIP HTTP down segment 2",
+          "phase_group": "http_down",
+          "start_ms": 1778496061749,
+          "end_ms": 1778496061780,
+          "duration_ms": 31,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 2
+        },
+        {
+          "phase_id": "down_segment_3",
+          "label": "VIP HTTP down segment 3",
+          "phase_group": "http_down",
+          "start_ms": 1778496061851,
+          "end_ms": 1778496061879,
+          "duration_ms": 28,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 3
+        },
+        {
+          "phase_id": "down_segment_4",
+          "label": "VIP HTTP down segment 4",
+          "phase_group": "http_down",
+          "start_ms": 1778496062606,
+          "end_ms": 1778496062650,
+          "duration_ms": 44,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 4
+        },
+        {
+          "phase_id": "down_segment_5",
+          "label": "VIP HTTP down segment 5",
+          "phase_group": "http_down",
+          "start_ms": 1778496063419,
+          "end_ms": 1778496063439,
+          "duration_ms": 20,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 5
+        },
+        {
+          "phase_id": "down_segment_6",
+          "label": "VIP HTTP down segment 6",
+          "phase_group": "http_down",
+          "start_ms": 1778496064316,
+          "end_ms": 1778496065579,
+          "duration_ms": 1263,
+          "status": "observed_down",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 6
+        }
+      ],
+      "quality_flags": [
+        "multiple_down_segments"
+      ]
+    },
+    "event_critical_path": {
+      "basis_start_ms": 1778496051169,
+      "basis_end_ms": 1778496067159,
+      "total_ms": 15990,
+      "basis_metric": null,
+      "method": "postcopy",
+      "segments": [
+        {
+          "phase_id": "transfer",
+          "label": "Transfer",
+          "phase_group": "transfer",
+          "start_ms": 1778496051169,
+          "end_ms": 1778496053568,
+          "marker_start": "transfer_start_ms_event",
+          "marker_end": "transfer_done_ms_event",
+          "status": "event",
+          "duration_ms": 2399,
+          "phase_order": 1
+        },
+        {
+          "phase_id": "transfer_to_restore",
+          "label": "Transfer to restore",
+          "phase_group": "handoff",
+          "start_ms": 1778496053568,
+          "end_ms": 1778496056834,
+          "marker_start": "transfer_done_ms_event",
+          "marker_end": "restore_start_ms_event",
+          "status": "event",
+          "duration_ms": 3266,
+          "phase_order": 2
+        },
+        {
+          "phase_id": "restore",
+          "label": "Restore",
+          "phase_group": "restore",
+          "start_ms": 1778496056834,
+          "end_ms": 1778496058859,
+          "marker_start": "restore_start_ms_event",
+          "marker_end": "restore_done_ms_event",
+          "status": "event",
+          "duration_ms": 2025,
+          "phase_order": 3
+        },
+        {
+          "phase_id": "unknown_gap",
+          "label": "Unknown / not explained by markers",
+          "phase_group": "unknown",
+          "start_ms": 1778496058859,
+          "end_ms": 1778496060279,
+          "duration_ms": 1420,
+          "status": "unknown",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 4
+        },
+        {
+          "phase_id": "readiness_gate",
+          "label": "Readiness gate",
+          "phase_group": "readiness",
+          "start_ms": 1778496060279,
+          "end_ms": 1778496062569,
+          "marker_start": "dest_readiness_wait_start_ms_event",
+          "marker_end": "dest_readiness_ok_ms_event",
+          "status": "event",
+          "duration_ms": 2290,
+          "phase_order": 5
+        },
+        {
+          "phase_id": "unknown_gap",
+          "label": "Unknown / not explained by markers",
+          "phase_group": "unknown",
+          "start_ms": 1778496062569,
+          "end_ms": 1778496062674,
+          "duration_ms": 105,
+          "status": "unknown",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 6
+        },
+        {
+          "phase_id": "warmup",
+          "label": "Warmup",
+          "phase_group": "warmup",
+          "start_ms": 1778496062674,
+          "end_ms": 1778496063600,
+          "marker_start": "postcopy_warmup_start_ms_event",
+          "marker_end": "postcopy_warmup_done_ms_event",
+          "status": "event",
+          "duration_ms": 926,
+          "phase_order": 7
+        },
+        {
+          "phase_id": "warmup_to_cutover",
+          "label": "Warmup to cutover",
+          "phase_group": "handoff",
+          "start_ms": 1778496063600,
+          "end_ms": 1778496063738,
+          "marker_start": "postcopy_warmup_done_ms_event",
+          "marker_end": "vip_cutover_start_ms_event",
+          "status": "event",
+          "duration_ms": 138,
+          "phase_order": 8
+        },
+        {
+          "phase_id": "vip_cutover",
+          "label": "VIP cutover",
+          "phase_group": "cutover",
+          "start_ms": 1778496063738,
+          "end_ms": 1778496066613,
+          "marker_start": "vip_cutover_start_ms_event",
+          "marker_end": "vip_cutover_done_ms_event",
+          "status": "event",
+          "duration_ms": 2875,
+          "phase_order": 9
+        },
+        {
+          "phase_id": "unknown_gap",
+          "label": "Unknown / not explained by markers",
+          "phase_group": "unknown",
+          "start_ms": 1778496066613,
+          "end_ms": 1778496066659,
+          "duration_ms": 46,
+          "status": "unknown",
+          "marker_start": null,
+          "marker_end": null,
+          "phase_order": 10
+        },
+        {
+          "phase_id": "health_wait",
+          "label": "Health wait",
+          "phase_group": "health",
+          "start_ms": 1778496066659,
+          "end_ms": 1778496067159,
+          "marker_start": "health_wait_start_ms_event",
+          "marker_end": "health_ok_ms_event",
+          "status": "event",
+          "duration_ms": 500,
+          "phase_order": 11
+        }
+      ],
+      "quality_flags": [
+        "unknown_present"
+      ]
+    }
+  },
+  "vip_http_samples_before": 200,
+  "vip_http_200_before": 71,
+  "vip_http_err_before": 129,
+  "vip_http_transport_err_before": 129,
+  "vip_http_non_200_before": 0,
+  "vip_http_samples_after": 164,
+  "vip_http_200_after": 136,
+  "vip_http_err_after": 28,
+  "vip_http_transport_err_after": 28,
+  "vip_http_non_200_after": 0,
+  "vip_l4_samples_before": 200,
+  "vip_l4_up_before": 199,
+  "vip_l4_down_before": 1,
+  "vip_l4_samples_after": 163,
+  "vip_l4_up_after": 137,
+  "vip_l4_down_after": 26,
+  "latency": {
+    "src": {
+      "p50_ms": 17.095,
+      "avg_ms": 17.871
+    },
+    "dst": {
+      "p50_ms": 16.83,
+      "avg_ms": 17.181
+    },
+    "vip": {
+      "p50_ms": 19.78,
+      "avg_ms": 20.772
+    }
+  },
+  "stream": {
+    "disconnects": 51,
+    "max_gap_ms": null,
+    "bytes_total": 0,
+    "duration_ms": 15699,
+    "avg_bps": 0.0,
+    "by_name": {
+      "src": {
+        "bytes_total": 0,
+        "duration_ms": 15652,
+        "avg_bps": 0.0,
+        "disconnects": 23,
+        "max_gap_ms": null
+      },
+      "dst": {
+        "bytes_total": 0,
+        "duration_ms": 47,
+        "avg_bps": 0.0,
+        "disconnects": 28,
+        "max_gap_ms": null
+      }
+    },
+    "aggregate": {
+      "bytes_total": 0,
+      "duration_ms": 15699,
+      "disconnects": 51,
+      "max_gap_ms": null,
+      "avg_bps": 0.0
+    }
+  },
+  "download": {
+    "by_name": {},
+    "aggregate": {
+      "bytes_total": 0,
+      "duration_ms": 0,
+      "disconnects": 0,
+      "max_gap_ms": null,
+      "avg_bps": null
+    }
+  },
+  "upload": {
+    "by_name": {},
+    "aggregate": {
+      "bytes_total": 0,
+      "duration_ms": 0,
+      "disconnects": 0,
+      "max_gap_ms": null,
+      "avg_bps": null
+    }
+  }
+}
+
+=== Downtime Summary ===
+HTTP (src last 200 -> dst first 200): 12785 ms
+L4   (src last up  -> dst first up ): 3300 ms
+VIP HTTP client-visible total down: 10335 ms in 6 segment(s)
+VIP HTTP client-visible outage span: 14533 ms
+VIP HTTP cutover-near downtime segment: 1263 ms
+VIP L4 downtime  (client-visible segment): 1260 ms
+VIP HTTP cutover-gap (legacy): 52 ms
+VIP L4 cutover-gap  (legacy): 51 ms
+VIP HTTP window counts: samples(before/after)=200/164, 200=71/136, ERR=129/28, non200=0/0
+VIP L4 window counts: samples(before/after)=200/163, up=199/137, down=1/26
+Latency p50/avg:  src={'p50_ms': 17.095, 'avg_ms': 17.871}  dst={'p50_ms': 16.83, 'avg_ms': 17.181}  vip={'p50_ms': 19.78, 'avg_ms': 20.772}
+Stream: disconnects=51, max_gap_ms=None
+Download: bytes_total=0, avg_bps=None, disconnects=0
+Upload: bytes_total=0, avg_bps=None, disconnects=0

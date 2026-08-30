@@ -1,0 +1,880 @@
+{
+  "version": 1,
+  "batch_id": "20260720_182830_postcopy_cpu_c52bf4",
+  "batch_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4",
+  "runs_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs",
+  "analysis_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis",
+  "method": "postcopy",
+  "load": "cpu",
+  "load_modes": [
+    "cpu"
+  ],
+  "repeats": 100,
+  "env_file": "config/env.yaml",
+  "start_ts": "2026-07-20T18:28:30Z",
+  "end_ts": "2026-07-20T19:10:42Z",
+  "status": "ok",
+  "auto_analyse": true,
+  "analysis_config": "config/analysis_paper.yaml",
+  "cli_args": [
+    "run",
+    "--env",
+    "config/env.yaml",
+    "--method",
+    "postcopy",
+    "--load",
+    "cpu",
+    "--repeats",
+    "100",
+    "--analyse",
+    "--analysis-config",
+    "config/analysis_paper.yaml"
+  ],
+  "repo_path": "~/ContainerLiveMigration",
+  "git_commit": "163d6a2",
+  "host": {
+    "hostname": "ubuntu-20",
+    "python": "3.13.3"
+  },
+  "runs": [
+    {
+      "batch_run": "0001",
+      "run_id": "20260720_182830_postcopy_01_4d6ade",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0001",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_182830_postcopy_01_4d6ade"
+    },
+    {
+      "batch_run": "0002",
+      "run_id": "20260720_182857_postcopy_02_e0fdfe",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0002",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_182857_postcopy_02_e0fdfe"
+    },
+    {
+      "batch_run": "0003",
+      "run_id": "20260720_182922_postcopy_03_2c39e9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0003",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_182922_postcopy_03_2c39e9"
+    },
+    {
+      "batch_run": "0004",
+      "run_id": "20260720_182947_postcopy_04_5c5451",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0004",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_182947_postcopy_04_5c5451"
+    },
+    {
+      "batch_run": "0005",
+      "run_id": "20260720_183013_postcopy_05_2d0157",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0005",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183013_postcopy_05_2d0157"
+    },
+    {
+      "batch_run": "0006",
+      "run_id": "20260720_183038_postcopy_06_b86ad2",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0006",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183038_postcopy_06_b86ad2"
+    },
+    {
+      "batch_run": "0007",
+      "run_id": "20260720_183103_postcopy_07_9db167",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0007",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183103_postcopy_07_9db167"
+    },
+    {
+      "batch_run": "0008",
+      "run_id": "20260720_183129_postcopy_08_02efcc",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0008",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183129_postcopy_08_02efcc"
+    },
+    {
+      "batch_run": "0009",
+      "run_id": "20260720_183154_postcopy_09_d9b733",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0009",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183154_postcopy_09_d9b733"
+    },
+    {
+      "batch_run": "0010",
+      "run_id": "20260720_183219_postcopy_10_59ecb3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0010",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183219_postcopy_10_59ecb3"
+    },
+    {
+      "batch_run": "0011",
+      "run_id": "20260720_183245_postcopy_11_983723",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0011",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183245_postcopy_11_983723"
+    },
+    {
+      "batch_run": "0012",
+      "run_id": "20260720_183310_postcopy_12_cbcd31",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0012",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183310_postcopy_12_cbcd31"
+    },
+    {
+      "batch_run": "0013",
+      "run_id": "20260720_183335_postcopy_13_6070c9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0013",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183335_postcopy_13_6070c9"
+    },
+    {
+      "batch_run": "0014",
+      "run_id": "20260720_183400_postcopy_14_16bc55",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0014",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183400_postcopy_14_16bc55"
+    },
+    {
+      "batch_run": "0015",
+      "run_id": "20260720_183426_postcopy_15_373763",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0015",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183426_postcopy_15_373763"
+    },
+    {
+      "batch_run": "0016",
+      "run_id": "20260720_183451_postcopy_16_98a25d",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0016",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183451_postcopy_16_98a25d"
+    },
+    {
+      "batch_run": "0017",
+      "run_id": "20260720_183516_postcopy_17_04e844",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0017",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183516_postcopy_17_04e844"
+    },
+    {
+      "batch_run": "0018",
+      "run_id": "20260720_183542_postcopy_18_b5fa83",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0018",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183542_postcopy_18_b5fa83"
+    },
+    {
+      "batch_run": "0019",
+      "run_id": "20260720_183607_postcopy_19_06170f",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0019",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183607_postcopy_19_06170f"
+    },
+    {
+      "batch_run": "0020",
+      "run_id": "20260720_183633_postcopy_20_821017",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0020",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183633_postcopy_20_821017"
+    },
+    {
+      "batch_run": "0021",
+      "run_id": "20260720_183658_postcopy_21_d7dba3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0021",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183658_postcopy_21_d7dba3"
+    },
+    {
+      "batch_run": "0022",
+      "run_id": "20260720_183723_postcopy_22_ed44bc",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0022",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183723_postcopy_22_ed44bc"
+    },
+    {
+      "batch_run": "0023",
+      "run_id": "20260720_183749_postcopy_23_b3b9f9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0023",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183749_postcopy_23_b3b9f9"
+    },
+    {
+      "batch_run": "0024",
+      "run_id": "20260720_183814_postcopy_24_335b5e",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0024",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183814_postcopy_24_335b5e"
+    },
+    {
+      "batch_run": "0025",
+      "run_id": "20260720_183839_postcopy_25_9252f9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0025",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183839_postcopy_25_9252f9"
+    },
+    {
+      "batch_run": "0026",
+      "run_id": "20260720_183904_postcopy_26_17a390",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0026",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183904_postcopy_26_17a390"
+    },
+    {
+      "batch_run": "0027",
+      "run_id": "20260720_183929_postcopy_27_907294",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0027",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183929_postcopy_27_907294"
+    },
+    {
+      "batch_run": "0028",
+      "run_id": "20260720_183955_postcopy_28_1b9f03",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0028",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_183955_postcopy_28_1b9f03"
+    },
+    {
+      "batch_run": "0029",
+      "run_id": "20260720_184020_postcopy_29_402317",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0029",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184020_postcopy_29_402317"
+    },
+    {
+      "batch_run": "0030",
+      "run_id": "20260720_184046_postcopy_30_2ce98e",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0030",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184046_postcopy_30_2ce98e"
+    },
+    {
+      "batch_run": "0031",
+      "run_id": "20260720_184111_postcopy_31_cae215",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0031",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184111_postcopy_31_cae215"
+    },
+    {
+      "batch_run": "0032",
+      "run_id": "20260720_184136_postcopy_32_71a426",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0032",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184136_postcopy_32_71a426"
+    },
+    {
+      "batch_run": "0033",
+      "run_id": "20260720_184201_postcopy_33_ed6e0d",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0033",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184201_postcopy_33_ed6e0d"
+    },
+    {
+      "batch_run": "0034",
+      "run_id": "20260720_184227_postcopy_34_edf1da",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0034",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184227_postcopy_34_edf1da"
+    },
+    {
+      "batch_run": "0035",
+      "run_id": "20260720_184252_postcopy_35_f0ebe3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0035",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184252_postcopy_35_f0ebe3"
+    },
+    {
+      "batch_run": "0036",
+      "run_id": "20260720_184317_postcopy_36_2fd89d",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0036",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184317_postcopy_36_2fd89d"
+    },
+    {
+      "batch_run": "0037",
+      "run_id": "20260720_184342_postcopy_37_fd5d5c",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0037",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184342_postcopy_37_fd5d5c"
+    },
+    {
+      "batch_run": "0038",
+      "run_id": "20260720_184408_postcopy_38_a4e7ba",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0038",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184408_postcopy_38_a4e7ba"
+    },
+    {
+      "batch_run": "0039",
+      "run_id": "20260720_184433_postcopy_39_50e9f4",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0039",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184433_postcopy_39_50e9f4"
+    },
+    {
+      "batch_run": "0040",
+      "run_id": "20260720_184459_postcopy_40_d41e33",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0040",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184459_postcopy_40_d41e33"
+    },
+    {
+      "batch_run": "0041",
+      "run_id": "20260720_184524_postcopy_41_fec4d3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0041",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184524_postcopy_41_fec4d3"
+    },
+    {
+      "batch_run": "0042",
+      "run_id": "20260720_184549_postcopy_42_34d0c9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0042",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184549_postcopy_42_34d0c9"
+    },
+    {
+      "batch_run": "0043",
+      "run_id": "20260720_184614_postcopy_43_a4a6ac",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0043",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184614_postcopy_43_a4a6ac"
+    },
+    {
+      "batch_run": "0044",
+      "run_id": "20260720_184640_postcopy_44_e88909",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0044",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184640_postcopy_44_e88909"
+    },
+    {
+      "batch_run": "0045",
+      "run_id": "20260720_184705_postcopy_45_107cf4",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0045",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184705_postcopy_45_107cf4"
+    },
+    {
+      "batch_run": "0046",
+      "run_id": "20260720_184730_postcopy_46_07bd41",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0046",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184730_postcopy_46_07bd41"
+    },
+    {
+      "batch_run": "0047",
+      "run_id": "20260720_184755_postcopy_47_592346",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0047",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184755_postcopy_47_592346"
+    },
+    {
+      "batch_run": "0048",
+      "run_id": "20260720_184820_postcopy_48_ee0bb7",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0048",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184820_postcopy_48_ee0bb7"
+    },
+    {
+      "batch_run": "0049",
+      "run_id": "20260720_184846_postcopy_49_154b10",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0049",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184846_postcopy_49_154b10"
+    },
+    {
+      "batch_run": "0050",
+      "run_id": "20260720_184911_postcopy_50_b829d6",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0050",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184911_postcopy_50_b829d6"
+    },
+    {
+      "batch_run": "0051",
+      "run_id": "20260720_184936_postcopy_51_647c95",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0051",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_184936_postcopy_51_647c95"
+    },
+    {
+      "batch_run": "0052",
+      "run_id": "20260720_185001_postcopy_52_a666ab",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0052",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185001_postcopy_52_a666ab"
+    },
+    {
+      "batch_run": "0053",
+      "run_id": "20260720_185026_postcopy_53_b989e3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0053",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185026_postcopy_53_b989e3"
+    },
+    {
+      "batch_run": "0054",
+      "run_id": "20260720_185052_postcopy_54_f59db0",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0054",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185052_postcopy_54_f59db0"
+    },
+    {
+      "batch_run": "0055",
+      "run_id": "20260720_185117_postcopy_55_b71ce3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0055",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185117_postcopy_55_b71ce3"
+    },
+    {
+      "batch_run": "0056",
+      "run_id": "20260720_185143_postcopy_56_98e934",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0056",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185143_postcopy_56_98e934"
+    },
+    {
+      "batch_run": "0057",
+      "run_id": "20260720_185208_postcopy_57_4b1ca7",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0057",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185208_postcopy_57_4b1ca7"
+    },
+    {
+      "batch_run": "0058",
+      "run_id": "20260720_185234_postcopy_58_e1f14a",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0058",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185234_postcopy_58_e1f14a"
+    },
+    {
+      "batch_run": "0059",
+      "run_id": "20260720_185259_postcopy_59_396f95",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0059",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185259_postcopy_59_396f95"
+    },
+    {
+      "batch_run": "0060",
+      "run_id": "20260720_185325_postcopy_60_1e7d0d",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0060",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185325_postcopy_60_1e7d0d"
+    },
+    {
+      "batch_run": "0061",
+      "run_id": "20260720_185350_postcopy_61_0e75e3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0061",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185350_postcopy_61_0e75e3"
+    },
+    {
+      "batch_run": "0062",
+      "run_id": "20260720_185415_postcopy_62_250c62",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0062",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185415_postcopy_62_250c62"
+    },
+    {
+      "batch_run": "0063",
+      "run_id": "20260720_185440_postcopy_63_1ede67",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0063",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185440_postcopy_63_1ede67"
+    },
+    {
+      "batch_run": "0064",
+      "run_id": "20260720_185506_postcopy_64_4a2a5b",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0064",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185506_postcopy_64_4a2a5b"
+    },
+    {
+      "batch_run": "0065",
+      "run_id": "20260720_185531_postcopy_65_cc13de",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0065",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185531_postcopy_65_cc13de"
+    },
+    {
+      "batch_run": "0066",
+      "run_id": "20260720_185556_postcopy_66_72706c",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0066",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185556_postcopy_66_72706c"
+    },
+    {
+      "batch_run": "0067",
+      "run_id": "20260720_185622_postcopy_67_12efe9",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0067",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185622_postcopy_67_12efe9"
+    },
+    {
+      "batch_run": "0068",
+      "run_id": "20260720_185647_postcopy_68_e67544",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0068",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185647_postcopy_68_e67544"
+    },
+    {
+      "batch_run": "0069",
+      "run_id": "20260720_185712_postcopy_69_7922c3",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0069",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185712_postcopy_69_7922c3"
+    },
+    {
+      "batch_run": "0070",
+      "run_id": "20260720_185738_postcopy_70_67e4aa",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0070",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185738_postcopy_70_67e4aa"
+    },
+    {
+      "batch_run": "0071",
+      "run_id": "20260720_185803_postcopy_71_ad972d",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0071",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185803_postcopy_71_ad972d"
+    },
+    {
+      "batch_run": "0072",
+      "run_id": "20260720_185828_postcopy_72_b74ea4",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0072",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185828_postcopy_72_b74ea4"
+    },
+    {
+      "batch_run": "0073",
+      "run_id": "20260720_185853_postcopy_73_3dc565",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0073",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185853_postcopy_73_3dc565"
+    },
+    {
+      "batch_run": "0074",
+      "run_id": "20260720_185918_postcopy_74_d7aff4",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0074",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185918_postcopy_74_d7aff4"
+    },
+    {
+      "batch_run": "0075",
+      "run_id": "20260720_185944_postcopy_75_a5adc8",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0075",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_185944_postcopy_75_a5adc8"
+    },
+    {
+      "batch_run": "0076",
+      "run_id": "20260720_190009_postcopy_76_6e708c",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0076",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190009_postcopy_76_6e708c"
+    },
+    {
+      "batch_run": "0077",
+      "run_id": "20260720_190034_postcopy_77_5b5386",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0077",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190034_postcopy_77_5b5386"
+    },
+    {
+      "batch_run": "0078",
+      "run_id": "20260720_190100_postcopy_78_496bdb",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0078",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190100_postcopy_78_496bdb"
+    },
+    {
+      "batch_run": "0079",
+      "run_id": "20260720_190125_postcopy_79_c0b323",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0079",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190125_postcopy_79_c0b323"
+    },
+    {
+      "batch_run": "0080",
+      "run_id": "20260720_190150_postcopy_80_b5ca90",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0080",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190150_postcopy_80_b5ca90"
+    },
+    {
+      "batch_run": "0081",
+      "run_id": "20260720_190216_postcopy_81_554779",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0081",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190216_postcopy_81_554779"
+    },
+    {
+      "batch_run": "0082",
+      "run_id": "20260720_190241_postcopy_82_361d54",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0082",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190241_postcopy_82_361d54"
+    },
+    {
+      "batch_run": "0083",
+      "run_id": "20260720_190306_postcopy_83_dc2149",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0083",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190306_postcopy_83_dc2149"
+    },
+    {
+      "batch_run": "0084",
+      "run_id": "20260720_190332_postcopy_84_6981bc",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0084",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190332_postcopy_84_6981bc"
+    },
+    {
+      "batch_run": "0085",
+      "run_id": "20260720_190357_postcopy_85_57c75f",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0085",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190357_postcopy_85_57c75f"
+    },
+    {
+      "batch_run": "0086",
+      "run_id": "20260720_190423_postcopy_86_4194f5",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0086",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190423_postcopy_86_4194f5"
+    },
+    {
+      "batch_run": "0087",
+      "run_id": "20260720_190448_postcopy_87_361a6a",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0087",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190448_postcopy_87_361a6a"
+    },
+    {
+      "batch_run": "0088",
+      "run_id": "20260720_190513_postcopy_88_15dc2b",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0088",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190513_postcopy_88_15dc2b"
+    },
+    {
+      "batch_run": "0089",
+      "run_id": "20260720_190539_postcopy_89_006cb1",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0089",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190539_postcopy_89_006cb1"
+    },
+    {
+      "batch_run": "0090",
+      "run_id": "20260720_190604_postcopy_90_d51535",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0090",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190604_postcopy_90_d51535"
+    },
+    {
+      "batch_run": "0091",
+      "run_id": "20260720_190629_postcopy_91_0c4193",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0091",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190629_postcopy_91_0c4193"
+    },
+    {
+      "batch_run": "0092",
+      "run_id": "20260720_190655_postcopy_92_7681c8",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0092",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190655_postcopy_92_7681c8"
+    },
+    {
+      "batch_run": "0093",
+      "run_id": "20260720_190720_postcopy_93_46f6ad",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0093",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190720_postcopy_93_46f6ad"
+    },
+    {
+      "batch_run": "0094",
+      "run_id": "20260720_190745_postcopy_94_019bcc",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0094",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190745_postcopy_94_019bcc"
+    },
+    {
+      "batch_run": "0095",
+      "run_id": "20260720_190811_postcopy_95_a34f82",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0095",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190811_postcopy_95_a34f82"
+    },
+    {
+      "batch_run": "0096",
+      "run_id": "20260720_190836_postcopy_96_ee4411",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0096",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190836_postcopy_96_ee4411"
+    },
+    {
+      "batch_run": "0097",
+      "run_id": "20260720_190901_postcopy_97_b67194",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0097",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190901_postcopy_97_b67194"
+    },
+    {
+      "batch_run": "0098",
+      "run_id": "20260720_190926_postcopy_98_83bfc4",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0098",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190926_postcopy_98_83bfc4"
+    },
+    {
+      "batch_run": "0099",
+      "run_id": "20260720_190952_postcopy_99_c45777",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0099",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_190952_postcopy_99_c45777"
+    },
+    {
+      "batch_run": "0100",
+      "run_id": "20260720_191017_postcopy_100_0e7c48",
+      "run_dir": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/runs/0100",
+      "status": "ok",
+      "analyze_rc": 0,
+      "legacy_path": "/mnt/criu/runs/20260720_191017_postcopy_100_0e7c48"
+    }
+  ],
+  "analysis": {
+    "runs_total": 100,
+    "rows_ingested": 100,
+    "rows_included": 100,
+    "rows_excluded": 0,
+    "rows_skipped_missing_summary": 0,
+    "rows_skipped_invalid_summary": 0,
+    "rows_excluded_failed_analyze": 0,
+    "metrics_csv": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/metrics.csv",
+    "downtime_segments_csv": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/downtime_segments.csv",
+    "summary_stats_json": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/summary_stats.json",
+    "summary_stats_csv": "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/summary_stats.csv",
+    "plots": [
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_vip_http_client_visible_total_down.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/median_ci_vip_http_client_visible_total_down_scenario_method.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_vip_l4_downtime.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/hist_vip_http_client_visible_total_down.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/scatter_vip_downphase_vs_downtime.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/scatter_vip_http_vs_l4_downtime.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_src_p50.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_dst_p50.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_vip_p50.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_src_avg.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_dst_avg.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_vip_avg.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_latency_delta_dst_src_p50.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_stream_disconnects.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/box_download_disconnects.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/probe_state_timeline_single_run.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/downtime_segments_group_event_critical_path.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/downtime_timeline_quantiles_event_critical_path_postcopy.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/downtime_timeline_quantiles_client_visible_http.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/paper_all_scenarios_vip_http_client_visible_total_down.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/paper_all_scenarios_vip_l4_downtime.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/paper_postcopy_all_scenarios_vip_http_client_visible_total_down.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/paper_postcopy_no_wrk_vip_http_client_visible_total_down.png",
+      "/mnt/criu/runs/batches/20260720_182830_postcopy_cpu_c52bf4/analysis/plots/paper_postcopy_all_scenarios_event_path.png"
+    ]
+  }
+}

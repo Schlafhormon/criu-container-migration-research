@@ -1,0 +1,26 @@
+{"event": "clock_offset_estimate", "host": "monitor", "offset_ms": 0, "rtt_ms": 0.0, "samples_ok": 1, "samples_req": 1, "ts_unix_ms": 1777976302343, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "source", "offset_ms": 323, "rtt_ms": 659.477, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1777976302351, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "dest", "offset_ms": 326, "rtt_ms": 662.693, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1777976302356, "clock_domain": "monitor"}
+{"event": "monitor_start", "ts_unix_ms": 1777976302369, "clock_domain": "monitor"}
+{"ts_unix_ms":1777976306029,"event":"script_start","clock_domain":"source","mode":"runc","name":"testweb","run_id":"20260505_101812_precopy_02_da492f"}
+{"ts_unix_ms":1777976306132,"event":"precopy_image_path_mode","clock_domain":"source","mode":"shared","restore_images_base":"/mnt/criu/runc/testweb/pc-20260505_101812_precopy_02_da492f"}
+{"ts_unix_ms":1777976306207,"event":"vip_cutover_config","clock_domain":"source","garp_count":"3","garp_interval_ms":"200","garp_mode":"A","conntrack_clear_src":"0","conntrack_clear_dst":"1"}
+{"ts_unix_ms":1777976307251,"event":"vip_prepare_start","clock_domain":"source","net_mode":"host","vip":"192.168.13.50","port":"8080"}
+{"ts_unix_ms":1777976307594,"event":"vip_prepare_done","clock_domain":"source","net_mode":"host","vip":"192.168.13.50","port":"8080","dur_ms":"256"}
+{"ts_unix_ms":1777976307685,"event":"dest_container_cleanup_start","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777976307843,"event":"dest_container_cleanup_done","clock_domain":"source","target":"192.168.13.15","dur_ms":"121"}
+{"ts_unix_ms":1777976307903,"event":"final_dump_start","clock_domain":"source"}
+{"ts_unix_ms":1777976308424,"event":"final_dump_done","clock_domain":"source","dur_ms":"505"}
+{"ts_unix_ms":1777976308446,"event":"transfer_start","clock_domain":"source","mode":"shared","restore_images_base":"/mnt/criu/runc/testweb/pc-20260505_101812_precopy_02_da492f"}
+{"ts_unix_ms":1777976308499,"event":"transfer_done","clock_domain":"source","mode":"shared","note":"shared_inventory_visible","verify_mode":"inventory_only","dur_ms":"26","restore_images_base":"/mnt/criu/runc/testweb/pc-20260505_101812_precopy_02_da492f"}
+{"ts_unix_ms":1777976308556,"event":"restore_start","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777976308642,"event":"restore_exec_start","clock_domain":"dest","target":"192.168.13.15"}
+{"ts_unix_ms":1777976309427,"event":"restore_exec_done","clock_domain":"dest","target":"192.168.13.15"}
+{"ts_unix_ms":1777976309458,"event":"restore_done","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777976309478,"event":"vip_cutover_start","clock_domain":"source","garp_mode":"A","garp_count":"3","garp_interval_ms":"200","conntrack_clear_src":"0"}
+{"ts_unix_ms":1777976310321,"event":"vip_cutover_done","clock_domain":"source","conntrack_src_cleared":"0","garp_mode":"A","garp_count":"3","garp_interval_ms":"200"}
+{"ts_unix_ms":1777976310368,"event":"health_wait_start","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777976310425,"event":"health_ok","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777976310445,"event":"summary","clock_domain":"source","mode":"runc","name":"testweb","cp":"pc-20260505_101812_precopy_02_da492f","pre_rounds":"0","tcp_est":"1","images_src":"/mnt/criu/runc/testweb/pc-20260505_101812_precopy_02_da492f","images_dst":"/var/lib/criu-local/runc/testweb/pc-20260505_101812_precopy_02_da492f","restore_images_base":"/mnt/criu/runc/testweb/pc-20260505_101812_precopy_02_da492f","precopy_image_mode":"shared","bundle_dst":"/mnt/criu/runc-bundle","vip":"192.168.13.50","net_mode":"host","vip_garp_count":"3","vip_garp_interval_ms":"200","vip_garp_mode":"A","vip_conntrack_clear_src":"0"}
+{"ts_unix_ms":1777976310609,"event":"script_done","clock_domain":"source"}
+{"event": "monitor_stop", "ts_unix_ms": 1777976317764, "clock_domain": "monitor"}

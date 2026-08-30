@@ -1,0 +1,45 @@
+[2026-05-05T17:11:58.256Z] RUN_ID=20260505_151143_precopy_97_89ae06 | Events -> /mnt/criu/logs/mon-20260505_151143_precopy_97_89ae06-events.ndjson
+[2026-05-05T17:11:58.761Z] Prüfe Containerstatus Quelle…
+awk: cmd. line:1: warning: regexp escape sequence `\"' is not a known regexp operator
+[2026-05-05T17:11:58.820Z] Portkollisionen benke2 (Info)…
+Error: ipv4: Address not found.
+[2026-05-05T17:11:59.061Z] Ziel-VIP/NAT-Bereinigung fertig in 119 ms
+[2026-05-05T17:11:59.156Z] Stale Dest-Container-Bereinigung fertig in 47 ms
+[2026-05-05T17:11:59.161Z] Finaler Dump → /mnt/criu/runc/testweb/pc-20260505_151143_precopy_97_89ae06/final (referenziert letzten Pre-Dump)
+[2026-05-05T17:11:59.511Z] Finaler Dump fertig in 317 ms
+[2026-05-05T17:11:59.513Z] Bereite Restore-Images fuer benke2 vor (mode=shared)…
+[2026-05-05T17:11:59.621Z] Image-Pfad bereit in 26 ms (mode=shared)
+[2026-05-05T17:11:59.624Z] Restore auf benke2 starten…
+[2026-05-05T17:12:00.667Z] Restore-Aufruf in 1006 ms
+[2026-05-05T17:12:00.714Z] VIP Cutover: 192.168.13.50 von Quelle entfernen…
+[2026-05-05T17:12:00.781Z] VIP Cutover: 192.168.13.50 auf Ziel hinzufügen…
+conntrack v1.4.8 (conntrack-tools): 0 flow entries have been deleted.
+ARPING 192.168.13.50 from 192.168.13.50 enp1s0
+Sent 1 probes (1 broadcast(s))
+Received 0 response(s)
+ARPING 192.168.13.50 from 192.168.13.50 enp1s0
+Sent 1 probes (1 broadcast(s))
+Received 0 response(s)
+ARPING 192.168.13.50 from 192.168.13.50 enp1s0
+Sent 1 probes (1 broadcast(s))
+Received 0 response(s)
+[2026-05-05T17:12:01.606Z] Warte auf HEALTH OK am Ziel: http://192.168.13.15:8080/health
+[2026-05-05T17:12:01.703Z] Health OK nach 2037 ms seit Restore-Start
+---- PHASE4 PRECOPY MARKER ----
+t_dump_start_ms=1777993919175
+t_dump_end_ms=1777993919492
+t_transfer_start_ms=1777993919541
+t_transfer_end_ms=1777993919567
+t_restore_start_ms=1777993919643
+t_restore_end_ms=1777993920649
+t_up_first_ok_ms=1777993921680
+mode=runc name=testweb cp=pc-20260505_151143_precopy_97_89ae06 pre_rounds=0 tcp_est=1
+precopy_image_mode=shared
+images_src=/mnt/criu/runc/testweb/pc-20260505_151143_precopy_97_89ae06
+images_dst=/var/lib/criu-local/runc/testweb/pc-20260505_151143_precopy_97_89ae06
+restore_images_base=/mnt/criu/runc/testweb/pc-20260505_151143_precopy_97_89ae06
+bundle_src=/mnt/criu/runc-bundle
+bundle_dst=/mnt/criu/runc-bundle
+vip=192.168.13.50/24 net_mode=host
+-------------------------------
+[2026-05-05T17:12:01.863Z] Pre-Copy Migration + VIP Cutover abgeschlossen.

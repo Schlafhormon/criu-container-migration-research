@@ -1,0 +1,38 @@
+{
+  "batch_id": "20260721_122120_precopy_wrk2_3e8926",
+  "batch_run": "0041",
+  "run_id": "20260721_123458_precopy_41_a9351a",
+  "method": "precopy",
+  "load": "wrk2",
+  "monitor_enabled": true,
+  "migrate_enabled": true,
+  "control_run": false,
+  "no_cleanup": false,
+  "status": "ok",
+  "start_ts": "2026-07-21T12:34:58Z",
+  "end_ts": "2026-07-21T12:35:18Z",
+  "error": null,
+  "analyze_rc": 0,
+  "cleanup": {
+    "run_status": "ok",
+    "cp_name": "pc-20260721_123458_precopy_41_a9351a",
+    "shared": {
+      "policy": "success_only",
+      "path": "/mnt/criu/runc/testweb/pc-20260721_123458_precopy_41_a9351a",
+      "attempted": true,
+      "ok": true
+    },
+    "local": {
+      "policy": "success_only",
+      "path": "/var/lib/criu-local/runc/testweb/pc-20260721_123458_precopy_41_a9351a",
+      "paths": {
+        "images": "/var/lib/criu-local/runc/testweb/pc-20260721_123458_precopy_41_a9351a",
+        "bundle": "/var/lib/criu-local/runc-bundle/testweb/pc-20260721_123458_precopy_41_a9351a",
+        "work": "/var/lib/criu-local/work/testweb/pc-20260721_123458_precopy_41_a9351a",
+        "runtime": "/var/lib/criu-local/runtime/testweb/pc-20260721_123458_precopy_41_a9351a"
+      },
+      "attempted": true,
+      "ok": true
+    }
+  }
+}

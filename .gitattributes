@@ -1,0 +1,4 @@
+# Preserve published raw measurement artifacts byte-for-byte. In particular,
+# do not apply platform-specific line-ending conversion to CSV, JSON, NDJSON,
+# YAML, or log files below this directory.
+measurement_data/** -text

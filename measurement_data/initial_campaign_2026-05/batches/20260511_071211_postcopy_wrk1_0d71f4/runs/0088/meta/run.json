@@ -1,0 +1,32 @@
+{
+  "batch_id": "20260511_071211_postcopy_wrk1_0d71f4",
+  "batch_run": "0088",
+  "run_id": "20260511_081756_postcopy_88_0e9d24",
+  "method": "postcopy",
+  "load": "wrk1",
+  "monitor_enabled": true,
+  "migrate_enabled": true,
+  "control_run": false,
+  "no_cleanup": false,
+  "status": "ok",
+  "start_ts": "2026-05-11T08:17:57Z",
+  "end_ts": "2026-05-11T08:18:40Z",
+  "error": null,
+  "analyze_rc": 0,
+  "cleanup": {
+    "run_status": "ok",
+    "cp_name": "pcpost-20260511_081756_postcopy_88_0e9d24",
+    "shared": {
+      "policy": "success_only",
+      "path": "/mnt/criu/runc/testweb/pcpost-20260511_081756_postcopy_88_0e9d24",
+      "attempted": true,
+      "ok": true
+    },
+    "local": {
+      "policy": "success_only",
+      "path": "/var/lib/criu-local/runc/testweb/pcpost-20260511_081756_postcopy_88_0e9d24",
+      "attempted": true,
+      "ok": true
+    }
+  }
+}

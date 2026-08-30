@@ -29,3 +29,9 @@ tests/testruns/
 # Local lab configuration and diagnostics
 config/env.yaml
 scripts/hostinfo/
+
+# Published measurement campaigns intentionally include per-run logs and
+# newline-delimited event/monitor data. Keep the exceptions scoped to the
+# checked-in measurement data.
+!measurement_data/**/*.log
+!measurement_data/**/*.ndjson

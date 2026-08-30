@@ -1,0 +1,37 @@
+{"event": "clock_offset_estimate", "host": "monitor", "offset_ms": 0, "rtt_ms": 0.0, "samples_ok": 1, "samples_req": 1, "ts_unix_ms": 1777981870367, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "source", "offset_ms": 291, "rtt_ms": 588.301, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1777981870379, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "dest", "offset_ms": 323, "rtt_ms": 660.521, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1777981870386, "clock_domain": "monitor"}
+{"event": "monitor_start", "ts_unix_ms": 1777981870410, "clock_domain": "monitor"}
+{"ts_unix_ms":1777981874068,"event":"script_start","clock_domain":"source","mode":"runc","name":"testweb","run_id":"20260505_115100_postcopy_62_cf2823"}
+{"ts_unix_ms":1777981874117,"event":"vip_cutover_config","clock_domain":"source","garp_count":"3","garp_interval_ms":"200","garp_mode":"A","conntrack_clear_src":"0","conntrack_clear_dst":"1","readiness_urls":"http://192.168.13.15:8080/health","readiness_stable_successes":"3","readiness_interval_ms":"200","readiness_timeout_ms":"10000","warmup_urls":"http://192.168.13.15:8080/ready,http://192.168.13.15:8080/counter","warmup_rounds":"1","warmup_interval_ms":"0","warmup_max_duration_ms":"400","warmup_impl":"single_remote_batch","src_forward_enable":"1","src_forward_mode":"iptables_dnat","src_forward_target_host":"192.168.13.15","src_forward_target_port":"8080"}
+{"ts_unix_ms":1777981876981,"event":"checkpoint_start","clock_domain":"source","lazy_addr":"192.168.13.10:27027"}
+{"ts_unix_ms":1777981877688,"event":"transfer_start","clock_domain":"source"}
+{"ts_unix_ms":1777981880064,"event":"transfer_done","clock_domain":"source","files_src":"54","bytes_src":"7701345","dur_ms":"2334"}
+{"ts_unix_ms":1777981880095,"event":"vip_prepare_start","clock_domain":"source","net_mode":"host","vip":"192.168.13.50","port":"8080"}
+{"ts_unix_ms":"$(date +%s%3N)","event":"lazy_daemon_start","clock_domain":"dest","addr":"192.168.13.10","port":"27027"}
+{"ts_unix_ms":1777981883124,"event":"restore_start","clock_domain":"source","target":"192.168.13.15","lazy":"1"}
+{"ts_unix_ms":"$(date +%s%3N)","event":"restore_start","clock_domain":"dest","target":"192.168.13.15","lazy":"1"}
+{"ts_unix_ms":"$(date +%s%3N)","event":"restore_done","clock_domain":"dest","target":"192.168.13.15"}
+{"ts_unix_ms":1777981884966,"event":"restore_done","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":1777981885014,"event":"postcopy_src_forward_start","clock_domain":"source","enabled":"1","mode":"iptables_dnat","target_host":"192.168.13.15","target_port":"8080"}
+{"ts_unix_ms":1777981885306,"event":"postcopy_src_forward_ready","clock_domain":"source","enabled":"1","mode":"iptables_dnat","target_host":"192.168.13.15","target_port":"8080","conntrack_cleared":"1","dur_ms":"293"}
+{"ts_unix_ms":1777981886462,"event":"checkpoint_done","clock_domain":"source","dur_ms":"9426"}
+{"ts_unix_ms":1777981886495,"event":"dest_readiness_wait_start","clock_domain":"source","urls":"http://192.168.13.15:8080/health","stable_needed":"3","interval_ms":"200","timeout_ms":"10000","probe_max_time_s":"2"}
+{"ts_unix_ms":1777981887129,"event":"dest_readiness_probe","clock_domain":"source","attempt":"1","ok":"1","stable":"1","urls":"200@0.005637s#1"}
+{"ts_unix_ms":1777981888078,"event":"dest_readiness_probe","clock_domain":"source","attempt":"2","ok":"1","stable":"2","urls":"200@0.010378s#1"}
+{"ts_unix_ms":1777981889007,"event":"dest_readiness_probe","clock_domain":"source","attempt":"3","ok":"1","stable":"3","urls":"200@0.002693s#1"}
+{"ts_unix_ms":1777981889069,"event":"dest_readiness_ok","clock_domain":"source","attempts":"3","stable":"3","dur_ms":"2572","urls":"200@0.002693s#1"}
+{"ts_unix_ms":1777981889164,"event":"postcopy_warmup_start","clock_domain":"source","urls":"http://192.168.13.15:8080/ready,http://192.168.13.15:8080/counter","rounds":"1","interval_ms":"0","max_duration_ms":"400","url_count":"2","impl":"single_remote_batch"}
+{"ts_unix_ms":1777981890079,"event":"postcopy_warmup_round","clock_domain":"source","round":"1","requests":"2","failures":"0","budget_hit":"0","remote_elapsed_ms":"130","urls":"200@0.007926s#0,200@0.003289s#0","impl":"single_remote_batch"}
+{"ts_unix_ms":1777981890167,"event":"postcopy_warmup_done","clock_domain":"source","rounds":"1","requests":"2","failures":"0","dur_ms":"1003","budget_hit":"0","max_duration_ms":"400","remote_elapsed_ms":"136","completed_rounds":"1","configured_rounds":"1","impl":"single_remote_batch"}
+{"ts_unix_ms":1777981890275,"event":"vip_cutover_start","clock_domain":"source","garp_mode":"A","garp_count":"3","garp_interval_ms":"200","conntrack_clear_src":"0","src_forward_active":"1"}
+{"ts_unix_ms":1777981890367,"event":"postcopy_src_forward_stop_start","clock_domain":"source","reason":"vip_cutover","mode":"iptables_dnat"}
+{"ts_unix_ms":1777981890569,"event":"postcopy_src_forward_stop_done","clock_domain":"source","reason":"vip_cutover","mode":"iptables_dnat","dur_ms":"205"}
+{"ts_unix_ms":1777981893076,"event":"vip_cutover_done","clock_domain":"source","conntrack_src_cleared":"0","garp_mode":"A","garp_count":"3","garp_interval_ms":"200"}
+{"ts_unix_ms":1777981893110,"event":"health_wait_start","clock_domain":"source","target":"192.168.13.15","url":"http://192.168.13.15:8080/health"}
+{"ts_unix_ms":1777981893456,"event":"health_ok","clock_domain":"source","target":"192.168.13.15"}
+{"ts_unix_ms":"$(date +%s%3N)","event":"lazy_daemon_stop","clock_domain":"dest","reason":"health_ok"}
+{"ts_unix_ms":1777981894256,"event":"summary","clock_domain":"source","mode":"runc","name":"testweb","cp":"pcpost-20260505_115100_postcopy_62_cf2823","tcp_est":"1","lazy_port":"27027","lazy_addr":"192.168.13.10:27027","images_src":"/mnt/criu/runc/testweb/pcpost-20260505_115100_postcopy_62_cf2823","images_dst":"/var/lib/criu-local/runc/testweb/pcpost-20260505_115100_postcopy_62_cf2823","bundle_dst":"/mnt/criu/runc-bundle","vip":"192.168.13.50","net_mode":"host","vip_garp_count":"3","vip_garp_interval_ms":"200","vip_garp_mode":"A","vip_conntrack_clear_src":"0","readiness_urls":"http://192.168.13.15:8080/health","readiness_stable_successes":"3","readiness_interval_ms":"200","readiness_timeout_ms":"10000","warmup_urls":"http://192.168.13.15:8080/ready,http://192.168.13.15:8080/counter","warmup_rounds":"1","warmup_interval_ms":"0","warmup_max_duration_ms":"400","warmup_impl":"single_remote_batch","src_forward_enable":"1","src_forward_mode":"iptables_dnat","src_forward_target_host":"192.168.13.15","src_forward_target_port":"8080"}
+{"ts_unix_ms":1777981894522,"event":"script_done","clock_domain":"source"}
+{"ts_unix_ms":"$(date +%s%3N)","event":"lazy_daemon_stop","clock_domain":"dest","reason":"cleanup_rc_0"}
+{"event": "monitor_stop", "ts_unix_ms": 1777981902678, "clock_domain": "monitor"}

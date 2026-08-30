@@ -1,0 +1,22 @@
+{
+  "run_status": "ok",
+  "cp_name": "pc-20260721_095603_precopy_18_16ce04",
+  "shared": {
+    "policy": "success_only",
+    "path": "/mnt/criu/runc/testweb/pc-20260721_095603_precopy_18_16ce04",
+    "attempted": true,
+    "ok": true
+  },
+  "local": {
+    "policy": "success_only",
+    "path": "/var/lib/criu-local/runc/testweb/pc-20260721_095603_precopy_18_16ce04",
+    "paths": {
+      "images": "/var/lib/criu-local/runc/testweb/pc-20260721_095603_precopy_18_16ce04",
+      "bundle": "/var/lib/criu-local/runc-bundle/testweb/pc-20260721_095603_precopy_18_16ce04",
+      "work": "/var/lib/criu-local/work/testweb/pc-20260721_095603_precopy_18_16ce04",
+      "runtime": "/var/lib/criu-local/runtime/testweb/pc-20260721_095603_precopy_18_16ce04"
+    },
+    "attempted": true,
+    "ok": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "20260505_122052_precopy_upload_fd2579",
+  "batch_run": "0085",
+  "run_id": "20260505_130048_precopy_85_d180d0",
+  "method": "precopy",
+  "load": "upload",
+  "monitor_enabled": true,
+  "migrate_enabled": true,
+  "control_run": false,
+  "no_cleanup": false,
+  "status": "ok",
+  "start_ts": "2026-05-05T13:00:48Z",
+  "end_ts": "2026-05-05T13:01:16Z",
+  "error": null,
+  "analyze_rc": 0,
+  "cleanup": {
+    "run_status": "ok",
+    "cp_name": "pc-20260505_130048_precopy_85_d180d0",
+    "shared": {
+      "policy": "success_only",
+      "path": "/mnt/criu/runc/testweb/pc-20260505_130048_precopy_85_d180d0",
+      "attempted": true,
+      "ok": true
+    },
+    "local": {
+      "policy": "success_only",
+      "path": "/var/lib/criu-local/runc/testweb/pc-20260505_130048_precopy_85_d180d0",
+      "attempted": true,
+      "ok": true
+    }
+  }
+}

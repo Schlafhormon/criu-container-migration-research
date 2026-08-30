@@ -1,0 +1,22 @@
+{
+  "run_status": "ok",
+  "cp_name": "pcpost-20260721_092432_postcopy_43_d0d8bf",
+  "shared": {
+    "policy": "success_only",
+    "path": "/mnt/criu/runc/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf",
+    "attempted": true,
+    "ok": true
+  },
+  "local": {
+    "policy": "success_only",
+    "path": "/var/lib/criu-local/runc/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf",
+    "paths": {
+      "images": "/var/lib/criu-local/runc/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf",
+      "bundle": "/var/lib/criu-local/runc-bundle/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf",
+      "work": "/var/lib/criu-local/work/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf",
+      "runtime": "/var/lib/criu-local/runtime/testweb/pcpost-20260721_092432_postcopy_43_d0d8bf"
+    },
+    "attempted": true,
+    "ok": true
+  }
+}

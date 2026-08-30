@@ -1,0 +1,37 @@
+{"event": "clock_offset_estimate", "host": "monitor", "offset_ms": 0, "rtt_ms": 0.0, "samples_ok": 1, "samples_req": 1, "ts_unix_ms": 1784579368723, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "source", "offset_ms": -450, "rtt_ms": 231.265, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1784579368733, "clock_domain": "monitor"}
+{"event": "clock_offset_estimate", "host": "dest", "offset_ms": 221, "rtt_ms": 229.39, "samples_ok": 3, "samples_req": 3, "ts_unix_ms": 1784579368740, "clock_domain": "monitor"}
+{"event": "monitor_start", "ts_unix_ms": 1784579368761, "clock_domain": "monitor"}
+{"ts_unix_ms":1784579371460,"event":"script_start","clock_domain":"source","mode":"runc","name":"testweb","run_id":"20260720_202922_postcopy_39_98538f","variant":"v22_minimal","transfer_mode":"destination_nfs_copy","src_forward":"1"}
+{"ts_unix_ms":1784579372159,"event":"bundle_prepare_start","clock_domain":"source","mode":"copy","source":"/mnt/criu/runc-bundle","dest":"/var/lib/criu-local/runc-bundle/testweb/pcpost-20260720_202922_postcopy_39_98538f"}
+{"ts_unix_ms":1784579374836,"event":"bundle_prepare_done","clock_domain":"source","mode":"copy","dur_ms":"2678"}
+{"ts_unix_ms":1784579374874,"event":"vip_prepare_start","clock_domain":"source","net_mode":"host","vip":"192.168.13.50","port":"8080","phase":"pre_checkpoint"}
+{"ts_unix_ms":1784579375192,"event":"vip_prepare_done","clock_domain":"source","dur_ms":"301","phase":"pre_checkpoint"}
+{"ts_unix_ms":1784579375205,"event":"postcopy_src_forward_prepare_start","clock_domain":"source","mode":"iptables_dnat","target":"192.168.13.15:8080","phase":"pre_checkpoint"}
+{"ts_unix_ms":1784579375260,"event":"postcopy_src_forward_prepare_ready","clock_domain":"source","mode":"iptables_dnat","target":"192.168.13.15:8080","dur_ms":"41","phase":"pre_checkpoint"}
+{"ts_unix_ms":1784579375277,"event":"checkpoint_start","clock_domain":"source","lazy_addr":"192.168.13.10:27027"}
+{"ts_unix_ms":1784579375551,"event":"transfer_start","clock_domain":"source","method":"destination_nfs_copy","source":"/mnt/criu/runc/testweb/pcpost-20260720_202922_postcopy_39_98538f","dest":"/var/lib/criu-local/runc/testweb/pcpost-20260720_202922_postcopy_39_98538f"}
+{"ts_unix_ms":1784579375905,"event":"transfer_done","clock_domain":"source","method":"destination_nfs_copy","stats":"not_collected","dur_ms":"335"}
+{"ts_unix_ms":1784579375918,"event":"lazy_prepare_start","clock_domain":"source","addr":"192.168.13.10","port":"27027","work_dir":"/var/lib/criu-local/work/testweb/pcpost-20260720_202922_postcopy_39_98538f"}
+{"ts_unix_ms":1784579376174,"event":"lazy_prepare_done","clock_domain":"source","dur_ms":"241","log":"/var/lib/criu-local/runtime/testweb/pcpost-20260720_202922_postcopy_39_98538f/lazy-pages.log","pid_file":"/var/lib/criu-local/runtime/testweb/pcpost-20260720_202922_postcopy_39_98538f/lazy-pages.pid"}
+{"ts_unix_ms":1784579376190,"event":"restore_min_wait_skipped","clock_domain":"source","wait_ms":"0","min_after_checkpoint_ms":"0"}
+{"ts_unix_ms":1784579376201,"event":"restore_start","clock_domain":"source","target":"192.168.13.15","lazy":"1"}
+{"ts_unix_ms":1784579376215,"event":"restore_cmd_start","clock_domain":"source","target":"192.168.13.15","lazy":"1"}
+{"ts_unix_ms":1784579376629,"event":"restore_cmd_done","clock_domain":"source","target":"192.168.13.15","dur_ms":"415"}
+{"ts_unix_ms":1784579376639,"event":"restore_done","clock_domain":"source","target":"192.168.13.15","dur_ms":"415"}
+{"ts_unix_ms":1784579376651,"event":"postcopy_forward_ready_wait_start","clock_domain":"source","url":"http://192.168.13.15:8080/health","timeout_ms":"5000"}
+{"ts_unix_ms":1784579376792,"event":"postcopy_forward_target_ok","clock_domain":"source","url":"http://192.168.13.15:8080/health","attempts":"1","wait_ms":"125","dur_ms":"141"}
+{"ts_unix_ms":1784579376805,"event":"postcopy_src_forward_start","clock_domain":"source","mode":"iptables_dnat","target":"192.168.13.15:8080"}
+{"ts_unix_ms":1784579376855,"event":"postcopy_src_forward_ready","clock_domain":"source","mode":"iptables_dnat","target":"192.168.13.15:8080","dur_ms":"40"}
+{"ts_unix_ms":1784579377249,"event":"checkpoint_done","clock_domain":"source","dur_ms":"1961"}
+{"ts_unix_ms":1784579377261,"event":"dest_readiness_start","clock_domain":"source","url":"http://192.168.13.15:8080/health","stable_needed":"3","timeout_ms":"10000"}
+{"ts_unix_ms":1784579377940,"event":"dest_readiness_ok","clock_domain":"source","attempts":"3","stable":"3","dur_ms":"678"}
+{"ts_unix_ms":1784579377960,"event":"vip_cutover_start","clock_domain":"source","garp_mode":"A","garp_count":"3","strategy":"make_before_break_forwarded","src_forward_active":"1"}
+{"ts_unix_ms":1784579378799,"event":"vip_cutover_done","clock_domain":"source","garp_mode":"A","garp_count":"3","strategy":"make_before_break_forwarded","src_forward_active":"1"}
+{"ts_unix_ms":1784579378816,"event":"health_wait_start","clock_domain":"source","target":"192.168.13.15","url":"http://192.168.13.15:8080/health"}
+{"ts_unix_ms":1784579379073,"event":"health_ok","clock_domain":"source","target":"192.168.13.15","attempts":"1","remote_wait_ms":"18"}
+{"ts_unix_ms":1784579379089,"event":"postcopy_src_forward_stop","clock_domain":"source","reason":"destination_vip_healthy"}
+{"ts_unix_ms":1784579379243,"event":"postcopy_src_forward_done","clock_domain":"source","reason":"destination_vip_healthy","dur_ms":"144"}
+{"ts_unix_ms":1784579379483,"event":"summary","clock_domain":"source","mode":"runc","name":"testweb","cp":"pcpost-20260720_202922_postcopy_39_98538f","variant":"v22_minimal","transfer_mode":"destination_nfs_copy","images_src":"/mnt/criu/runc/testweb/pcpost-20260720_202922_postcopy_39_98538f","images_dst":"/var/lib/criu-local/runc/testweb/pcpost-20260720_202922_postcopy_39_98538f","bundle_dst":"/var/lib/criu-local/runc-bundle/testweb/pcpost-20260720_202922_postcopy_39_98538f","vip":"192.168.13.50","net_mode":"host","src_forward":"1","vip_cutover_strategy":"make_before_break_forwarded"}
+{"ts_unix_ms":1784579379526,"event":"script_done","clock_domain":"source"}
+{"event": "monitor_stop", "ts_unix_ms": 1784579387245, "clock_domain": "monitor"}

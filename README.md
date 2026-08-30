@@ -77,6 +77,32 @@ Each result directory contains:
 `plots/combined/all_scenarios/metrics.csv` is the broadest dataset. It contains
 the full 100-run campaign for eight scenarios and two migration methods.
 
+## Raw Measurement Data
+
+The raw data for the published measurement campaigns are stored under
+`measurement_data/`. The two campaigns have distinct, date-based directory
+names so that the paper data cannot be confused with the earlier campaign:
+
+| Raw data | Status and purpose | Derived results |
+| --- | --- | --- |
+| `measurement_data/paper_campaign_2026-07/` | **Current paper campaign.** Measurements from the newer host system; these are the authoritative raw data used in the paper. | `plots/` |
+| `measurement_data/initial_campaign_2026-05/` | Historical initial campaign from the earlier host system. Not used for the current paper results. | `old_plots/` |
+
+Each campaign contains 16 batches and 1,600 successful runs: 100 repetitions
+for every combination of `precopy` and `postcopy` with the eight scenarios
+`idle`, `cpu`, `download`, `upload`, `stream`, `wrk1`, `wrk2`, and `wrk3`.
+
+The checked-in raw-data directories contain each batch manifest (`batch.json`)
+and its complete `runs/` tree, including events, configuration snapshots,
+migration and monitoring logs, raw CSV and NDJSON monitor output, run status,
+and per-run summaries. Separate top-level runtime `logs/` directories and
+per-batch `analysis/` directories are intentionally excluded because they
+either duplicate run artifacts or contain derived plots and statistics.
+Generated results remain exclusively in `plots/` and `old_plots/`.
+
+See [`measurement_data/README.md`](measurement_data/README.md) for the data
+layout and campaign-to-plot mapping.
+
 ## Repository Layout
 
 - `clm/` - CLM runner, batching, and analysis orchestration
@@ -86,7 +112,10 @@ the full 100-run campaign for eight scenarios and two migration methods.
 - `config/env.example.yaml` - host, migration, monitoring, and load settings
 - `config/analysis.yaml` - default metrics and plots
 - `config/analysis_paper.yaml` - additional paper-oriented plots
+- `measurement_data/` - raw data for the current paper campaign and the
+  historical initial campaign
 - `plots/` - complete measurement campaign results and generated figures
+- `old_plots/` - generated results from the historical initial campaign
 - `docs/` - public research notes and archived historical notes; start at
   `docs/README.md`
 
