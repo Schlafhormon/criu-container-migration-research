@@ -1438,16 +1438,21 @@ _SCIENTIFIC_MPL_STYLE = {
     "savefig.facecolor": "white",
     "axes.edgecolor": "#2F2F2F",
     "axes.linewidth": 0.9,
-    "axes.labelsize": 11,
-    "axes.titlesize": 14,
-    "xtick.labelsize": 10,
-    "ytick.labelsize": 10,
+    "axes.labelsize": 13,
+    "axes.titlesize": 15,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
     "font.family": "DejaVu Sans",
+    "legend.fontsize": 10,
     "legend.frameon": True,
     "legend.facecolor": "white",
     "legend.edgecolor": "#D0D0D0",
     "legend.framealpha": 0.95,
 }
+
+_PLOT_LEGEND_FONTSIZE = 10.0
+_PLOT_ANNOTATION_FONTSIZE = 9.5
+_PLOT_DETAIL_FONTSIZE = 8.5
 
 
 def _humanize_field_name(field: Any) -> str:
@@ -1545,7 +1550,7 @@ def _place_legend_outside(
     ax: Any,
     *,
     handles: Optional[Sequence[Any]] = None,
-    fontsize: float = 8.5,
+    fontsize: float = _PLOT_LEGEND_FONTSIZE,
     ncol: int = 1,
     position: str = "right",
     **kwargs: Any,
@@ -2807,11 +2812,16 @@ def generate_plots(
                             transform=ax.transAxes,
                             ha="right",
                             va="top",
-                            fontsize=9,
+                            fontsize=_PLOT_ANNOTATION_FONTSIZE,
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        _place_legend_outside(ax, fontsize=9, ncol=legend_ncol, position=legend_position)
+                        _place_legend_outside(
+                            ax,
+                            fontsize=_PLOT_LEGEND_FONTSIZE,
+                            ncol=legend_ncol,
+                            position=legend_position,
+                        )
                     x_limits = _padded_limits(np.concatenate([arr for _, arr in grouped_data]), pad_fraction=0.05)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -2900,11 +2910,16 @@ def generate_plots(
                             transform=ax.transAxes,
                             ha="right",
                             va="bottom",
-                            fontsize=9,
+                            fontsize=_PLOT_ANNOTATION_FONTSIZE,
                             bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.93},
                         )
                     if len(grouped_data) > 1:
-                        _place_legend_outside(ax, fontsize=9, ncol=legend_ncol, position=legend_position)
+                        _place_legend_outside(
+                            ax,
+                            fontsize=_PLOT_LEGEND_FONTSIZE,
+                            ncol=legend_ncol,
+                            position=legend_position,
+                        )
                     x_limits = _padded_limits(np.concatenate([xvals for _, xvals, _ in grouped_data]), pad_fraction=0.06)
                     if x_limits is not None:
                         ax.set_xlim(*x_limits)
@@ -3106,7 +3121,7 @@ def generate_plots(
                     ax.set_title(title, fontweight="semibold")
                     axis_label = " / ".join(_humanize_field_name(field) for field in category_fields) if category_fields else "Group"
                     ax.set_xlabel(axis_label)
-                    ax.set_ylabel(f"{_metric_axis_label(y)} ({ci_level:.0%} Bootstrap CI)")
+                    ax.set_ylabel(f"{_metric_axis_label(y)}\n({ci_level:.0%} Bootstrap CI)")
                     _style_axes(ax, y_only=True)
 
                 elif kind == "downtime_segments_barh":
@@ -3217,7 +3232,7 @@ def generate_plots(
                                     f"{float(total_ms):.0f} ms",
                                     va="center",
                                     ha="left",
-                                    fontsize=8.5,
+                                    fontsize=_PLOT_ANNOTATION_FONTSIZE,
                                     color="#333333",
                                 )
 
@@ -3234,7 +3249,13 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=legend_ncol, position=legend_position)
+                            _place_legend_outside(
+                                ax,
+                                handles=handles,
+                                fontsize=_PLOT_LEGEND_FONTSIZE,
+                                ncol=legend_ncol,
+                                position=legend_position,
+                            )
 
                         if xmax <= 0:
                             xmax = float(segment_data["rel_end_ms"].max()) if "rel_end_ms" in segment_data.columns else 1.0
@@ -3325,7 +3346,7 @@ def generate_plots(
                                     f"{float(total):.0f} ms",
                                     va="center",
                                     ha="left",
-                                    fontsize=8.5,
+                                    fontsize=_PLOT_ANNOTATION_FONTSIZE,
                                     color="#333333",
                                 )
 
@@ -3342,7 +3363,13 @@ def generate_plots(
                                 patch.set_hatch(hatch)
                             handles.append(patch)
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.5, ncol=legend_ncol, position=legend_position)
+                            _place_legend_outside(
+                                ax,
+                                handles=handles,
+                                fontsize=_PLOT_LEGEND_FONTSIZE,
+                                ncol=legend_ncol,
+                                position=legend_position,
+                            )
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["right_ms"], errors="coerce").max())
@@ -3477,7 +3504,7 @@ def generate_plots(
                                 f"{float(basis_window):.0f} ms",
                                 va="center",
                                 ha="left",
-                                fontsize=8.2,
+                                fontsize=_PLOT_ANNOTATION_FONTSIZE,
                                 color="#333333",
                             )
                         return row_xmax
@@ -3528,7 +3555,13 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.3, ncol=legend_ncol, position=legend_position)
+                            _place_legend_outside(
+                                ax,
+                                handles=handles,
+                                fontsize=_PLOT_LEGEND_FONTSIZE,
+                                ncol=legend_ncol,
+                                position=legend_position,
+                            )
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3622,7 +3655,13 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_rows.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.2, ncol=legend_ncol, position=legend_position)
+                            _place_legend_outside(
+                                ax,
+                                handles=handles,
+                                fontsize=_PLOT_LEGEND_FONTSIZE,
+                                ncol=legend_ncol,
+                                position=legend_position,
+                            )
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(timeline_rows["right_ms"], errors="coerce").max())
@@ -3798,7 +3837,7 @@ def generate_plots(
                                             f"{n_phase}/{n_total}",
                                             ha="left",
                                             va="center",
-                                            fontsize=7.6,
+                                            fontsize=_PLOT_DETAIL_FONTSIZE,
                                             color="#333333",
                                             bbox={"boxstyle": "round,pad=0.14", "facecolor": "white", "edgecolor": "#D0D0D0", "alpha": 0.86},
                                         )
@@ -3842,7 +3881,7 @@ def generate_plots(
                                     f"{float(total):.0f} ms",
                                     va="center",
                                     ha="left",
-                                    fontsize=8.3,
+                                    fontsize=_PLOT_ANNOTATION_FONTSIZE,
                                     color="#333333",
                                 )
 
@@ -3869,7 +3908,13 @@ def generate_plots(
                         if show_vip_overlay and not vip_overlay_agg.empty:
                             handles.append(Line2D([0], [0], color=vip_overlay_color, linewidth=2.4, label=vip_overlay_label))
                         if handles:
-                            _place_legend_outside(ax, handles=handles, fontsize=8.1, ncol=legend_ncol, position=legend_position)
+                            _place_legend_outside(
+                                ax,
+                                handles=handles,
+                                fontsize=_PLOT_LEGEND_FONTSIZE,
+                                ncol=legend_ncol,
+                                position=legend_position,
+                            )
 
                         if xmax <= 0:
                             xmax = float(pd.to_numeric(agg_rows["p75_end_ms"], errors="coerce").max())
@@ -3888,7 +3933,7 @@ def generate_plots(
                                 transform=ax.transAxes,
                                 ha="right",
                                 va="top",
-                                fontsize=8.0,
+                                fontsize=_PLOT_DETAIL_FONTSIZE,
                                 color="#555555",
                             )
                         _style_axes(ax, y_only=False)
@@ -4043,7 +4088,7 @@ def generate_plots(
                                 f"{rel_end - rel_start:.0f} ms",
                                 ha="left",
                                 va="center",
-                                fontsize=8.6,
+                                fontsize=_PLOT_ANNOTATION_FONTSIZE,
                                 color="#7F0000",
                                 bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 1.0},
                             )
@@ -4115,12 +4160,12 @@ def generate_plots(
                             labeled_event_positions.append(float(rel))
                             ax.text(
                                 rel,
-                                len(lanes) - 0.03 + (0.16 * (idx_event % 2)),
+                                len(lanes) - 0.04 - (0.16 * (idx_event % 2)),
                                 event_label,
                                 rotation=90,
                                 ha="right",
                                 va="top",
-                                fontsize=7.0,
+                                fontsize=_PLOT_DETAIL_FONTSIZE,
                                 color=color,
                                 bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.62, "pad": 0.8},
                             )
@@ -4157,7 +4202,7 @@ def generate_plots(
                     _place_legend_outside(
                         ax,
                         handles=handles,
-                        fontsize=8.0,
+                        fontsize=_PLOT_LEGEND_FONTSIZE,
                         ncol=legend_ncol if legend_position.strip().lower() in ("top", "above") else min(2, legend_cols),
                         position=legend_position,
                         framealpha=0.92,
