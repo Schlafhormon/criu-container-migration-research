@@ -211,9 +211,30 @@ class MonitorDowntimeSemanticsTests(unittest.TestCase):
         phase_ids = [seg["phase_id"] for seg in event_path["segments"]]
 
         self.assertIn("unknown_gap", phase_ids)
-        self.assertIn("missing_marker_postcopy_warmup_start_ms_event", event_path["quality_flags"])
+        self.assertNotIn("missing_marker_postcopy_warmup_start_ms_event", event_path["quality_flags"])
         self.assertIn("unknown_present", event_path["quality_flags"])
-        self.assertIn("warmup_to_cutover", phase_ids)
+        self.assertIn("readiness_to_cutover", phase_ids)
+
+    def test_campaign_readiness_marker_is_recognized_without_changing_outages(self):
+        run = (Path(__file__).resolve().parents[1] / "measurement_data" /
+               "paper_campaign_2026-07/batches/20260720_155856_postcopy_idle_419ec9/runs/0001")
+        if not run.exists():
+            self.skipTest("archived paper campaign is unavailable")
+        original = json.loads((run / "summary.json").read_text(encoding="utf-8"))
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = MON.analyze_run(str(run / "monitor/mon"), events_path=str(run / "events/events.ndjson"))
+        report = json.loads(buf.getvalue().split("\n=== Downtime Summary ===", 1)[0])
+        self.assertEqual(rc, 0)
+        self.assertEqual(report["postcopy_readiness_gate_ms"], 686)
+        self.assertEqual(report["dest_readiness_start_ms_event"], report["dest_readiness_wait_start_ms_event"])
+        phases = report["downtime_breakdown"]["event_critical_path"]
+        readiness = next(s for s in phases["segments"] if s["phase_id"] == "readiness_gate")
+        self.assertEqual(readiness["duration_ms"], 686)
+        self.assertNotIn("phase_missing_readiness_gate", phases["quality_flags"])
+        self.assertNotIn("phase_missing_warmup", phases["quality_flags"])
+        for key in ("vip_http_client_visible_total_down_ms", "vip_l4_downtime_ms", "vip_http_client_visible_segments"):
+            self.assertEqual(report[key], original[key])
 
     def test_build_downtime_breakdown_basis_missing_sets_quality_flag(self):
         markers = {

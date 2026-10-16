@@ -163,15 +163,15 @@
       "load": "wrk1",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 690.31,
+      "median": 689.0,
+      "std": 8.346892000056432,
+      "iqr": 12.25,
+      "min": 674.0,
+      "max": 718.0,
+      "ci_low": 688.6740392297044,
+      "ci_high": 691.9459607702955
     },
     {
       "method": "postcopy",
@@ -728,5 +728,6 @@
       "ci_low": 0.0,
       "ci_high": 0.0
     }
-  ]
+  ],
+  "event_analysis_updated_at": "2026-10-16T16:40:46Z"
 }

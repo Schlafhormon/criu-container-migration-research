@@ -163,15 +163,15 @@
       "load": "cpu",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 692.12,
+      "median": 689.0,
+      "std": 22.361257983079987,
+      "iqr": 8.25,
+      "min": 677.0,
+      "max": 905.0,
+      "ci_low": 687.7372739704155,
+      "ci_high": 696.5027260295846
     },
     {
       "method": "postcopy",
@@ -523,15 +523,15 @@
       "load": "download",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 697.98,
+      "median": 699.0,
+      "std": 8.61989711438752,
+      "iqr": 10.0,
+      "min": 667.0,
+      "max": 722.0,
+      "ci_low": 696.290531210536,
+      "ci_high": 699.6694687894641
     },
     {
       "method": "postcopy",
@@ -883,15 +883,15 @@
       "load": "idle",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 690.33,
+      "median": 689.0,
+      "std": 20.02829059711348,
+      "iqr": 7.5,
+      "min": 669.0,
+      "max": 877.0,
+      "ci_low": 686.4045271757756,
+      "ci_high": 694.2554728242245
     },
     {
       "method": "postcopy",
@@ -1243,15 +1243,15 @@
       "load": "stream",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 689.51,
+      "median": 689.5,
+      "std": 7.661388169703235,
+      "iqr": 8.5,
+      "min": 653.0,
+      "max": 705.0,
+      "ci_low": 688.00839551158,
+      "ci_high": 691.01160448842
     },
     {
       "method": "postcopy",
@@ -1603,15 +1603,15 @@
       "load": "upload",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 693.35,
+      "median": 694.0,
+      "std": 8.209842577754774,
+      "iqr": 11.0,
+      "min": 667.0,
+      "max": 715.0,
+      "ci_low": 691.7409004228857,
+      "ci_high": 694.9590995771143
     },
     {
       "method": "postcopy",
@@ -3608,5 +3608,6 @@
       "ci_low": 2.7278551606274473,
       "ci_high": 2.892144839372553
     }
-  ]
+  ],
+  "event_analysis_updated_at": "2026-10-16T16:40:40Z"
 }

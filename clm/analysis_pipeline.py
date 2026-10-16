@@ -488,9 +488,9 @@ def _phase_templates_for_method(method: Optional[str]) -> List[Dict[str, Any]]:
             {"phase_id": "transfer", "phase_label": "Transfer", "phase_group": "transfer", "required": True, "alternatives": [("transfer_start_ms_event", "transfer_done_ms_event")]},
             {"phase_id": "transfer_to_restore", "phase_label": "Transfer to restore", "phase_group": "handoff", "required": True, "alternatives": [("transfer_done_ms_event", "restore_start_ms_event")]},
             {"phase_id": "restore", "phase_label": "Restore", "phase_group": "restore", "required": True, "alternatives": [("restore_start_ms_event", "restore_done_ms_event")]},
-            {"phase_id": "readiness_gate", "phase_label": "Readiness gate", "phase_group": "readiness", "required": True, "alternatives": [("dest_readiness_wait_start_ms_event", "dest_readiness_ok_ms_event")]},
+            {"phase_id": "readiness_gate", "phase_label": "Readiness gate", "phase_group": "readiness", "required": True, "alternatives": [("dest_readiness_start_ms_event", "dest_readiness_ok_ms_event"), ("dest_readiness_wait_start_ms_event", "dest_readiness_ok_ms_event")]},
             {"phase_id": "warmup", "phase_label": "Warmup", "phase_group": "warmup", "required": True, "alternatives": [("postcopy_warmup_start_ms_event", "postcopy_warmup_done_ms_event")]},
-            {"phase_id": "warmup_to_cutover", "phase_label": "Warmup to cutover", "phase_group": "handoff", "required": True, "alternatives": [("postcopy_warmup_done_ms_event", "vip_cutover_start_ms_event"), ("dest_readiness_ok_ms_event", "vip_cutover_start_ms_event")]},
+            {"phase_id": "readiness_to_cutover", "phase_label": "Readiness to cutover", "phase_group": "handoff", "required": True, "alternatives": [("postcopy_warmup_done_ms_event", "vip_cutover_start_ms_event"), ("dest_readiness_ok_ms_event", "vip_cutover_start_ms_event")]},
             {"phase_id": "vip_cutover", "phase_label": "VIP cutover", "phase_group": "cutover", "required": True, "alternatives": [("vip_cutover_start_ms_event", "vip_cutover_done_ms_event")]},
             {"phase_id": "health_wait", "phase_label": "Health wait", "phase_group": "health", "required": True, "alternatives": [("health_wait_start_ms_event", "health_ok_ms_event"), ("vip_cutover_done_ms_event", "health_ok_ms_event")]},
         ]
@@ -602,7 +602,10 @@ def _resolve_phase_window(markers: Dict[str, Any], spec: Dict[str, Any], quality
             "marker_end": marker_end,
             "status": "event" if alt_idx == 0 else "fallback",
         }
-    if spec.get("required"):
+    required = bool(spec.get("required"))
+    if phase_id == "warmup":
+        required = any(isinstance(markers.get(name), int) for pair in alternatives for name in pair)
+    if required:
         first_pair = alternatives[0]
         marker_start = first_pair[0] if isinstance(first_pair, (list, tuple)) and len(first_pair) > 0 else None
         marker_end = first_pair[1] if isinstance(first_pair, (list, tuple)) and len(first_pair) > 1 else None
@@ -742,6 +745,7 @@ def _rebuild_downtime_breakdown_from_summary(summary_data: Dict[str, Any], metho
         "restore_done_ms_event",
         "restore_exec_start_ms_event",
         "restore_exec_done_ms_event",
+        "dest_readiness_start_ms_event",
         "dest_readiness_wait_start_ms_event",
         "dest_readiness_ok_ms_event",
         "postcopy_warmup_start_ms_event",
@@ -1704,7 +1708,7 @@ _DOWNTIME_PHASE_ORDER_POSTCOPY = [
     "restore",
     "readiness_gate",
     "warmup",
-    "warmup_to_cutover",
+    "readiness_to_cutover",
     "vip_cutover",
     "health_wait",
     "unknown",
@@ -1716,7 +1720,7 @@ _DOWNTIME_PHASE_ORDER_GLOBAL = [
     "restore",
     "readiness_gate",
     "warmup",
-    "warmup_to_cutover",
+    "readiness_to_cutover",
     "restore_to_cutover",
     "vip_cutover",
     "health_wait",
@@ -1729,7 +1733,7 @@ _DOWNTIME_PHASE_COLORS = {
     "restore": "#1B9E77",
     "readiness_gate": "#E6AB02",
     "warmup": "#C9A227",
-    "warmup_to_cutover": "#D8B365",
+    "readiness_to_cutover": "#D8B365",
     "restore_to_cutover": "#66A61E",
     "vip_cutover": "#B2182B",
     "health_wait": "#2CA25F",
@@ -1743,6 +1747,8 @@ def _normalize_phase_id(phase_id: Any) -> str:
         return "unknown"
     if text.startswith("unknown"):
         return "unknown"
+    if text == "warmup_to_cutover":
+        return "readiness_to_cutover"
     return text
 
 
@@ -2484,8 +2490,22 @@ def _aggregate_downtime_segments_group_timeline_quantiles(
             if field not in run_meta.columns:
                 run_meta[field] = ""
 
+    # Distinguish disjoint residual intervals by their neighbouring phases.
+    # Taking min(start)/max(end) over every unknown_gap in a run would paint
+    # the intervening, already assigned phases as unknown as well.
+    seg_work["_interval_context"] = ""
+    for _, run_segments in seg_work.groupby("_run_key", sort=False):
+        ordered = run_segments.sort_values(["left_ms", "right_ms"])
+        known = ordered["phase_id_norm"].where(ordered["phase_id_norm"] != "unknown")
+        previous = known.ffill().fillna("window_start")
+        following = known.bfill().fillna("window_end")
+        unknown = ordered["phase_id_norm"] == "unknown"
+        seg_work.loc[ordered.index[unknown], "_interval_context"] = (
+            previous[unknown] + "->" + following[unknown]
+        )
+
     per_run_phase = (
-        seg_work.groupby(group_fields + ["_run_key", "phase_id"], dropna=False)
+        seg_work.groupby(group_fields + ["_run_key", "phase_id", "_interval_context"], dropna=False)
         .agg(
             phase_id_norm=("phase_id_norm", "first"),
             rel_start_ms=("left_ms", "min"),
@@ -2506,7 +2526,7 @@ def _aggregate_downtime_segments_group_timeline_quantiles(
         phase_values = per_run_phase.loc[_mask_by_group_fields(per_run_phase, group_fields, group_meta)]
         if phase_values.empty:
             continue
-        for phase_id, phase_df in phase_values.groupby("phase_id", dropna=False):
+        for (phase_id, interval_context), phase_df in phase_values.groupby(["phase_id", "_interval_context"], dropna=False):
             starts = pd.to_numeric(phase_df["rel_start_ms"], errors="coerce").dropna().to_numpy(dtype=float)
             ends = pd.to_numeric(phase_df["rel_end_ms"], errors="coerce").dropna().to_numpy(dtype=float)
             if starts.size == 0 or ends.size == 0:
@@ -2532,6 +2552,7 @@ def _aggregate_downtime_segments_group_timeline_quantiles(
             row.update(
                 {
                     "phase_id": str(phase_id),
+                    "interval_context": str(interval_context),
                     "phase_id_norm": str(phase_df["phase_id_norm"].iloc[0] if "phase_id_norm" in phase_df.columns else _normalize_phase_id(phase_id)),
                     "phase_order_p50": float(np.quantile(pd.to_numeric(phase_df["phase_order"], errors="coerce").dropna().to_numpy(dtype=float), 0.5))
                     if pd.to_numeric(phase_df["phase_order"], errors="coerce").notna().any()

@@ -35,3 +35,7 @@ scripts/hostinfo/
 # checked-in measurement data.
 !measurement_data/**/*.log
 !measurement_data/**/*.ndjson
+
+# Local agent instructions and scratch work; shared context lives in paper repo.
+/AGENTS.md
+/.agent-work/

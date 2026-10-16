@@ -163,15 +163,15 @@
       "load": "upload",
       "control_run": false,
       "metric": "postcopy_readiness_gate_ms",
-      "n": 0,
-      "mean": null,
-      "median": null,
-      "std": null,
-      "iqr": null,
-      "min": null,
-      "max": null,
-      "ci_low": null,
-      "ci_high": null
+      "n": 100,
+      "mean": 693.35,
+      "median": 694.0,
+      "std": 8.209842577754774,
+      "iqr": 11.0,
+      "min": 667.0,
+      "max": 715.0,
+      "ci_low": 691.7409004228857,
+      "ci_high": 694.9590995771143
     },
     {
       "method": "postcopy",
@@ -368,5 +368,6 @@
       "ci_low": 1.4344237981462207,
       "ci_high": 1.6855762018537794
     }
-  ]
+  ],
+  "event_analysis_updated_at": "2026-10-16T16:40:57Z"
 }

@@ -77,6 +77,13 @@ Each result directory contains:
 `plots/combined/all_scenarios/metrics.csv` is the broadest dataset. It contains
 the full 100-run campaign for eight scenarios and two migration methods.
 
+The event-phase tables and timeline/composition plots include the
+[paper event analysis correction](docs/paper_event_analysis_revision.md).
+This correction recognizes the recorded readiness markers and preserves
+separate unassigned intervals; archived run artifacts and availability results
+remain unchanged. Reproduce the corrected event views with
+`python -m scripts.refresh_paper_event_analysis`.
+
 ## Raw Measurement Data
 
 The raw data for the published measurement campaigns are stored under

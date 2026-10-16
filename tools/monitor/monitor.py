@@ -412,7 +412,10 @@ def _phase_templates_for_method(method):
                 "label": "Readiness gate",
                 "phase_group": "readiness",
                 "required": True,
-                "alternatives": [("dest_readiness_wait_start_ms_event", "dest_readiness_ok_ms_event")],
+                "alternatives": [
+                    ("dest_readiness_start_ms_event", "dest_readiness_ok_ms_event"),
+                    ("dest_readiness_wait_start_ms_event", "dest_readiness_ok_ms_event"),
+                ],
             },
             {
                 "phase_id": "warmup",
@@ -422,8 +425,8 @@ def _phase_templates_for_method(method):
                 "alternatives": [("postcopy_warmup_start_ms_event", "postcopy_warmup_done_ms_event")],
             },
             {
-                "phase_id": "warmup_to_cutover",
-                "label": "Warmup to cutover",
+                "phase_id": "readiness_to_cutover",
+                "label": "Readiness to cutover",
                 "phase_group": "handoff",
                 "required": True,
                 "alternatives": [
@@ -456,6 +459,9 @@ def _resolve_phase_interval(markers, phase_spec, quality_flags):
     alternatives = list((phase_spec or {}).get("alternatives") or [])
     phase_id = str((phase_spec or {}).get("phase_id") or "phase")
     required = bool((phase_spec or {}).get("required", False))
+    if phase_id == "warmup":
+        # Warmup is optional. A partially recorded warmup still needs a flag.
+        required = any(isinstance(markers.get(name), int) for pair in alternatives for name in pair)
     if not alternatives:
         return None
 
@@ -1334,7 +1340,9 @@ def analyze_run(base_out, events_path=None):
     restore_done_event_ms = _first_event_ts(events, "restore_done", clock_offsets)
     restore_exec_start_ms = _first_event_ts_any(events, ("restore_exec_start",), clock_offsets)
     restore_exec_done_ms = _first_event_ts_any(events, ("restore_exec_done",), clock_offsets)
-    dest_readiness_start_ms = _first_event_ts(events, "dest_readiness_wait_start", clock_offsets)
+    dest_readiness_start_ms = _first_event_ts_any(
+        events, ("dest_readiness_start", "dest_readiness_wait_start"), clock_offsets
+    )
     dest_readiness_ok_ms = _first_event_ts(events, "dest_readiness_ok", clock_offsets)
     postcopy_warmup_start_ms = _first_event_ts(events, "postcopy_warmup_start", clock_offsets)
     postcopy_warmup_done_ms = _first_event_ts(events, "postcopy_warmup_done", clock_offsets)
@@ -1382,6 +1390,7 @@ def analyze_run(base_out, events_path=None):
         "restore_done_ms_event": restore_done_event_ms,
         "restore_exec_start_ms_event": restore_exec_start_ms,
         "restore_exec_done_ms_event": restore_exec_done_ms,
+        "dest_readiness_start_ms_event": dest_readiness_start_ms,
         "dest_readiness_wait_start_ms_event": dest_readiness_start_ms,
         "dest_readiness_ok_ms_event": dest_readiness_ok_ms,
         "postcopy_warmup_start_ms_event": postcopy_warmup_start_ms,
@@ -1472,6 +1481,7 @@ def analyze_run(base_out, events_path=None):
         "restore_done_ms_event": restore_done_event_ms,
         "restore_exec_start_ms_event": restore_exec_start_ms,
         "restore_exec_done_ms_event": restore_exec_done_ms,
+        "dest_readiness_start_ms_event": dest_readiness_start_ms,
         "dest_readiness_wait_start_ms_event": dest_readiness_start_ms,
         "dest_readiness_ok_ms_event": dest_readiness_ok_ms,
         "postcopy_warmup_start_ms_event": postcopy_warmup_start_ms,

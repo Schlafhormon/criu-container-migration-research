@@ -53,13 +53,15 @@ Use these markers for V1 segment construction when present:
 Destination-side remote markers are useful for diagnostics, but should not be
 primary segment boundaries unless monotonic and clock-corrected.
 
-The standard v22 script emits `dest_readiness_start`, whereas the current V1
-analyzer still looks for the legacy `dest_readiness_wait_start`. Until the
-analyzer accepts both names, the raw event is authoritative and the generated
-readiness segment may be missing. The same compatibility limitation applies to
-the v22 forwarding-stop pair (`postcopy_src_forward_stop`,
-`postcopy_src_forward_done`) versus the older analyzer names ending in
-`_stop_start` and `_stop_done`.
+The analyzer accepts both `dest_readiness_start` and the legacy
+`dest_readiness_wait_start`. Both exported readiness-start fields refer to the
+same clock-corrected timestamp. Earlier paper results omitted the readiness
+phase because only the legacy event name was recognized; see
+[Paper Event Analysis Revision](paper_event_analysis_revision.md) for the
+correction and reproduction command. The forwarding-stop pair
+(`postcopy_src_forward_stop`, `postcopy_src_forward_done`) still differs from
+the older diagnostic field names ending in `_stop_start` and `_stop_done`;
+these markers are not phase boundaries in the event timeline.
 
 ## Segment Templates
 
@@ -96,7 +98,27 @@ Optional restore subsegments may be added for pre-copy when exact
 segments.
 
 The standard v22 script has no warmup phase. Missing warmup markers are expected
-for current runs and must not by themselves produce an `unknown` segment.
+for current runs and do not produce missing-warmup quality flags. If only one
+warmup boundary is recorded, the incomplete phase is still flagged.
+
+### Unassigned Intervals (`unknown_gap`)
+
+Each phase requires available start and end timestamps with `end > start`.
+Accepted intervals are clipped to the workflow window and overlapping coverage
+is counted once. Portions not covered by a phase remain explicit residual
+intervals: before the first accepted phase, between phases, or after the last
+phase. These are limitations of phase assignment, not additional measurements
+of HTTP downtime. Even complete phase markers can leave short intervals between
+the end of one instrumented phase and the beginning of the next. Missing or
+invalid marker pairs can leave longer unassigned intervals.
+
+The event window starts at `final_dump_start` for full dump/restore (historical
+method key `precopy`) or `transfer_start` for post-copy and ends at `health_ok`.
+The post-copy fallback start is `restore_start` if transfer markers are absent.
+The exact activities within residual intervals cannot be inferred from their
+duration alone. Source-side forwarding and checkpoint-completion events provide
+context for the remaining post-copy interval before destination readiness, but
+this interval is not a measurement of lazy-page fetching or CRIU processing.
 
 ### Client-Visible VIP HTTP
 
@@ -208,12 +230,22 @@ Stable phase colors should be global across all plots:
 
 ## Aggregation
 
-Do not average relative start times. For each group:
+For composition plots, aggregate per-run phase duration sums. For each group:
 
 1. Select a fixed phase order.
 2. Aggregate duration per phase, usually median.
 3. Rebuild the bar from aggregated durations.
 4. Track `n_total` and `n_phase_available`.
+
+Timeline plots instead aggregate relative start and end timestamps separately,
+showing their medians and 25th/75th percentiles. Disjoint `unknown_gap`
+intervals are matched across runs by the neighbouring assigned phases. They
+remain separate bars on the same unknown lane. Taking a single minimum start
+and maximum end across all gaps in a run would incorrectly span the known
+phases between them. Timeline medians describe a group and need not reproduce
+one actual run. The red overlay is independently derived from VIP HTTP probes.
+Intervals that occur in only a subset of runs are summarized over that subset;
+this also applies to secondary HTTP-outage intervals in the overlay.
 
 For mixed pre-copy and post-copy comparisons, use separate subplots or separate
 views to avoid misleading phase alignment.

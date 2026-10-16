@@ -522,6 +522,25 @@ class AnalysisPipelineTests(unittest.TestCase):
         self.assertEqual(int(restore["n_total"]), 2)
         self.assertEqual(int(restore["n_phase_available"]), 2)
 
+    def test_group_timeline_keeps_disjoint_unknown_intervals_separate(self):
+        rows = []
+        for run_id, include_first_gap in (("r1", True), ("r2", False)):
+            intervals = [("final_dump", 0, 100), ("restore", 150, 450),
+                         ("vip_cutover", 450, 700), ("health_wait", 730, 800),
+                         ("unknown_gap", 700, 730)]
+            if include_first_gap:
+                intervals.append(("unknown_gap", 100, 150))
+            for phase, start, end in intervals:
+                rows.append({"run_id": run_id, "method": "precopy", "load": "idle",
+                             "phase_id": phase, "rel_start_ms": start, "rel_end_ms": end,
+                             "duration_ms": end - start, "basis_total_ms": 800})
+        agg = _aggregate_downtime_segments_group_timeline_quantiles(pd.DataFrame(rows), ["method", "load"])
+        gaps = agg.loc[agg["phase_id"] == "unknown_gap"].sort_values("p50_start_ms")
+        self.assertEqual(list(zip(gaps["p50_start_ms"], gaps["p50_end_ms"])), [(100, 150), (700, 730)])
+        self.assertEqual(gaps["n_phase_available"].tolist(), [1, 2])
+        self.assertEqual(gaps["duration_p50_ms"].sum(), 80)
+        self.assertEqual(set(gaps["interval_context"]), {"final_dump->restore", "vip_cutover->health_wait"})
+
     def test_vip_overlay_windows_are_relative_to_event_basis(self):
         df = pd.DataFrame(
             [
