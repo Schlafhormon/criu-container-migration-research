@@ -12,6 +12,24 @@ group_by:
   - control_run
 
 metrics:
+  - name: validation_paired_http_valid
+    path: validation.paired_http_valid
+    dtype: bool
+  - name: validation_http_50ms_down_ms
+    path: validation.http_50ms.total_down_ms
+    dtype: float
+  - name: validation_http_10ms_down_ms
+    path: validation.http_10ms.total_down_ms
+    dtype: float
+  - name: validation_http_delta_ms
+    path: validation.http_delta_ms
+    dtype: float
+  - name: validation_http_absolute_delta_ms
+    path: validation.http_absolute_delta_ms
+    dtype: float
+  - name: validation_reference_instrument_limits
+    path: validation.reference_instrument_limits
+    dtype: int
   - name: cutover_ms
     path: cutover_ms
     dtype: float

@@ -7,6 +7,7 @@ migration experiments and a small archive of historical development notes.
 
 | File | Purpose |
 |---|---|
+| [validation_campaign_2026-10.md](validation_campaign_2026-10.md) | October validation branch: deployment to benke1–3, test commands, 30-run scenarios, download, cleanup and analysis. |
 | [research_workflow.md](research_workflow.md) | Overall research workflow, roles, artifacts, and scenario matrix. |
 | [precopy_workflow.md](precopy_workflow.md) | Manual pre-copy reference workflow. |
 | [postcopy_workflow.md](postcopy_workflow.md) | Manual post-copy reference workflow. |

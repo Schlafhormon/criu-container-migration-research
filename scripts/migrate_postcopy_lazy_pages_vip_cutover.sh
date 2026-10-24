@@ -22,6 +22,13 @@ RUNC_ROOT="${RUNC_ROOT:---root=/run/runc}"
 RUNC_RUN_FLAGS="${RUNC_RUN_FLAGS:---no-pivot}"
 RUNC_CP_FLAGS="${RUNC_CP_FLAGS:---manage-cgroups-mode soft --shell-job}"
 RUNC_RESTORE_FLAGS="${RUNC_RESTORE_FLAGS:---detach --manage-cgroups-mode soft}"
+CLM_VALIDATION_DIR="${CLM_VALIDATION_DIR:-}"
+CLM_VALIDATION_DST_DIR="${CLM_VALIDATION_DST_DIR:-}"
+CLM_CHECKPOINT_LOG_ARGS=""
+if [ -n "$CLM_VALIDATION_DIR" ]; then
+  sudo mkdir -p -- "$CLM_VALIDATION_DIR"
+  printf -v CLM_CHECKPOINT_LOG_ARGS '%q %q' --log "$CLM_VALIDATION_DIR/runc-checkpoint.log"
+fi
 RUNC_BUNDLE_SRC="${RUNC_BUNDLE_SRC:-/mnt/criu/runc-bundle}"
 RUNC_BUNDLE_DST_FROM_CALLER="${RUNC_BUNDLE_DST:-}"
 RUNC_BUNDLE_DST_SHARED="${RUNC_BUNDLE_DST_SHARED:-${RUNC_BUNDLE_DST_FROM_CALLER:-/mnt/criu/runc-bundle}}"
@@ -312,10 +319,14 @@ wait_for_forward_target(){
 }
 
 restore_container(){
-  local extra=""
+  local extra="" log_args=""
   [ "$TCP_EST" = "1" ] && extra="--tcp-established"
+  if [ -n "$CLM_VALIDATION_DST_DIR" ]; then
+    run_remote "sudo mkdir -p -- '$CLM_VALIDATION_DST_DIR'"
+    log_args="--log '$CLM_VALIDATION_DST_DIR/runc-restore.log'"
+  fi
   run_remote "sudo runc $RUNC_ROOT delete -f '$NAME' 2>/dev/null || true
-sudo runc $RUNC_ROOT restore $RUNC_RUN_FLAGS --bundle '$RUNC_BUNDLE_DST' --image-path '$IMAGES_BASE_DST/final' --work-path '$DST_WORK_DIR' $extra --lazy-pages $RUNC_RESTORE_FLAGS '$NAME'"
+sudo runc $log_args $RUNC_ROOT restore $RUNC_RUN_FLAGS --bundle '$RUNC_BUNDLE_DST' --image-path '$IMAGES_BASE_DST/final' --work-path '$DST_WORK_DIR' $extra --lazy-pages $RUNC_RESTORE_FLAGS '$NAME'"
 }
 
 wait_for_dest_readiness(){
@@ -428,7 +439,7 @@ t_dump_start="$(ms)"
 t_dump_end=0
 EXTRA=""
 [ "$TCP_EST" = "1" ] && EXTRA="--tcp-established"
-ckpt_start_async "$final_dir" "$RUNC_BIN $RUNC_ROOT checkpoint \"$NAME\" --image-path \"$final_dir\" --work-path \"$final_dir/work\" $EXTRA --lazy-pages --page-server \"$SRC_LAZY_ADDR\" $RUNC_CP_FLAGS"
+ckpt_start_async "$final_dir" "$RUNC_BIN $CLM_CHECKPOINT_LOG_ARGS $RUNC_ROOT checkpoint \"$NAME\" --image-path \"$final_dir\" --work-path \"$final_dir/work\" $EXTRA --lazy-pages --page-server \"$SRC_LAZY_ADDR\" $RUNC_CP_FLAGS"
 wait_for_inventory_src "$final_dir" || fail "inventory.img auf Quelle wurde nicht bereit"
 
 emit_event transfer_start method=destination_nfs_copy source="$IMAGES_BASE_DST_SHARED_SRC" dest="$IMAGES_BASE_DST"

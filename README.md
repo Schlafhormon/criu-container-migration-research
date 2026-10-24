@@ -15,6 +15,12 @@ migration:
 
 ## CLM Tool
 
+The `validation/2026-10-measurements` branch adds the October validation
+instrumentation to the existing runner and `config/env.yaml`. See the
+[deployment and test instructions](docs/validation_campaign_2026-10.md) for
+copying the working tree to benke1–3, testing and running 30 repetitions per
+workflow/scenario, archiving captures and reproducing the additional analysis.
+
 **CLM** is the experiment runner included in this repository. It coordinates
 the source, destination, and monitoring hosts, executes repeatable measurement
 batches, and collects the resulting artifacts.

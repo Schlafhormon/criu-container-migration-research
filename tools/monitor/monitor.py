@@ -1773,6 +1773,23 @@ def resolve_addr(host: str, port: int, timeout_s: float) -> Tuple[Tuple, float]:
     af, socktype, proto, canonname, sa = infos[0]
     return (af, socktype, proto, sa), dns_ms
 
+def _socket_metadata(sock):
+    try:
+        local, remote = sock.getsockname(), sock.getpeername()
+        return {"local_ip": local[0], "local_port": local[1], "remote_ip": remote[0], "remote_port": remote[1]}
+    except Exception:
+        try:
+            local = sock.getsockname()
+            return {"local_ip": local[0], "local_port": local[1]}
+        except Exception:
+            return {}
+
+
+def _stream_connection_event(writer, name, conn, connection_id):
+    writer.write({"type": "stream_connected", "ts_ms": now_ms(), "name": name,
+                  "connection_id": connection_id, **_socket_metadata(conn.sock)})
+
+
 def measure_http_detailed(url: str, timeout_ms: int, extra_headers: Optional[dict]=None):
     # Measure HTTP detailed.
 
@@ -1880,6 +1897,7 @@ def measure_http_detailed(url: str, timeout_ms: int, extra_headers: Optional[dic
             "bytes": total_bytes,
             "err": err,
             "scheme": scheme, "host": host, "port": port, "path": path,
+            **_socket_metadata(sock),
         }
     except Exception as e:
 
@@ -1896,6 +1914,7 @@ def measure_http_detailed(url: str, timeout_ms: int, extra_headers: Optional[dic
             "bytes": total_bytes,
             "err": str(e),
             "scheme": scheme, "host": host, "port": port, "path": path,
+            **_socket_metadata(sock),
         }
     finally:
         try:
@@ -1973,6 +1992,8 @@ def http_worker(
                 f"{t_wall},{t_epoch_start},{name},{r['status']},{r['rt_ms']:.2f},{r['ttfb_ms']:.2f},"
                 f"{r['headers_ms']:.2f},{r['dns_ms']:.2f},{r['tcp_ms']:.2f},{r['tls_ms']:.2f},"
                 f"{r['bytes']},{err},{t_epoch_start},{t_epoch_end}"
+                f",{r.get('local_ip', '')},{r.get('local_port', '')},"
+                f"{r.get('remote_ip', '')},{r.get('remote_port', '')},{seq}"
             )
             writer.write(line)
         else:
@@ -2128,6 +2149,7 @@ def stream_worker(
         conn = None
         bytes_total = 0
         t_start = now_ms()
+        connection_id = f"{name}:{t_start}"
         last_progress_ts = t_start
         last_progress_bytes = 0
         err = ""
@@ -2145,6 +2167,7 @@ def stream_worker(
         try:
             conn = _http_connection(parsed, timeout_ms=timeout_ms)
             conn.request("GET", path, headers={"Connection": "close", "Accept": "text/plain"})
+            _stream_connection_event(writer, name, conn, connection_id)
             resp = conn.getresponse()
             if resp.status >= 400:
                 raise IOError(f"HTTP {resp.status}")
@@ -2276,6 +2299,7 @@ def raw_stream_worker(
         conn = None
         bytes_total = 0
         t_start = now_ms()
+        connection_id = f"{name}:{t_start}"
         last_progress_ts = t_start
         last_progress_bytes = 0
         err = ""
@@ -2283,6 +2307,7 @@ def raw_stream_worker(
         try:
             conn = _http_connection(parsed, timeout_ms=timeout_ms)
             conn.request("GET", path, headers={"Connection": "close", "Accept": "application/octet-stream"})
+            _stream_connection_event(writer, name, conn, connection_id)
             resp = conn.getresponse()
             if resp.status >= 400:
                 raise IOError(f"HTTP {resp.status}")
@@ -2293,6 +2318,8 @@ def raw_stream_worker(
                     break
                 bytes_total += len(chunk)
                 now_t = now_ms()
+                writer.write({"type": "stream_chunk", "ts_ms": now_t, "name": name,
+                              "connection_id": connection_id, "bytes": len(chunk), "bytes_total": bytes_total})
                 if now_t - last_progress_ts >= progress_every:
                     dt = max(1, now_t - last_progress_ts)
                     inst_bytes = max(0, bytes_total - last_progress_bytes)

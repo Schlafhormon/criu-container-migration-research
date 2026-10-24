@@ -26,6 +26,13 @@ RUNC_ROOT="${RUNC_ROOT:---root=/run/runc}"
 RUNC_RUN_FLAGS="${RUNC_RUN_FLAGS:---no-pivot}"
 RUNC_CP_FLAGS="${RUNC_CP_FLAGS:---manage-cgroups-mode soft}"
 RUNC_RESTORE_FLAGS="${RUNC_RESTORE_FLAGS:---detach --manage-cgroups-mode soft}"
+CLM_VALIDATION_DIR="${CLM_VALIDATION_DIR:-}"
+CLM_VALIDATION_DST_DIR="${CLM_VALIDATION_DST_DIR:-}"
+CLM_CHECKPOINT_LOG_ARGS=""
+if [ -n "$CLM_VALIDATION_DIR" ]; then
+  sudo mkdir -p -- "$CLM_VALIDATION_DIR"
+  printf -v CLM_CHECKPOINT_LOG_ARGS '%q %q' --log "$CLM_VALIDATION_DIR/runc-checkpoint.log"
+fi
 RUNC_BUNDLE_SRC="${RUNC_BUNDLE_SRC:-/mnt/criu/runc-bundle}"
 RUNC_BUNDLE_DST="${RUNC_BUNDLE_DST:-/mnt/criu/runc-bundle}"
 IMAGES_BASE_SRC="${IMAGES_BASE_SRC:-$SRC_NFS_ROOT/runc/$NAME/$CP_NAME}"
@@ -109,6 +116,12 @@ RESTORE_IMAGES_BASE='$(shell_escape_sq "$RESTORE_IMAGES_BASE")'
 RUNC_RESTORE_FLAGS='$(shell_escape_sq "$RUNC_RESTORE_FLAGS")'
 NAME='$(shell_escape_sq "$NAME")'
 TCP_FLAG='$(shell_escape_sq "$tcp_flag")'
+VALIDATION_LOG_DIR='$(shell_escape_sq "$CLM_VALIDATION_DST_DIR")'
+VALIDATION_LOG_ARGS=()
+if [ -n "\$VALIDATION_LOG_DIR" ]; then
+  sudo mkdir -p -- "\$VALIDATION_LOG_DIR"
+  VALIDATION_LOG_ARGS=(--log "\$VALIDATION_LOG_DIR/runc-restore.log")
+fi
 json_escape() { printf '%s' "\$1" | sed 's/\\\\/\\\\\\\\/g; s/"/\\"/g'; }
 emit_remote_event() {
   local name="\$1"; shift
@@ -126,7 +139,7 @@ emit_remote_event() {
 }
 trap 'rc=\$?; if [ "\$rc" -ne 0 ]; then emit_remote_event restore_exec_failed target="\$TARGET" rc="\$rc"; fi; exit "\$rc"' EXIT
 emit_remote_event restore_exec_start target="\$TARGET"
-sudo runc \$RUNC_ROOT restore \
+sudo runc "\${VALIDATION_LOG_ARGS[@]}" \$RUNC_ROOT restore \
   \$RUNC_RUN_FLAGS \
   --bundle "\$RUNC_BUNDLE_DST" \
   --image-path "\$RESTORE_IMAGES_BASE/final" \
@@ -361,7 +374,7 @@ run "mkdir -p '$final_dir' '$final_dir/work'"
 
 emit_event final_dump_start
 t_dump_start=$(ms)
-run "$RUNC_BIN $RUNC_ROOT checkpoint \"$NAME\" \
+run "$RUNC_BIN $CLM_CHECKPOINT_LOG_ARGS $RUNC_ROOT checkpoint \"$NAME\" \
   --image-path \"$final_dir\" \
   --work-path  \"$final_dir/work\" \
   $parent_opt \

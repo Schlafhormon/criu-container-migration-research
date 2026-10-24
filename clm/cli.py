@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 from urllib.parse import urlencode
+from clm.validation import DEFAULTS as VALIDATION_DEFAULTS, ValidationRun, settings as validation_settings
 
 from clm.batching import (
     best_effort_git_commit,
@@ -127,6 +128,8 @@ DEFAULTS = {
         "shared_images_policy": "success_only",
         "local_images_policy": "success_only",
     },
+    "campaign": {"id": "validation_2026-10", "repeats": 30},
+    "validation": deepcopy(VALIDATION_DEFAULTS),
     "load": {
         "cpu": {
             "target": "all",
@@ -942,7 +945,8 @@ def _spawn_load_loop(logs_root: str, run_id: str, proc_id: str, body: str):
         f"{body}\n"
         "done\n"
     )
-    proc = subprocess.Popen(["bash", "-lc", script], stdout=fp, stderr=fp, text=True)
+    proc = subprocess.Popen(["bash", "-lc", script], stdout=fp, stderr=fp, text=True,
+                            start_new_session=(os.name != "nt"))
     return proc, fp, proc_id
 
 
@@ -1082,11 +1086,18 @@ def stop_load(procs):
     # Stop load.
     for proc, fp, _ in procs:
         try:
-            proc.terminate()
+            if os.name != "nt":
+                os.killpg(proc.pid, signal.SIGTERM)
+            else:
+                proc.terminate()
             proc.wait(timeout=5)
         except Exception:
             try:
-                proc.kill()
+                if os.name != "nt":
+                    os.killpg(proc.pid, signal.SIGKILL)
+                else:
+                    proc.kill()
+                proc.wait(timeout=5)
             except Exception:
                 pass
         finally:
@@ -1441,6 +1452,11 @@ def run_migration(cfg: dict, method: str, run_id: str, events_log: str, migrate_
         "PRE_DUMP_ROUNDS": precopy.get("pre_dump_rounds", 0),
         "PRECOPY_IMAGE_MODE": precopy.get("image_mode", "shared"),
     }
+    validation = validation_settings(cfg)
+    if validation["enabled"]:
+        root = str(validation["local_root"]).rstrip("/")
+        env_vars["CLM_VALIDATION_DIR"] = f"{root}/{run_id}/source/criu"
+        env_vars["CLM_VALIDATION_DST_DIR"] = f"{root}/{run_id}/dest/criu"
     if method == "postcopy":
         post_runtime = _resolve_postcopy_runtime_settings(post)
         src_forward_enable = post_runtime["src_forward_enable"]
@@ -1625,6 +1641,8 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
         print(f"- paths: {cfg['paths']}")
         print(f"- vip: {cfg['vip']}")
         print(f"- postcopy: {cfg['postcopy']}")
+        print(f"- campaign: {cfg.get('campaign')}")
+        print(f"- validation: {validation_settings(cfg)}")
         return 0
 
     repo_heads = {}
@@ -1754,7 +1772,21 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
             add(f"{role}: criu check --all", True, f"WARN: {e}", warn=True)
 
     in_sync, sync_detail = _repo_sync_check_result(repo_heads, repo_head_errors)
-    add("repo: git commit synchron (monitor/source/dest)", in_sync, sync_detail)
+    using_validation = validation_settings(cfg)["enabled"]
+    add("repo: git commit synchron (monitor/source/dest)", in_sync, sync_detail,
+        warn=using_validation and not in_sync)
+    if using_validation:
+        try:
+            recorder = ValidationRun(cfg, f"preflight-{int(time.time())}",
+                                     str(Path(logs_root) / "validation-preflight"), "precopy", run_remote,
+                                     _bash_dquote_escape(repo_path_remote_for_bash(cfg)), {})
+            recorder.verify_hosts()
+            add("validation: tools/storage/interfaces and actual code hashes", True)
+        except Exception as exc:
+            add("validation: tools/storage/interfaces and actual code hashes", False, str(exc))
+        if not shutil.which("tshark"):
+            add("validation: offline PCAP decoding", True,
+                "tshark is not installed; raw captures are retained for later decoding", warn=True)
 
 
     failures = [c for c in checks if not c["ok"] and not c["warn"]]
@@ -1787,6 +1819,11 @@ def run_cli(
     env_path: str = "config/env.yaml",
     cli_argv=None,
 ) -> int:
+    validation = validation_settings(cfg)
+    if validation["enabled"] and no_monitor:
+        die("Validation recording requires the original monitor; remove --no-monitor.")
+    if repeats < 1:
+        die("--repeats must be positive")
     runs_root = cfg["paths"]["runs_root"]
     logs_root = cfg["paths"]["logs_root"]
     ensure_dir(runs_root)
@@ -1855,6 +1892,8 @@ def run_cli(
         "git_commit": best_effort_git_commit(cfg.get("repo_path", "")),
         "host": host_info(),
         "runs": [],
+        "campaign": deepcopy(cfg.get("campaign", {})),
+        "validation": validation,
     }
     write_json(str(batch_file), batch_meta)
     log(f"Batch {batch_meta['batch_id']}: writing runs under {batch_runs}")
@@ -1945,7 +1984,27 @@ def run_cli(
             rc_migrate = 0
             rc_analyze = None
             clock_offsets = {}
+            instrumentation = None
+            instrumentation_info = None
+            verification_failed = False
             try:
+                if validation["enabled"]:
+                    _, shared_images, _ = _checkpoint_artifact_paths(cfg, method=method, run_id=run_id)
+                    destination_paths = _local_run_artifact_paths(cfg, method=method, run_id=run_id)
+                    artifact_paths = {
+                        "source": {"images": shared_images,
+                                   "runc_logs": f"{validation['local_root']}/{run_id}/source/criu"},
+                        "dest": {"images": (shared_images if method == "precopy" else destination_paths["images"]),
+                                 "work": destination_paths["work"], "runtime": destination_paths["runtime"],
+                                 "runc_logs": f"{validation['local_root']}/{run_id}/dest/criu"},
+                    }
+                    instrumentation = ValidationRun(cfg, run_id, run_dir, method, run_remote,
+                                                    _bash_dquote_escape(repo_path_remote_for_bash(cfg)), artifact_paths)
+                    try:
+                        instrumentation.verify_hosts()
+                    except Exception:
+                        verification_failed = True
+                        raise
                 progress.update(phase="baseline", run_index=i, done=i - 1, failed=failed_runs)
                 log(f"Run {run_id}: baseline reset (dest cleanup, source reset)")
                 cleanup_dest(cfg)
@@ -1969,6 +2028,9 @@ def run_cli(
                             }
                         )
 
+                if instrumentation is not None:
+                    log(f"Run {run_id}: start validation capture/reference/resources")
+                    instrumentation.start()
                 if not no_monitor:
                     progress.update(phase="monitor", run_index=i, done=i - 1, failed=failed_runs)
                     log(f"Run {run_id}: monitor start")
@@ -1987,23 +2049,44 @@ def run_cli(
                     progress.update(phase="load", run_index=i, done=i - 1, failed=failed_runs)
                     log(f"Run {run_id}: load start")
                     load_procs = start_load(cfg, run_id, load_modes)
-                    time.sleep(1)
+                    if not validation["enabled"]:
+                        time.sleep(1)
 
+                if validation["enabled"]:
+                    append_event({"event": "validation_load_observation_start", "load_modes": load_modes})
+                    time.sleep(validation["pre_seconds"])
+
+                migration_error = None
+                if instrumentation is not None:
+                    append_event({"event": "validation_migration_call", **instrumentation.mark("migration_call")})
                 if not no_migrate:
                     progress.update(phase="migrate", run_index=i, done=i - 1, failed=failed_runs)
                     log(f"Run {run_id}: migrate {method}")
-                    rc_migrate = run_migration(cfg, method, run_id, events_log, migrate_log)
-                    if rc_migrate != 0:
-                        raise RuntimeError(f"migration rc={rc_migrate}")
+                    try:
+                        rc_migrate = run_migration(cfg, method, run_id, events_log, migrate_log)
+                    except Exception as exc:
+                        migration_error = exc
+                    finally:
+                        if instrumentation is not None:
+                            append_event({"event": "validation_migration_return", **instrumentation.mark("migration_return")})
                 else:
 
                     progress.update(phase="no-migrate", run_index=i, done=i - 1, failed=failed_runs)
                     log(f"Run {run_id}: no-migrate (monitoring only)")
                     append_event({"event": "control_run"})
-                    append_event({"event": "vip_cutover_start"})
+                    if not validation["enabled"]:
+                        append_event({"event": "vip_cutover_start"})
                     time.sleep(20)
+                    if instrumentation is not None:
+                        append_event({"event": "validation_migration_return", **instrumentation.mark("migration_return")})
 
-                time.sleep(2)
+                time.sleep(validation["post_seconds"] if validation["enabled"] else 2)
+                if instrumentation is not None:
+                    instrumentation.mark("post_observation_end")
+                if migration_error is not None:
+                    raise migration_error
+                if rc_migrate != 0:
+                    raise RuntimeError(f"migration rc={rc_migrate}")
             except KeyboardInterrupt:
                 had_failure = True
                 abort_requested = True
@@ -2025,6 +2108,20 @@ def run_cli(
                     stop_process(monitor_proc, monitor_fp, "monitor")
                     append_event({"event": "monitor_stop"})
 
+                if instrumentation is not None:
+                    log(f"Run {run_id}: stop and archive validation artifacts before checkpoint cleanup")
+                    try:
+                        instrumentation_info = instrumentation.finish()
+                    except Exception as exc:
+                        instrumentation_info = {"complete": False, "errors": [str(exc)]}
+                        write_json(os.path.join(run_dir, "meta", "validation.json"), instrumentation_info)
+                    status["validation"] = instrumentation_info
+                    if not instrumentation_info.get("complete"):
+                        status["measurement_status"] = "incomplete"
+                        had_failure = True
+                    for path in Path(logs_root).glob(f"load-*-{run_id}.out"):
+                        ensure_dir(os.path.join(run_dir, "loads"))
+                        shutil.copy2(path, Path(run_dir) / "loads" / path.name)
 
                 copy_tree(os.path.dirname(base_out), os.path.join(run_dir, "monitor"))
                 if os.path.isfile(events_log):
@@ -2049,17 +2146,29 @@ def run_cli(
                     })
                     rc_analyze = None
 
+                if validation["enabled"]:
+                    try:
+                        from clm.validation_analysis import analyze_validation_run
+                        validation_result = analyze_validation_run(run_dir)
+                        status["validation_analysis_status"] = validation_result.get("status")
+                        status["paired_http_valid"] = validation_result.get("paired_http_valid", False)
+                        if not status["paired_http_valid"]:
+                            status["measurement_status"] = "incomplete"
+                    except Exception as exc:
+                        status["validation_analysis_error"] = str(exc)
+                        status["measurement_status"] = "incomplete"
+                        had_failure = True
                 status["end_ts"] = now_utc_iso()
                 status["analyze_rc"] = rc_analyze
                 if status["status"] == "running":
                     status["status"] = "ok"
                 try:
-                    if no_cleanup:
+                    if no_cleanup or (validation["enabled"] and not (instrumentation_info or {}).get("complete")):
                         cleanup_info = cleanup_skipped_checkpoint_artifacts(
                             cfg,
                             method=method,
                             run_id=run_id,
-                            reason="cli_no_cleanup",
+                            reason="cli_no_cleanup" if no_cleanup else "validation_artifacts_incomplete",
                         )
                     else:
                         cleanup_info = cleanup_run_checkpoint_artifacts(
@@ -2074,6 +2183,9 @@ def run_cli(
                 write_json(os.path.join(run_dir, "meta", "cleanup.json"), cleanup_info)
                 write_json(os.path.join(run_dir, "status.json"), status)
                 write_json(os.path.join(run_dir, "meta", "run.json"), status)
+                if validation["enabled"]:
+                    from clm.validation_analysis import input_manifest
+                    input_manifest(run_dir)
 
                 compat_path = create_legacy_run_link(runs_root, run_id, Path(run_dir))
                 if compat_path and compat_path.exists() and compat_path.is_dir() and not compat_path.is_symlink():
@@ -2108,6 +2220,10 @@ def run_cli(
             if abort_requested:
                 progress.update(done=i, run_index=i, phase="abort-cleanup", failed=failed_runs, aborting=True)
                 best_effort_abort_cleanup(cfg)
+                break
+            if validation["enabled"] and (verification_failed or not (instrumentation_info or {}).get("complete")):
+                log("Batch stopped: incomplete instrumentation/archive; preserve artifacts and inspect the last run before continuing.")
+                batch_meta["stop_reason"] = "validation_incomplete"
                 break
     finally:
         _ACTIVE_PROGRESS = None
@@ -2376,7 +2492,9 @@ def main(argv=None) -> int:
     ap_run = sub.add_parser("run", help="Run ausfuehren")
     ap_run.add_argument("-e", "--env", help="Pfad zur env.yaml", default=argparse.SUPPRESS)
     ap_run.add_argument("--method", required=True, choices=["precopy", "postcopy"])
-    ap_run.add_argument("--repeats", type=int, default=1)
+    ap_run.add_argument("--repeats", type=int, default=None,
+                        help="Wiederholungen (Standard: campaign.repeats aus env.yaml)")
+    ap_run.add_argument("--campaign-id", help="Override metadata ID, e.g. validation_test_2026-10 for functional tests")
     ap_run.add_argument(
         "--load",
         action="append",
@@ -2428,11 +2546,13 @@ def main(argv=None) -> int:
     if args.cmd == "preflight":
         return preflight(cfg, dry_run=args.dry_run)
     if args.cmd == "run":
+        if args.campaign_id:
+            cfg.setdefault("campaign", {})["id"] = args.campaign_id
         raw_argv = sys.argv[1:] if argv is None else list(argv)
         return run_cli(
             cfg,
             args.method,
-            args.repeats,
+            args.repeats if args.repeats is not None else int(cfg.get("campaign", {}).get("repeats", 30)),
             args.load,
             args.no_monitor,
             args.no_migrate,
