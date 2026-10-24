@@ -1,0 +1,116 @@
+{
+  "rc": 0,
+  "batches": [
+    {
+      "batch_id": "20261024_113221_precopy_cpu_da2691",
+      "campaign": {
+        "id": "validation_pilot_2026-10-24",
+        "repeats": 30
+      },
+      "method": "precopy",
+      "load": "cpu",
+      "status": "ok",
+      "runs": [
+        {
+          "batch_id": "20261024_113221_precopy_cpu_da2691",
+          "batch_run": "0001",
+          "run_id": "20261024_113221_precopy_01_21dfbc",
+          "method": "precopy",
+          "load": "cpu",
+          "monitor_enabled": true,
+          "migrate_enabled": true,
+          "control_run": false,
+          "no_cleanup": false,
+          "status": "ok",
+          "start_ts": "2026-10-24T11:32:21Z",
+          "end_ts": "2026-10-24T11:32:57Z",
+          "error": null,
+          "validation": {
+            "version": 1,
+            "complete": true,
+            "errors": [],
+            "warnings": [],
+            "hosts": {
+              "monitor": {
+                "state": "stopped",
+                "role": "monitor",
+                "pid": 164846,
+                "start_ms": 1792841549042.0544,
+                "capture_requested": true,
+                "capture_filter": "arp or (tcp port 8080 and (host 192.168.13.50 or host 192.168.13.10 or host 192.168.13.15))",
+                "snaplen": 0,
+                "interface": "enp1s0",
+                "capture_buffer_kib": 65536,
+                "end_ms": 1792841575274.6917,
+                "stop_reason": "stop_requested",
+                "capture_rc": 0,
+                "kernel_drops": 0,
+                "captured_packets": 46110,
+                "complete": true
+              },
+              "source": {
+                "state": "stopped",
+                "role": "source",
+                "pid": 178181,
+                "start_ms": 1792841552091.6802,
+                "capture_requested": true,
+                "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+                "snaplen": 0,
+                "interface": "enp1s0",
+                "capture_buffer_kib": 65536,
+                "end_ms": 1792841578127.792,
+                "stop_reason": "stop_requested",
+                "capture_rc": 0,
+                "kernel_drops": 0,
+                "captured_packets": 4235,
+                "complete": true
+              },
+              "dest": {
+                "state": "stopped",
+                "role": "dest",
+                "pid": 179512,
+                "start_ms": 1792841552950.6511,
+                "capture_requested": false,
+                "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+                "snaplen": 0,
+                "interface": "enp1s0",
+                "capture_buffer_kib": 65536,
+                "end_ms": 1792841578707.101,
+                "stop_reason": "stop_requested",
+                "capture_rc": null,
+                "kernel_drops": null,
+                "captured_packets": null,
+                "complete": true
+              }
+            }
+          },
+          "analysis_status": "deferred",
+          "validation_analysis_status": "deferred",
+          "analyze_rc": null,
+          "cleanup": {
+            "run_status": "ok",
+            "cp_name": "pc-20261024_113221_precopy_01_21dfbc",
+            "shared": {
+              "policy": "success_only",
+              "path": "/mnt/criu/runc/testweb/pc-20261024_113221_precopy_01_21dfbc",
+              "attempted": true,
+              "ok": true
+            },
+            "local": {
+              "policy": "success_only",
+              "path": "/var/lib/criu-local/runc/testweb/pc-20261024_113221_precopy_01_21dfbc",
+              "paths": {
+                "images": "/var/lib/criu-local/runc/testweb/pc-20261024_113221_precopy_01_21dfbc",
+                "bundle": "/var/lib/criu-local/runc-bundle/testweb/pc-20261024_113221_precopy_01_21dfbc",
+                "work": "/var/lib/criu-local/work/testweb/pc-20261024_113221_precopy_01_21dfbc",
+                "runtime": "/var/lib/criu-local/runtime/testweb/pc-20261024_113221_precopy_01_21dfbc"
+              },
+              "attempted": true,
+              "ok": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

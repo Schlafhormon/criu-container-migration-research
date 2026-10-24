@@ -1,0 +1,19 @@
+[2026-10-24T11:26:09Z] Batch 20261024_112609_precopy_idle_61e0f2: writing runs under /mnt/criu/runs/batches/20261024_112609_precopy_idle_61e0f2/runs
+[2026-10-24T11:26:10Z] Run 20261024_112609_precopy_01_a5592c: baseline reset (dest cleanup, source reset)
+[baseline:source] [2026-10-24T13:26:13.812Z] Stelle aus Baseline wieder her: /mnt/criu/runc-bundle/config.json.baseline
+[baseline:source] [2026-10-24T13:26:13.844Z] [OK] Baseline wiederhergestellt: /mnt/criu/runc-bundle
+[baseline:source] [2026-10-24T13:26:13.848Z] Gunicorn-Kapazitaet: workers=2 threads=8
+[baseline:source] [2026-10-24T13:26:13.850Z] Sichere /var/tmp im Rootfs (1777)
+[baseline:source] [2026-10-24T13:26:13.870Z] Patch cwd/ENV/Args und /var/tmp-Mount in /mnt/criu/runc-bundle/config.json
+[2026-10-24T11:26:11Z] [baseline:source] [OK] Bundle vorbereitet: /mnt/criu/runc-bundle
+[2026-10-24T11:26:11Z] [baseline:source] Hinweis: Läuft der Quell-Container bereits, greift die neue ENV erst nach Neustart aus diesem Bundle.
+[2026-10-24T11:26:15Z] [baseline:source] ARPING 192.168.13.50 from 192.168.13.50 enp1s0
+[2026-10-24T11:26:15Z] [baseline:source] Sent 3 probes (3 broadcast(s))
+[2026-10-24T11:26:15Z] [baseline:source] Received 0 response(s)
+[2026-10-24T11:26:15Z] [baseline:source] 200200
+[2026-10-24T11:26:16Z] Run 20261024_112609_precopy_01_a5592c: start validation capture/reference/resources
+[2026-10-24T11:26:18Z] Run 20261024_112609_precopy_01_a5592c: monitor start
+[2026-10-24T11:26:25Z] Run 20261024_112609_precopy_01_a5592c: migrate precopy
+[2026-10-24T11:26:43Z] Run 20261024_112609_precopy_01_a5592c: monitor stop
+[2026-10-24T11:26:48Z] Run 20261024_112609_precopy_01_a5592c: stop and archive validation artifacts before checkpoint cleanup
+[2026-10-24T11:26:51Z] Batch stopped: incomplete instrumentation/archive; preserve artifacts and inspect the last run before continuing.

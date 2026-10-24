@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "batch_id": "20261024_113503_precopy_download_c1e3e4",
+  "batch_dir": "/mnt/criu/runs/batches/20261024_113503_precopy_download_c1e3e4",
+  "runs_dir": "/mnt/criu/runs/batches/20261024_113503_precopy_download_c1e3e4/runs",
+  "analysis_dir": "/mnt/criu/runs/batches/20261024_113503_precopy_download_c1e3e4/analysis",
+  "method": "precopy",
+  "load": "download",
+  "load_modes": [
+    "download"
+  ],
+  "repeats": 1,
+  "env_file": "config/env.yaml",
+  "start_ts": "2026-10-24T11:35:03Z",
+  "end_ts": "2026-10-24T11:35:43Z",
+  "status": "failed",
+  "auto_analyse": false,
+  "analysis_config": "config/analysis.yaml",
+  "cli_args": [
+    "run",
+    "--env",
+    "config/env.yaml",
+    "--method",
+    "precopy",
+    "--load",
+    "download",
+    "--repeats",
+    "1",
+    "--campaign-id",
+    "validation_pilot_2026-10-24",
+    "--no-analysis"
+  ],
+  "repo_path": "~/ContainerLiveMigration",
+  "git_commit": null,
+  "host": {
+    "hostname": "ubuntu-20",
+    "python": "3.13.3"
+  },
+  "runs": [
+    {
+      "batch_run": "0001",
+      "run_id": "20261024_113503_precopy_01_f8ef88",
+      "run_dir": "/mnt/criu/runs/batches/20261024_113503_precopy_download_c1e3e4/runs/0001",
+      "status": "ok",
+      "analyze_rc": null,
+      "legacy_path": "/mnt/criu/runs/20261024_113503_precopy_01_f8ef88"
+    }
+  ],
+  "campaign": {
+    "id": "validation_pilot_2026-10-24",
+    "repeats": 30
+  },
+  "validation": {
+    "enabled": true,
+    "pre_seconds": 5,
+    "post_seconds": 10,
+    "local_root": "/var/tmp/clm-validation",
+    "min_free_mb": 1024,
+    "resource_interval_ms": 100,
+    "max_recording_seconds": 600,
+    "reference_interval_ms": 10,
+    "reference_timeout_ms": 40,
+    "reference_max_inflight": 32,
+    "reference_watchdog_ms": 1000,
+    "capture_snaplen": 0,
+    "max_capture_mb": 512,
+    "migration_capture_host": "source",
+    "monitor_interface": "enp1s0"
+  },
+  "stop_reason": "validation_incomplete"
+}

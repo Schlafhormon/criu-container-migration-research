@@ -37,6 +37,10 @@ scripts/hostinfo/
 !measurement_data/**/*.log
 !measurement_data/**/*.ndjson
 
+# The published pilot includes every raw artifact, log and transfer proof.
+!/validation_data/Pilot/
+!/validation_data/Pilot/**
+
 # Local agent instructions and scratch work; shared context lives in paper repo.
 /AGENTS.md
 /.agent-work/

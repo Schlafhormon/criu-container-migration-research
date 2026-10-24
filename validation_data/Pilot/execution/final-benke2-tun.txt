@@ -1,0 +1,24 @@
+All selected stages empty/removed; shared bundle retained
+=== SPACE ===
+Filesystem             1B-blocks        Used  Available Use% Mounted on
+/dev/vda2            15742193664 10646781952 4327264256  72% /
+192.168.13.10:/share 15742271488  9783214080 5190451200  66% /mnt/criu
+/dev/vda2            15742193664 10646781952 4327264256  72% /
+=== RUNTIME ===
+ID          PID         STATUS      BUNDLE      CREATED     OWNER
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp1s0           UP             192.168.13.15/24 fe80::5054:ff:fed0:cafc/64 
+docker0          DOWN           172.17.0.1/16 
+=== LEFTOVER MEASUREMENT PATHS ===
+/mnt/criu/logs/validation-preflight
+/mnt/criu/logs/validation-preflight/meta
+=== FORWARDING RULES ===
+=== COLLECTOR / LOAD PROCESSES ===
+=== CODE ===
+{
+  "ok": true,
+  "files": 102,
+  "errors": [],
+  "branch": "validation/2026-10-measurements",
+  "base_commit": "42937a2587a16c45f2b8492c2ca228cba13dc309"
+}

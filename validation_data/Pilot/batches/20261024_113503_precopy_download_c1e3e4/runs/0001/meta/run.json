@@ -1,0 +1,103 @@
+{
+  "batch_id": "20261024_113503_precopy_download_c1e3e4",
+  "batch_run": "0001",
+  "run_id": "20261024_113503_precopy_01_f8ef88",
+  "method": "precopy",
+  "load": "download",
+  "monitor_enabled": true,
+  "migrate_enabled": true,
+  "control_run": false,
+  "no_cleanup": false,
+  "status": "ok",
+  "start_ts": "2026-10-24T11:35:03Z",
+  "end_ts": "2026-10-24T11:35:43Z",
+  "error": null,
+  "validation": {
+    "version": 1,
+    "complete": false,
+    "errors": [
+      "monitor: capture_size_limit"
+    ],
+    "warnings": [],
+    "hosts": {
+      "monitor": {
+        "state": "stopped",
+        "role": "monitor",
+        "pid": 165708,
+        "start_ms": 1792841710981.3193,
+        "capture_requested": true,
+        "capture_filter": "arp or (tcp port 8080 and (host 192.168.13.50 or host 192.168.13.10 or host 192.168.13.15))",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792841714603.156,
+        "stop_reason": "capture_size_limit",
+        "capture_rc": 0,
+        "kernel_drops": 6986,
+        "captured_packets": 19581,
+        "complete": false
+      },
+      "source": {
+        "state": "stopped",
+        "role": "source",
+        "pid": 181414,
+        "start_ms": 1792841714029.6318,
+        "capture_requested": true,
+        "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792841739874.0947,
+        "stop_reason": "stop_requested",
+        "capture_rc": 0,
+        "kernel_drops": 0,
+        "captured_packets": 3152,
+        "complete": true
+      },
+      "dest": {
+        "state": "stopped",
+        "role": "dest",
+        "pid": 182402,
+        "start_ms": 1792841714909.5095,
+        "capture_requested": false,
+        "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792841740470.8557,
+        "stop_reason": "stop_requested",
+        "capture_rc": null,
+        "kernel_drops": null,
+        "captured_packets": null,
+        "complete": true
+      }
+    }
+  },
+  "measurement_status": "incomplete",
+  "analysis_status": "deferred",
+  "validation_analysis_status": "deferred",
+  "analyze_rc": null,
+  "cleanup": {
+    "skipped": true,
+    "reason": "validation_artifacts_incomplete",
+    "cp_name": "pc-20261024_113503_precopy_01_f8ef88",
+    "shared": {
+      "policy": "skipped",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_113503_precopy_01_f8ef88",
+      "attempted": false,
+      "ok": null
+    },
+    "local": {
+      "policy": "skipped",
+      "path": "/var/lib/criu-local/runc/testweb/pc-20261024_113503_precopy_01_f8ef88",
+      "paths": {
+        "images": "/var/lib/criu-local/runc/testweb/pc-20261024_113503_precopy_01_f8ef88",
+        "bundle": "/var/lib/criu-local/runc-bundle/testweb/pc-20261024_113503_precopy_01_f8ef88",
+        "work": "/var/lib/criu-local/work/testweb/pc-20261024_113503_precopy_01_f8ef88",
+        "runtime": "/var/lib/criu-local/runtime/testweb/pc-20261024_113503_precopy_01_f8ef88"
+      },
+      "attempted": false,
+      "ok": null
+    }
+  }
+}

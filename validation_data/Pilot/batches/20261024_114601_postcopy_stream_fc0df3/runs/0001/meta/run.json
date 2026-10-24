@@ -1,0 +1,99 @@
+{
+  "batch_id": "20261024_114601_postcopy_stream_fc0df3",
+  "batch_run": "0001",
+  "run_id": "20261024_114601_postcopy_01_2224d2",
+  "method": "postcopy",
+  "load": "stream",
+  "monitor_enabled": true,
+  "migrate_enabled": true,
+  "control_run": false,
+  "no_cleanup": false,
+  "status": "ok",
+  "start_ts": "2026-10-24T11:46:01Z",
+  "end_ts": "2026-10-24T11:46:41Z",
+  "error": null,
+  "validation": {
+    "version": 1,
+    "complete": true,
+    "errors": [],
+    "warnings": [],
+    "hosts": {
+      "monitor": {
+        "state": "stopped",
+        "role": "monitor",
+        "pid": 167377,
+        "start_ms": 1792842368287.5146,
+        "capture_requested": true,
+        "capture_filter": "arp or (tcp port 8080 and (host 192.168.13.50 or host 192.168.13.10 or host 192.168.13.15))",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792842397319.8865,
+        "stop_reason": "stop_requested",
+        "capture_rc": 0,
+        "kernel_drops": 0,
+        "captured_packets": 56807,
+        "complete": true
+      },
+      "source": {
+        "state": "stopped",
+        "role": "source",
+        "pid": 189459,
+        "start_ms": 1792842371320.1726,
+        "capture_requested": true,
+        "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792842400261.96,
+        "stop_reason": "stop_requested",
+        "capture_rc": 0,
+        "kernel_drops": 0,
+        "captured_packets": 38996,
+        "complete": true
+      },
+      "dest": {
+        "state": "stopped",
+        "role": "dest",
+        "pid": 189243,
+        "start_ms": 1792842372190.8813,
+        "capture_requested": false,
+        "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+        "snaplen": 0,
+        "interface": "enp1s0",
+        "capture_buffer_kib": 65536,
+        "end_ms": 1792842401827.7083,
+        "stop_reason": "stop_requested",
+        "capture_rc": null,
+        "kernel_drops": null,
+        "captured_packets": null,
+        "complete": true
+      }
+    }
+  },
+  "analysis_status": "deferred",
+  "validation_analysis_status": "deferred",
+  "analyze_rc": null,
+  "cleanup": {
+    "run_status": "ok",
+    "cp_name": "pcpost-20261024_114601_postcopy_01_2224d2",
+    "shared": {
+      "policy": "success_only",
+      "path": "/mnt/criu/runc/testweb/pcpost-20261024_114601_postcopy_01_2224d2",
+      "attempted": true,
+      "ok": true
+    },
+    "local": {
+      "policy": "success_only",
+      "path": "/var/lib/criu-local/runc/testweb/pcpost-20261024_114601_postcopy_01_2224d2",
+      "paths": {
+        "images": "/var/lib/criu-local/runc/testweb/pcpost-20261024_114601_postcopy_01_2224d2",
+        "bundle": "/var/lib/criu-local/runc-bundle/testweb/pcpost-20261024_114601_postcopy_01_2224d2",
+        "work": "/var/lib/criu-local/work/testweb/pcpost-20261024_114601_postcopy_01_2224d2",
+        "runtime": "/var/lib/criu-local/runtime/testweb/pcpost-20261024_114601_postcopy_01_2224d2"
+      },
+      "attempted": true,
+      "ok": true
+    }
+  }
+}

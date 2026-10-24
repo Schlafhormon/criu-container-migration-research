@@ -1,0 +1,15 @@
+{
+  "role": "source",
+  "pid": 173628,
+  "start_ms": 1792841179994.0854,
+  "capture_requested": true,
+  "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+  "snaplen": 0,
+  "interface": "enp1s0",
+  "end_ms": 1792841211434.2878,
+  "stop_reason": "capture_kernel_drops",
+  "capture_rc": 0,
+  "kernel_drops": 41,
+  "captured_packets": 3273,
+  "complete": false
+}

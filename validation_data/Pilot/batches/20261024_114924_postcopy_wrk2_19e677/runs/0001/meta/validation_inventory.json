@@ -1,0 +1,193 @@
+{
+  "monitor": {
+    "ok": true,
+    "problems": [],
+    "role": "monitor",
+    "hostname": "ubuntu-20",
+    "python": "3.13.3 (main, Jan  8 2026, 12:03:54) [GCC 14.2.0]",
+    "uid": 0,
+    "free_bytes": 3288207360,
+    "tools": {
+      "python3": "/usr/bin/python3",
+      "tcpdump": "/usr/bin/tcpdump",
+      "runc": null,
+      "criu": null,
+      "crit": null
+    },
+    "versions": {
+      "tcpdump": {
+        "rc": 0,
+        "stdout": "tcpdump version 4.99.4\nlibpcap version 1.10.5 (with TPACKET_V3)\nOpenSSL 3.4.1 11 Feb 2025",
+        "stderr": ""
+      }
+    },
+    "uname": {
+      "rc": 0,
+      "stdout": "Linux ubuntu-20 6.14.0-37-generic #37-Ubuntu SMP PREEMPT_DYNAMIC Fri Nov 14 22:10:32 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux",
+      "stderr": ""
+    },
+    "offloads": {
+      "rc": 0,
+      "stdout": "Features for enp1s0:\nrx-checksumming: on [fixed]\ntx-checksumming: on\n\ttx-checksum-ipv4: off [fixed]\n\ttx-checksum-ip-generic: on\n\ttx-checksum-ipv6: off [fixed]\n\ttx-checksum-fcoe-crc: off [fixed]\n\ttx-checksum-sctp: off [fixed]\nscatter-gather: on\n\ttx-scatter-gather: on\n\ttx-scatter-gather-fraglist: off [fixed]\ntcp-segmentation-offload: on\n\ttx-tcp-segmentation: on\n\ttx-tcp-ecn-segmentation: on\n\ttx-tcp-mangleid-segmentation: off\n\ttx-tcp6-segmentation: on\ngeneric-segmentation-offload: on\ngeneric-receive-offload: on\nlarge-receive-offload: off [fixed]\nrx-vlan-offload: off [fixed]\ntx-vlan-offload: off [fixed]\nntuple-filters: off [fixed]\nreceive-hashing: off [fixed]\nhighdma: on [fixed]\nrx-vlan-filter: on [fixed]\nvlan-challenged: off [fixed]\ntx-gso-robust: on [fixed]\ntx-fcoe-segmentation: off [fixed]\ntx-gre-segmentation: off [fixed]\ntx-gre-csum-segmentation: off [fixed]\ntx-ipxip4-segmentation: off [fixed]\ntx-ipxip6-segmentation: off [fixed]\ntx-udp_tnl-segmentation: off [fixed]\ntx-udp_tnl-csum-segmentation: off [fixed]\ntx-gso-partial: off [fixed]\ntx-tunnel-remcsum-segmentation: off [fixed]\ntx-sctp-segmentation: off [fixed]\ntx-esp-segmentation: off [fixed]\ntx-udp-segmentation: off [fixed]\ntx-gso-list: off [fixed]\ntx-nocache-copy: off\nloopback: off [fixed]\nrx-fcs: off [fixed]\nrx-all: off [fixed]\ntx-vlan-stag-hw-insert: off [fixed]\nrx-vlan-stag-hw-parse: off [fixed]\nrx-vlan-stag-filter: off [fixed]\nl2-fwd-offload: off [fixed]\nhw-tc-offload: off [fixed]\nesp-hw-offload: off [fixed]\nesp-tx-csum-hw-offload: off [fixed]\nrx-udp_tunnel-port-offload: off [fixed]\ntls-hw-tx-offload: off [fixed]\ntls-hw-rx-offload: off [fixed]\nrx-gro-hw: on\ntls-hw-record: off [fixed]\nrx-gro-list: off\nmacsec-hw-offload: off [fixed]\nrx-udp-gro-forwarding: off\nhsr-tag-ins-offload: off [fixed]\nhsr-tag-rm-offload: off [fixed]\nhsr-fwd-offload: off [fixed]\nhsr-dup-offload: off [fixed]",
+      "stderr": ""
+    },
+    "git_head": {
+      "rc": 128,
+      "stdout": "",
+      "stderr": "fatal: not a git repository (or any of the parent directories): .git"
+    },
+    "code_sha256": {
+      "clm/__init__.py": "e345cef09904e3bb50cda26bc62bd372c6fecda0df40a41d922a746e60c380d4",
+      "clm/analysis_pipeline.py": "96595d47a160bcbe2bd3af81f17996a072c2ebd4d203de55d76f300d660a96de",
+      "clm/batching.py": "1248c8ac068016ae58aa7edeff863d6eb7ae9e65779654d504461040d9f142fc",
+      "clm/cli.py": "4b2dade20416e07cced1e2124eb6c10c8c792ac95d9c53441923251e8b3edaf0",
+      "clm/http_reference.py": "58e7d15765d712d06400a5ea01af01ad6006b76b85b5bd6a470bf32aa59e8dcc",
+      "clm/validation.py": "953d6ff318be979f11097b0848bb9699adec68d59a682e25a64b5b1c17bd9339",
+      "clm/validation_analysis.py": "3276b269221231bb1cfc6a22b216ab94385ec968c68f4cb731203efb1b5cf287",
+      "pyproject.toml": "335bc00a69a4df8c81612402d10cfd74bdcea0173582a2269e5c9c036aab69fa",
+      "scripts/build_runc_bundle_from_docker_image.sh": "fac7176c9f2b892d1f11abeee34b28c085b38a14d8929bee0e0e4a28e4ee98c6",
+      "scripts/migrate_postcopy_lazy_pages_vip_cutover.sh": "c7c4ffc4af8c42c4b4c864f3e6ea7236212eaca983c409c56bfbffaa011cea82",
+      "scripts/migrate_precopy_vip_cutover.sh": "2f99715cfd103c25abde5e6aba3d12ffae1c98677abaf20125120e751a865f25",
+      "scripts/patch_runc_bundle_for_criu.sh": "49a50b52e3f50d3f76b44c9aa8061b2cdcc2d4155c11fbec03f55667f1cfdfec",
+      "scripts/restore_runc_bundle_baseline.sh": "ee939977bf92bed26c3c15d2c22bb12cb3d1e94f0db37a4ca1a7fb85cb109d80",
+      "scripts/validation_host.py": "27e25e51b61b6542a435e12a778743a92b5c476a7910a9445ae8b4171bf3d9c2",
+      "tools/monitor/http_reference.py": "34c7eb4f3124b0741dd9b44311f6517a6940d11c6f7a9440ae82b0492ea76710",
+      "tools/monitor/monitor.py": "362f762c2c350394fa22e7e08e7fc641c11353d4c8c9fde1c90ade62c5cc44b4",
+      "workload/flask_app/app.py": "45a7ef243867ab32a232eccb48d53ca7d39c4b57d4be129f86bec0782d4a10e7"
+    }
+  },
+  "source": {
+    "ok": true,
+    "problems": [],
+    "role": "source",
+    "hostname": "ubuntu-10",
+    "python": "3.13.3 (main, Jan  8 2026, 12:03:54) [GCC 14.2.0]",
+    "uid": 0,
+    "free_bytes": 5190205440,
+    "tools": {
+      "python3": "/usr/bin/python3",
+      "tcpdump": "/usr/bin/tcpdump",
+      "runc": "/usr/sbin/runc",
+      "criu": "/usr/local/sbin/criu",
+      "crit": "/usr/bin/crit"
+    },
+    "versions": {
+      "tcpdump": {
+        "rc": 0,
+        "stdout": "tcpdump version 4.99.4\nlibpcap version 1.10.5 (with TPACKET_V3)\nOpenSSL 3.4.1 11 Feb 2025",
+        "stderr": ""
+      },
+      "runc": {
+        "rc": 0,
+        "stdout": "runc version 1.3.3-0ubuntu1~25.04.3\nspec: 1.2.1\ngo: go1.24.2\nlibseccomp: 2.5.5",
+        "stderr": ""
+      },
+      "criu": {
+        "rc": 0,
+        "stdout": "Version: 4.1.1\nGitID: v4.1.1",
+        "stderr": ""
+      }
+    },
+    "uname": {
+      "rc": 0,
+      "stdout": "Linux ubuntu-10 6.14.0-37-generic #37-Ubuntu SMP PREEMPT_DYNAMIC Fri Nov 14 22:10:32 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux",
+      "stderr": ""
+    },
+    "offloads": {
+      "rc": 0,
+      "stdout": "Features for enp1s0:\nrx-checksumming: on [fixed]\ntx-checksumming: on\n\ttx-checksum-ipv4: off [fixed]\n\ttx-checksum-ip-generic: on\n\ttx-checksum-ipv6: off [fixed]\n\ttx-checksum-fcoe-crc: off [fixed]\n\ttx-checksum-sctp: off [fixed]\nscatter-gather: on\n\ttx-scatter-gather: on\n\ttx-scatter-gather-fraglist: off [fixed]\ntcp-segmentation-offload: on\n\ttx-tcp-segmentation: on\n\ttx-tcp-ecn-segmentation: on\n\ttx-tcp-mangleid-segmentation: off\n\ttx-tcp6-segmentation: on\ngeneric-segmentation-offload: on\ngeneric-receive-offload: on\nlarge-receive-offload: off [fixed]\nrx-vlan-offload: off [fixed]\ntx-vlan-offload: off [fixed]\nntuple-filters: off [fixed]\nreceive-hashing: off [fixed]\nhighdma: on [fixed]\nrx-vlan-filter: on [fixed]\nvlan-challenged: off [fixed]\ntx-gso-robust: on [fixed]\ntx-fcoe-segmentation: off [fixed]\ntx-gre-segmentation: off [fixed]\ntx-gre-csum-segmentation: off [fixed]\ntx-ipxip4-segmentation: off [fixed]\ntx-ipxip6-segmentation: off [fixed]\ntx-udp_tnl-segmentation: off [fixed]\ntx-udp_tnl-csum-segmentation: off [fixed]\ntx-gso-partial: off [fixed]\ntx-tunnel-remcsum-segmentation: off [fixed]\ntx-sctp-segmentation: off [fixed]\ntx-esp-segmentation: off [fixed]\ntx-udp-segmentation: off [fixed]\ntx-gso-list: off [fixed]\ntx-nocache-copy: off\nloopback: off [fixed]\nrx-fcs: off [fixed]\nrx-all: off [fixed]\ntx-vlan-stag-hw-insert: off [fixed]\nrx-vlan-stag-hw-parse: off [fixed]\nrx-vlan-stag-filter: off [fixed]\nl2-fwd-offload: off [fixed]\nhw-tc-offload: off [fixed]\nesp-hw-offload: off [fixed]\nesp-tx-csum-hw-offload: off [fixed]\nrx-udp_tunnel-port-offload: off [fixed]\ntls-hw-tx-offload: off [fixed]\ntls-hw-rx-offload: off [fixed]\nrx-gro-hw: on\ntls-hw-record: off [fixed]\nrx-gro-list: off\nmacsec-hw-offload: off [fixed]\nrx-udp-gro-forwarding: off\nhsr-tag-ins-offload: off [fixed]\nhsr-tag-rm-offload: off [fixed]\nhsr-fwd-offload: off [fixed]\nhsr-dup-offload: off [fixed]",
+      "stderr": ""
+    },
+    "git_head": {
+      "rc": 128,
+      "stdout": "",
+      "stderr": "fatal: not a git repository (or any of the parent directories): .git"
+    },
+    "code_sha256": {
+      "clm/__init__.py": "e345cef09904e3bb50cda26bc62bd372c6fecda0df40a41d922a746e60c380d4",
+      "clm/analysis_pipeline.py": "96595d47a160bcbe2bd3af81f17996a072c2ebd4d203de55d76f300d660a96de",
+      "clm/batching.py": "1248c8ac068016ae58aa7edeff863d6eb7ae9e65779654d504461040d9f142fc",
+      "clm/cli.py": "4b2dade20416e07cced1e2124eb6c10c8c792ac95d9c53441923251e8b3edaf0",
+      "clm/http_reference.py": "58e7d15765d712d06400a5ea01af01ad6006b76b85b5bd6a470bf32aa59e8dcc",
+      "clm/validation.py": "953d6ff318be979f11097b0848bb9699adec68d59a682e25a64b5b1c17bd9339",
+      "clm/validation_analysis.py": "3276b269221231bb1cfc6a22b216ab94385ec968c68f4cb731203efb1b5cf287",
+      "pyproject.toml": "335bc00a69a4df8c81612402d10cfd74bdcea0173582a2269e5c9c036aab69fa",
+      "scripts/build_runc_bundle_from_docker_image.sh": "fac7176c9f2b892d1f11abeee34b28c085b38a14d8929bee0e0e4a28e4ee98c6",
+      "scripts/migrate_postcopy_lazy_pages_vip_cutover.sh": "c7c4ffc4af8c42c4b4c864f3e6ea7236212eaca983c409c56bfbffaa011cea82",
+      "scripts/migrate_precopy_vip_cutover.sh": "2f99715cfd103c25abde5e6aba3d12ffae1c98677abaf20125120e751a865f25",
+      "scripts/patch_runc_bundle_for_criu.sh": "49a50b52e3f50d3f76b44c9aa8061b2cdcc2d4155c11fbec03f55667f1cfdfec",
+      "scripts/restore_runc_bundle_baseline.sh": "ee939977bf92bed26c3c15d2c22bb12cb3d1e94f0db37a4ca1a7fb85cb109d80",
+      "scripts/validation_host.py": "27e25e51b61b6542a435e12a778743a92b5c476a7910a9445ae8b4171bf3d9c2",
+      "tools/monitor/http_reference.py": "34c7eb4f3124b0741dd9b44311f6517a6940d11c6f7a9440ae82b0492ea76710",
+      "tools/monitor/monitor.py": "362f762c2c350394fa22e7e08e7fc641c11353d4c8c9fde1c90ade62c5cc44b4",
+      "workload/flask_app/app.py": "45a7ef243867ab32a232eccb48d53ca7d39c4b57d4be129f86bec0782d4a10e7"
+    }
+  },
+  "dest": {
+    "ok": true,
+    "problems": [],
+    "role": "dest",
+    "hostname": "ubuntu-15",
+    "python": "3.13.3 (main, Jan  8 2026, 12:03:54) [GCC 14.2.0]",
+    "uid": 0,
+    "free_bytes": 4327718912,
+    "tools": {
+      "python3": "/usr/bin/python3",
+      "tcpdump": "/usr/bin/tcpdump",
+      "runc": "/usr/sbin/runc",
+      "criu": "/usr/local/sbin/criu",
+      "crit": null
+    },
+    "versions": {
+      "tcpdump": {
+        "rc": 0,
+        "stdout": "tcpdump version 4.99.4\nlibpcap version 1.10.5 (with TPACKET_V3)\nOpenSSL 3.4.1 11 Feb 2025",
+        "stderr": ""
+      },
+      "runc": {
+        "rc": 0,
+        "stdout": "runc version 1.3.3-0ubuntu1~25.04.3\nspec: 1.2.1\ngo: go1.24.2\nlibseccomp: 2.5.5",
+        "stderr": ""
+      },
+      "criu": {
+        "rc": 0,
+        "stdout": "Version: 4.1.1\nGitID: v4.1.1",
+        "stderr": ""
+      }
+    },
+    "uname": {
+      "rc": 0,
+      "stdout": "Linux ubuntu-15 6.14.0-37-generic #37-Ubuntu SMP PREEMPT_DYNAMIC Fri Nov 14 22:10:32 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux",
+      "stderr": ""
+    },
+    "offloads": {
+      "rc": 0,
+      "stdout": "Features for enp1s0:\nrx-checksumming: on [fixed]\ntx-checksumming: on\n\ttx-checksum-ipv4: off [fixed]\n\ttx-checksum-ip-generic: on\n\ttx-checksum-ipv6: off [fixed]\n\ttx-checksum-fcoe-crc: off [fixed]\n\ttx-checksum-sctp: off [fixed]\nscatter-gather: on\n\ttx-scatter-gather: on\n\ttx-scatter-gather-fraglist: off [fixed]\ntcp-segmentation-offload: on\n\ttx-tcp-segmentation: on\n\ttx-tcp-ecn-segmentation: on\n\ttx-tcp-mangleid-segmentation: off\n\ttx-tcp6-segmentation: on\ngeneric-segmentation-offload: on\ngeneric-receive-offload: on\nlarge-receive-offload: off [fixed]\nrx-vlan-offload: off [fixed]\ntx-vlan-offload: off [fixed]\nntuple-filters: off [fixed]\nreceive-hashing: off [fixed]\nhighdma: on [fixed]\nrx-vlan-filter: on [fixed]\nvlan-challenged: off [fixed]\ntx-gso-robust: on [fixed]\ntx-fcoe-segmentation: off [fixed]\ntx-gre-segmentation: off [fixed]\ntx-gre-csum-segmentation: off [fixed]\ntx-ipxip4-segmentation: off [fixed]\ntx-ipxip6-segmentation: off [fixed]\ntx-udp_tnl-segmentation: off [fixed]\ntx-udp_tnl-csum-segmentation: off [fixed]\ntx-gso-partial: off [fixed]\ntx-tunnel-remcsum-segmentation: off [fixed]\ntx-sctp-segmentation: off [fixed]\ntx-esp-segmentation: off [fixed]\ntx-udp-segmentation: off [fixed]\ntx-gso-list: off [fixed]\ntx-nocache-copy: off\nloopback: off [fixed]\nrx-fcs: off [fixed]\nrx-all: off [fixed]\ntx-vlan-stag-hw-insert: off [fixed]\nrx-vlan-stag-hw-parse: off [fixed]\nrx-vlan-stag-filter: off [fixed]\nl2-fwd-offload: off [fixed]\nhw-tc-offload: off [fixed]\nesp-hw-offload: off [fixed]\nesp-tx-csum-hw-offload: off [fixed]\nrx-udp_tunnel-port-offload: off [fixed]\ntls-hw-tx-offload: off [fixed]\ntls-hw-rx-offload: off [fixed]\nrx-gro-hw: on\ntls-hw-record: off [fixed]\nrx-gro-list: off\nmacsec-hw-offload: off [fixed]\nrx-udp-gro-forwarding: off\nhsr-tag-ins-offload: off [fixed]\nhsr-tag-rm-offload: off [fixed]\nhsr-fwd-offload: off [fixed]\nhsr-dup-offload: off [fixed]",
+      "stderr": ""
+    },
+    "git_head": {
+      "rc": 128,
+      "stdout": "",
+      "stderr": "fatal: not a git repository (or any of the parent directories): .git"
+    },
+    "code_sha256": {
+      "clm/__init__.py": "e345cef09904e3bb50cda26bc62bd372c6fecda0df40a41d922a746e60c380d4",
+      "clm/analysis_pipeline.py": "96595d47a160bcbe2bd3af81f17996a072c2ebd4d203de55d76f300d660a96de",
+      "clm/batching.py": "1248c8ac068016ae58aa7edeff863d6eb7ae9e65779654d504461040d9f142fc",
+      "clm/cli.py": "4b2dade20416e07cced1e2124eb6c10c8c792ac95d9c53441923251e8b3edaf0",
+      "clm/http_reference.py": "58e7d15765d712d06400a5ea01af01ad6006b76b85b5bd6a470bf32aa59e8dcc",
+      "clm/validation.py": "953d6ff318be979f11097b0848bb9699adec68d59a682e25a64b5b1c17bd9339",
+      "clm/validation_analysis.py": "3276b269221231bb1cfc6a22b216ab94385ec968c68f4cb731203efb1b5cf287",
+      "pyproject.toml": "335bc00a69a4df8c81612402d10cfd74bdcea0173582a2269e5c9c036aab69fa",
+      "scripts/build_runc_bundle_from_docker_image.sh": "fac7176c9f2b892d1f11abeee34b28c085b38a14d8929bee0e0e4a28e4ee98c6",
+      "scripts/migrate_postcopy_lazy_pages_vip_cutover.sh": "c7c4ffc4af8c42c4b4c864f3e6ea7236212eaca983c409c56bfbffaa011cea82",
+      "scripts/migrate_precopy_vip_cutover.sh": "2f99715cfd103c25abde5e6aba3d12ffae1c98677abaf20125120e751a865f25",
+      "scripts/patch_runc_bundle_for_criu.sh": "49a50b52e3f50d3f76b44c9aa8061b2cdcc2d4155c11fbec03f55667f1cfdfec",
+      "scripts/restore_runc_bundle_baseline.sh": "ee939977bf92bed26c3c15d2c22bb12cb3d1e94f0db37a4ca1a7fb85cb109d80",
+      "scripts/validation_host.py": "27e25e51b61b6542a435e12a778743a92b5c476a7910a9445ae8b4171bf3d9c2",
+      "tools/monitor/http_reference.py": "34c7eb4f3124b0741dd9b44311f6517a6940d11c6f7a9440ae82b0492ea76710",
+      "tools/monitor/monitor.py": "362f762c2c350394fa22e7e08e7fc641c11353d4c8c9fde1c90ade62c5cc44b4",
+      "workload/flask_app/app.py": "45a7ef243867ab32a232eccb48d53ca7d39c4b57d4be129f86bec0782d4a10e7"
+    }
+  }
+}

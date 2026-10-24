@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "batch_id": "20261024_113221_precopy_cpu_da2691",
+  "batch_dir": "/mnt/criu/runs/batches/20261024_113221_precopy_cpu_da2691",
+  "runs_dir": "/mnt/criu/runs/batches/20261024_113221_precopy_cpu_da2691/runs",
+  "analysis_dir": "/mnt/criu/runs/batches/20261024_113221_precopy_cpu_da2691/analysis",
+  "method": "precopy",
+  "load": "cpu",
+  "load_modes": [
+    "cpu"
+  ],
+  "repeats": 1,
+  "env_file": "config/env.yaml",
+  "start_ts": "2026-10-24T11:32:21Z",
+  "end_ts": "2026-10-24T11:32:58Z",
+  "status": "ok",
+  "auto_analyse": false,
+  "analysis_config": "config/analysis.yaml",
+  "cli_args": [
+    "run",
+    "--env",
+    "config/env.yaml",
+    "--method",
+    "precopy",
+    "--load",
+    "cpu",
+    "--repeats",
+    "1",
+    "--campaign-id",
+    "validation_pilot_2026-10-24",
+    "--no-analysis"
+  ],
+  "repo_path": "~/ContainerLiveMigration",
+  "git_commit": null,
+  "host": {
+    "hostname": "ubuntu-20",
+    "python": "3.13.3"
+  },
+  "runs": [
+    {
+      "batch_run": "0001",
+      "run_id": "20261024_113221_precopy_01_21dfbc",
+      "run_dir": "/mnt/criu/runs/batches/20261024_113221_precopy_cpu_da2691/runs/0001",
+      "status": "ok",
+      "analyze_rc": null,
+      "legacy_path": "/mnt/criu/runs/20261024_113221_precopy_01_21dfbc"
+    }
+  ],
+  "campaign": {
+    "id": "validation_pilot_2026-10-24",
+    "repeats": 30
+  },
+  "validation": {
+    "enabled": true,
+    "pre_seconds": 5,
+    "post_seconds": 10,
+    "local_root": "/var/tmp/clm-validation",
+    "min_free_mb": 1024,
+    "resource_interval_ms": 100,
+    "max_recording_seconds": 600,
+    "reference_interval_ms": 10,
+    "reference_timeout_ms": 40,
+    "reference_max_inflight": 32,
+    "reference_watchdog_ms": 1000,
+    "capture_snaplen": 0,
+    "max_capture_mb": 512,
+    "migration_capture_host": "source",
+    "monitor_interface": "enp1s0"
+  }
+}

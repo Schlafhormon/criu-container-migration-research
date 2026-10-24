@@ -6,3 +6,8 @@
 # do not apply platform-specific line-ending conversion to CSV, JSON, NDJSON,
 # YAML, or log files below this directory.
 measurement_data/** -text
+
+# Preserve pilot evidence exactly; keep large binary recordings in Git LFS.
+validation_data/** -text
+validation_data/**/*.pcap filter=lfs diff=lfs merge=lfs -text
+validation_data/**/*.img filter=lfs diff=lfs merge=lfs -text

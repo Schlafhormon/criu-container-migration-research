@@ -1,0 +1,43 @@
+[OK]   monitor: repo vorhanden /home/benke3/ContainerLiveMigration
+[WARN] monitor: repo git head git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git
+[OK]   monitor: NFS gemountet /mnt/criu
+[OK]   monitor: NFS write /mnt/criu/logs
+[OK]   source: ssh ok benke1
+[OK]   source: repo vorhanden $HOME/ContainerLiveMigration
+[WARN] source: repo git head git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git
+[OK]   source: NFS gemountet /mnt/criu
+[OK]   source: NFS write /mnt/criu/logs
+[OK]   source: tool runc
+[OK]   source: tool criu
+[OK]   source: tool jq
+[OK]   source: tool ss
+[OK]   source: tool iptables
+[OK]   source: tool conntrack
+[OK]   source: tool arping
+[OK]   source: tool curl
+[OK]   source: tool ssh
+[OK]   source: sudo -n
+[OK]   source: lazy port frei :27027
+[OK]   source: criu check --all
+[OK]   dest: ssh ok benke2
+[OK]   dest: repo vorhanden $HOME/ContainerLiveMigration
+[WARN] dest: repo git head git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git
+[OK]   dest: NFS gemountet /mnt/criu
+[OK]   dest: NFS write /mnt/criu/logs
+[OK]   dest: tool runc
+[OK]   dest: tool criu
+[OK]   dest: tool jq
+[OK]   dest: tool ss
+[OK]   dest: tool iptables
+[OK]   dest: tool conntrack
+[OK]   dest: tool arping
+[OK]   dest: tool curl
+[OK]   dest: tool ssh
+[OK]   dest: sudo -n
+[OK]   dest: VIP port frei :8080
+[WARN] dest: criu check --all WARN: non-zero exit
+[WARN] repo: git commit synchron (monitor/source/dest) monitor=ERR:git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git; source=ERR:git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git; dest=ERR:git rev-parse fehlgeschlagen (rc=128): fatal: not a git repository (or any of the parent directories): .git
+[OK]   validation: tools/storage/interfaces and actual code hashes
+[WARN] validation: offline PCAP decoding tshark is not installed; raw captures are retained for later decoding
+
+Preflight OK: 6 Warnungen

@@ -1,0 +1,486 @@
+{
+  "origins": {
+    "images": {
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3",
+      "exists": true,
+      "is_directory": true
+    },
+    "work": {
+      "path": "/var/lib/criu-local/work/testweb/pc-20261024_114651_precopy_01_5c1ce3",
+      "exists": false,
+      "is_directory": false
+    },
+    "runtime": {
+      "path": "/var/lib/criu-local/runtime/testweb/pc-20261024_114651_precopy_01_5c1ce3",
+      "exists": false,
+      "is_directory": false
+    },
+    "runc_logs": {
+      "path": "/var/tmp/clm-validation/20261024_114651_precopy_01_5c1ce3/dest/criu",
+      "exists": true,
+      "is_directory": true
+    }
+  },
+  "files": [
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/cgroup.img",
+      "relative": "final/cgroup.img",
+      "logical_bytes": 1138,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-1.img",
+      "relative": "final/core-1.img",
+      "logical_bytes": 1993,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-10.img",
+      "relative": "final/core-10.img",
+      "logical_bytes": 2047,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-11.img",
+      "relative": "final/core-11.img",
+      "logical_bytes": 2031,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-12.img",
+      "relative": "final/core-12.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-13.img",
+      "relative": "final/core-13.img",
+      "logical_bytes": 775,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-14.img",
+      "relative": "final/core-14.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-15.img",
+      "relative": "final/core-15.img",
+      "logical_bytes": 800,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-16.img",
+      "relative": "final/core-16.img",
+      "logical_bytes": 791,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-17.img",
+      "relative": "final/core-17.img",
+      "logical_bytes": 825,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-18.img",
+      "relative": "final/core-18.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-19.img",
+      "relative": "final/core-19.img",
+      "logical_bytes": 796,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-20.img",
+      "relative": "final/core-20.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-21.img",
+      "relative": "final/core-21.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-22.img",
+      "relative": "final/core-22.img",
+      "logical_bytes": 803,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-23.img",
+      "relative": "final/core-23.img",
+      "logical_bytes": 807,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-24.img",
+      "relative": "final/core-24.img",
+      "logical_bytes": 753,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-25.img",
+      "relative": "final/core-25.img",
+      "logical_bytes": 807,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-26.img",
+      "relative": "final/core-26.img",
+      "logical_bytes": 806,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/core-27.img",
+      "relative": "final/core-27.img",
+      "logical_bytes": 809,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/descriptors.json",
+      "relative": "final/descriptors.json",
+      "logical_bytes": 52,
+      "allocated_bytes": 4096,
+      "saved_as": "artifacts/images/final/descriptors.json"
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fdinfo-2.img",
+      "relative": "final/fdinfo-2.img",
+      "logical_bytes": 116,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fdinfo-3.img",
+      "relative": "final/fdinfo-3.img",
+      "logical_bytes": 212,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fdinfo-4.img",
+      "relative": "final/fdinfo-4.img",
+      "logical_bytes": 200,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/files.img",
+      "relative": "final/files.img",
+      "logical_bytes": 8472,
+      "allocated_bytes": 12288
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fs-1.img",
+      "relative": "final/fs-1.img",
+      "logical_bytes": 18,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fs-10.img",
+      "relative": "final/fs-10.img",
+      "logical_bytes": 18,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/fs-11.img",
+      "relative": "final/fs-11.img",
+      "logical_bytes": 18,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ghost-file-1.img",
+      "relative": "final/ghost-file-1.img",
+      "logical_bytes": 50,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ghost-file-2.img",
+      "relative": "final/ghost-file-2.img",
+      "logical_bytes": 50,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ids-1.img",
+      "relative": "final/ids-1.img",
+      "logical_bytes": 36,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ids-10.img",
+      "relative": "final/ids-10.img",
+      "logical_bytes": 36,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ids-11.img",
+      "relative": "final/ids-11.img",
+      "logical_bytes": 36,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/inventory.img",
+      "relative": "final/inventory.img",
+      "logical_bytes": 88,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/ipcns-var-10.img",
+      "relative": "final/ipcns-var-10.img",
+      "logical_bytes": 82,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/mm-1.img",
+      "relative": "final/mm-1.img",
+      "logical_bytes": 6623,
+      "allocated_bytes": 8192
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/mm-10.img",
+      "relative": "final/mm-10.img",
+      "logical_bytes": 9389,
+      "allocated_bytes": 12288
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/mm-11.img",
+      "relative": "final/mm-11.img",
+      "logical_bytes": 9389,
+      "allocated_bytes": 12288
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/mountpoints-12.img",
+      "relative": "final/mountpoints-12.img",
+      "logical_bytes": 1469,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pagemap-1.img",
+      "relative": "final/pagemap-1.img",
+      "logical_bytes": 1161,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pagemap-10.img",
+      "relative": "final/pagemap-10.img",
+      "logical_bytes": 1793,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pagemap-11.img",
+      "relative": "final/pagemap-11.img",
+      "logical_bytes": 1761,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pages-1.img",
+      "relative": "final/pages-1.img",
+      "logical_bytes": 18550784,
+      "allocated_bytes": 18550784
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pages-2.img",
+      "relative": "final/pages-2.img",
+      "logical_bytes": 28459008,
+      "allocated_bytes": 28459008
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pages-3.img",
+      "relative": "final/pages-3.img",
+      "logical_bytes": 28434432,
+      "allocated_bytes": 28434432
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pipes-data.img",
+      "relative": "final/pipes-data.img",
+      "logical_bytes": 64,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/pstree.img",
+      "relative": "final/pstree.img",
+      "logical_bytes": 82,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/remap-fpath.img",
+      "relative": "final/remap-fpath.img",
+      "logical_bytes": 28,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/seccomp.img",
+      "relative": "final/seccomp.img",
+      "logical_bytes": 12,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/timens-0.img",
+      "relative": "final/timens-0.img",
+      "logical_bytes": 38,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-65.tar.gz.img",
+      "relative": "final/tmpfs-dev-65.tar.gz.img",
+      "logical_bytes": 383,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-67.tar.gz.img",
+      "relative": "final/tmpfs-dev-67.tar.gz.img",
+      "logical_bytes": 96,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-68.tar.gz.img",
+      "relative": "final/tmpfs-dev-68.tar.gz.img",
+      "logical_bytes": 96,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-69.tar.gz.img",
+      "relative": "final/tmpfs-dev-69.tar.gz.img",
+      "logical_bytes": 95,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-70.tar.gz.img",
+      "relative": "final/tmpfs-dev-70.tar.gz.img",
+      "logical_bytes": 96,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-71.tar.gz.img",
+      "relative": "final/tmpfs-dev-71.tar.gz.img",
+      "logical_bytes": 96,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/tmpfs-dev-72.tar.gz.img",
+      "relative": "final/tmpfs-dev-72.tar.gz.img",
+      "logical_bytes": 96,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/utsns-11.img",
+      "relative": "final/utsns-11.img",
+      "logical_bytes": 26,
+      "allocated_bytes": 4096
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/work/dump.log",
+      "relative": "final/work/dump.log",
+      "logical_bytes": 653870,
+      "allocated_bytes": 655360,
+      "saved_as": "artifacts/images/final/work/dump.log"
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/work/restore.log",
+      "relative": "final/work/restore.log",
+      "logical_bytes": 1333928,
+      "allocated_bytes": 1335296,
+      "saved_as": "artifacts/images/final/work/restore.log"
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/work/stats-dump",
+      "relative": "final/work/stats-dump",
+      "logical_bytes": 53,
+      "allocated_bytes": 4096,
+      "saved_as": "artifacts/images/final/work/stats-dump"
+    },
+    {
+      "label": "images",
+      "path": "/mnt/criu/runc/testweb/pc-20261024_114651_precopy_01_5c1ce3/final/work/stats-restore",
+      "relative": "final/work/stats-restore",
+      "logical_bytes": 30,
+      "allocated_bytes": 4096,
+      "saved_as": "artifacts/images/final/work/stats-restore"
+    },
+    {
+      "label": "work",
+      "path": "/var/lib/criu-local/work/testweb/pc-20261024_114651_precopy_01_5c1ce3",
+      "exists": false
+    },
+    {
+      "label": "runtime",
+      "path": "/var/lib/criu-local/runtime/testweb/pc-20261024_114651_precopy_01_5c1ce3",
+      "exists": false
+    },
+    {
+      "label": "runc_logs",
+      "path": "/var/tmp/clm-validation/20261024_114651_precopy_01_5c1ce3/dest/criu/runc-restore.log",
+      "relative": "runc-restore.log",
+      "logical_bytes": 0,
+      "allocated_bytes": 0,
+      "saved_as": "artifacts/runc_logs/runc-restore.log"
+    }
+  ],
+  "errors": [],
+  "dirty_page_rate": null,
+  "dirty_page_rate_reason": "not_instrumented"
+}

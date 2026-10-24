@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "complete": true,
+  "errors": [],
+  "warnings": [],
+  "hosts": {
+    "monitor": {
+      "state": "stopped",
+      "role": "monitor",
+      "pid": 167704,
+      "start_ms": 1792842467464.0479,
+      "capture_requested": true,
+      "capture_filter": "arp or (tcp port 8080 and (host 192.168.13.50 or host 192.168.13.10 or host 192.168.13.15))",
+      "snaplen": 0,
+      "interface": "enp1s0",
+      "capture_buffer_kib": 65536,
+      "end_ms": 1792842500604.9177,
+      "stop_reason": "stop_requested",
+      "capture_rc": 0,
+      "kernel_drops": 0,
+      "captured_packets": 413007,
+      "complete": true
+    },
+    "source": {
+      "state": "stopped",
+      "role": "source",
+      "pid": 192681,
+      "start_ms": 1792842470507.0527,
+      "capture_requested": true,
+      "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+      "snaplen": 0,
+      "interface": "enp1s0",
+      "capture_buffer_kib": 65536,
+      "end_ms": 1792842503455.341,
+      "stop_reason": "stop_requested",
+      "capture_rc": 0,
+      "kernel_drops": 0,
+      "captured_packets": 41963,
+      "complete": true
+    },
+    "dest": {
+      "state": "stopped",
+      "role": "dest",
+      "pid": 192053,
+      "start_ms": 1792842471357.258,
+      "capture_requested": false,
+      "capture_filter": "tcp and host 192.168.13.10 and host 192.168.13.15 and (port 2049 or port 27027 or port 22)",
+      "snaplen": 0,
+      "interface": "enp1s0",
+      "capture_buffer_kib": 65536,
+      "end_ms": 1792842504025.4746,
+      "stop_reason": "stop_requested",
+      "capture_rc": null,
+      "kernel_drops": null,
+      "captured_packets": null,
+      "complete": true
+    }
+  }
+}

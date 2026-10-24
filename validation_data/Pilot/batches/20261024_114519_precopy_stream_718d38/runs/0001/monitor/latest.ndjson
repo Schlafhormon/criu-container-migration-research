@@ -1,0 +1,344 @@
+{"type": "stream_start", "ts": "2026-10-24T13:45:28.170Z", "ts_ms": 1792842328170, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:28.171Z", "ts_ms": 1792842328171, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:28.171Z", "ts_ms": 1792842328171, "name": "load_stream_vip", "url": "http://192.168.13.50:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:28.172Z", "ts_ms": 1792842328172, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_connected", "ts_ms": 1792842328172, "name": "src", "connection_id": "src:1792842328170", "local_ip": "192.168.13.20", "local_port": 44482, "remote_ip": "192.168.13.10", "remote_port": 8080}
+{"type": "stream_connected", "ts_ms": 1792842328172, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "local_ip": "192.168.13.20", "local_port": 34696, "remote_ip": "192.168.13.50", "remote_port": 8080}
+{"type": "stream_chunk", "ts_ms": 1792842328173, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 65536}
+{"type": "stream_chunk", "ts_ms": 1792842328174, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 65536}
+{"type": "stream_chunk", "ts_ms": 1792842328373, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 131072}
+{"type": "stream_chunk", "ts_ms": 1792842328374, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 131072}
+{"type": "stream_chunk", "ts_ms": 1792842328573, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 196608}
+{"type": "stream_chunk", "ts_ms": 1792842328574, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 196608}
+{"type": "stream_start", "ts": "2026-10-24T13:45:28.672Z", "ts_ms": 1792842328672, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:28.672Z", "ts_ms": 1792842328672, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842328773, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 262144}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:28.773Z", "ts_ms": 1792842328773, "name": "src", "mode": "raw", "bytes_total": 262144, "dt_ms": 603, "inst_bps": 434733.002}
+{"type": "stream_chunk", "ts_ms": 1792842328774, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 262144}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:28.774Z", "ts_ms": 1792842328774, "name": "load_stream_vip", "mode": "raw", "bytes_total": 262144, "dt_ms": 603, "inst_bps": 434733.002}
+{"type": "stream_chunk", "ts_ms": 1792842328973, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 327680}
+{"type": "stream_chunk", "ts_ms": 1792842328974, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 327680}
+{"type": "stream_start", "ts": "2026-10-24T13:45:29.173Z", "ts_ms": 1792842329173, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:29.173Z", "ts_ms": 1792842329173, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842329174, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 393216}
+{"type": "stream_chunk", "ts_ms": 1792842329175, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 393216}
+{"type": "stream_chunk", "ts_ms": 1792842329374, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 458752}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:29.374Z", "ts_ms": 1792842329374, "name": "src", "mode": "raw", "bytes_total": 458752, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842329375, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 458752}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:29.375Z", "ts_ms": 1792842329375, "name": "load_stream_vip", "mode": "raw", "bytes_total": 458752, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842329574, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 524288}
+{"type": "stream_chunk", "ts_ms": 1792842329575, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 524288}
+{"type": "stream_start", "ts": "2026-10-24T13:45:29.673Z", "ts_ms": 1792842329673, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:29.674Z", "ts_ms": 1792842329674, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842329774, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 589824}
+{"type": "stream_chunk", "ts_ms": 1792842329775, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 589824}
+{"type": "stream_chunk", "ts_ms": 1792842329974, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 655360}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:29.974Z", "ts_ms": 1792842329974, "name": "src", "mode": "raw", "bytes_total": 655360, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842329975, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 655360}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:29.975Z", "ts_ms": 1792842329975, "name": "load_stream_vip", "mode": "raw", "bytes_total": 655360, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:30.174Z", "ts_ms": 1792842330174, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_chunk", "ts_ms": 1792842330175, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 720896}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:30.175Z", "ts_ms": 1792842330175, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842330175, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 720896}
+{"type": "stream_chunk", "ts_ms": 1792842330375, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 786432}
+{"type": "stream_chunk", "ts_ms": 1792842330376, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 786432}
+{"type": "stream_chunk", "ts_ms": 1792842330575, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 851968}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:30.575Z", "ts_ms": 1792842330575, "name": "src", "mode": "raw", "bytes_total": 851968, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842330576, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 851968}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:30.576Z", "ts_ms": 1792842330576, "name": "load_stream_vip", "mode": "raw", "bytes_total": 851968, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-10-24T13:45:30.675Z", "ts_ms": 1792842330675, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:30.675Z", "ts_ms": 1792842330675, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842330775, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 917504}
+{"type": "stream_chunk", "ts_ms": 1792842330776, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 917504}
+{"type": "stream_chunk", "ts_ms": 1792842330975, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 983040}
+{"type": "stream_chunk", "ts_ms": 1792842330976, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 983040}
+{"type": "stream_chunk", "ts_ms": 1792842331175, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1048576}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:31.175Z", "ts_ms": 1792842331175, "name": "src", "mode": "raw", "bytes_total": 1048576, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:31.176Z", "ts_ms": 1792842331176, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:31.176Z", "ts_ms": 1792842331176, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842331176, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1048576}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:31.176Z", "ts_ms": 1792842331176, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1048576, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842331375, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1114112}
+{"type": "stream_chunk", "ts_ms": 1792842331376, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1114112}
+{"type": "stream_chunk", "ts_ms": 1792842331575, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1179648}
+{"type": "stream_chunk", "ts_ms": 1792842331576, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1179648}
+{"type": "stream_start", "ts": "2026-10-24T13:45:31.676Z", "ts_ms": 1792842331676, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:31.677Z", "ts_ms": 1792842331677, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842331776, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1245184}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:31.776Z", "ts_ms": 1792842331776, "name": "src", "mode": "raw", "bytes_total": 1245184, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842331777, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1245184}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:31.777Z", "ts_ms": 1792842331777, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1245184, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842331976, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1310720}
+{"type": "stream_chunk", "ts_ms": 1792842331977, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1310720}
+{"type": "stream_chunk", "ts_ms": 1792842332176, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1376256}
+{"type": "stream_chunk", "ts_ms": 1792842332177, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1376256}
+{"type": "stream_start", "ts": "2026-10-24T13:45:32.177Z", "ts_ms": 1792842332177, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:32.177Z", "ts_ms": 1792842332177, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842332376, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1441792}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:32.376Z", "ts_ms": 1792842332376, "name": "src", "mode": "raw", "bytes_total": 1441792, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842332377, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1441792}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:32.377Z", "ts_ms": 1792842332377, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1441792, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842332576, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1507328}
+{"type": "stream_chunk", "ts_ms": 1792842332577, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1507328}
+{"type": "stream_start", "ts": "2026-10-24T13:45:32.677Z", "ts_ms": 1792842332677, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:32.678Z", "ts_ms": 1792842332678, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842332776, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1572864}
+{"type": "stream_chunk", "ts_ms": 1792842332777, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1572864}
+{"type": "stream_chunk", "ts_ms": 1792842332976, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1638400}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:32.976Z", "ts_ms": 1792842332976, "name": "src", "mode": "raw", "bytes_total": 1638400, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842332977, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1638400}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:32.977Z", "ts_ms": 1792842332977, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1638400, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842333177, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1703936}
+{"type": "stream_chunk", "ts_ms": 1792842333178, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1703936}
+{"type": "stream_start", "ts": "2026-10-24T13:45:33.178Z", "ts_ms": 1792842333178, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:33.179Z", "ts_ms": 1792842333179, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842333377, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1769472}
+{"type": "stream_chunk", "ts_ms": 1792842333378, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1769472}
+{"type": "stream_chunk", "ts_ms": 1792842333577, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1835008}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:33.577Z", "ts_ms": 1792842333577, "name": "src", "mode": "raw", "bytes_total": 1835008, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842333578, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1835008}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:33.578Z", "ts_ms": 1792842333578, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1835008, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-10-24T13:45:33.679Z", "ts_ms": 1792842333679, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:33.679Z", "ts_ms": 1792842333679, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842333777, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1900544}
+{"type": "stream_chunk", "ts_ms": 1792842333778, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1900544}
+{"type": "stream_chunk", "ts_ms": 1792842333977, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 1966080}
+{"type": "stream_chunk", "ts_ms": 1792842333978, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 1966080}
+{"type": "stream_chunk", "ts_ms": 1792842334177, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2031616}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:34.177Z", "ts_ms": 1792842334177, "name": "src", "mode": "raw", "bytes_total": 2031616, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842334178, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2031616}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:34.178Z", "ts_ms": 1792842334178, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2031616, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:34.179Z", "ts_ms": 1792842334179, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:34.180Z", "ts_ms": 1792842334180, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842334377, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2097152}
+{"type": "stream_chunk", "ts_ms": 1792842334379, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2097152}
+{"type": "stream_chunk", "ts_ms": 1792842334578, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2162688}
+{"type": "stream_chunk", "ts_ms": 1792842334579, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2162688}
+{"type": "stream_start", "ts": "2026-10-24T13:45:34.680Z", "ts_ms": 1792842334680, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:34.681Z", "ts_ms": 1792842334681, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842334778, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2228224}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:34.778Z", "ts_ms": 1792842334778, "name": "src", "mode": "raw", "bytes_total": 2228224, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842334779, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2228224}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:34.779Z", "ts_ms": 1792842334779, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2228224, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842334978, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2293760}
+{"type": "stream_chunk", "ts_ms": 1792842334979, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2293760}
+{"type": "stream_chunk", "ts_ms": 1792842335178, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2359296}
+{"type": "stream_chunk", "ts_ms": 1792842335179, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2359296}
+{"type": "stream_start", "ts": "2026-10-24T13:45:35.181Z", "ts_ms": 1792842335181, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:35.181Z", "ts_ms": 1792842335181, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842335378, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2424832}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:35.378Z", "ts_ms": 1792842335378, "name": "src", "mode": "raw", "bytes_total": 2424832, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842335380, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2424832}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:35.380Z", "ts_ms": 1792842335380, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2424832, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842335578, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2490368}
+{"type": "stream_chunk", "ts_ms": 1792842335580, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2490368}
+{"type": "stream_start", "ts": "2026-10-24T13:45:35.681Z", "ts_ms": 1792842335681, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:35.682Z", "ts_ms": 1792842335682, "name": "dst", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842335778, "name": "src", "connection_id": "src:1792842328170", "bytes": 65536, "bytes_total": 2555904}
+{"type": "stream_chunk", "ts_ms": 1792842335780, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842328171", "bytes": 65536, "bytes_total": 2555904}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:36.130Z", "ts_ms": 1792842336130, "name": "load_stream_vip", "mode": "raw", "duration_ms": 7959, "bytes": 2555904, "err": "IncompleteRead(0 bytes read)"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:36.132Z", "ts_ms": 1792842336132, "name": "src", "mode": "raw", "duration_ms": 7962, "bytes": 2555904, "err": "IncompleteRead(0 bytes read)"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:36.182Z", "ts_ms": 1792842336182, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:36.182Z", "ts_ms": 1792842336182, "name": "dst", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:36.630Z", "ts_ms": 1792842336630, "name": "load_stream_vip", "url": "http://192.168.13.50:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:36.631Z", "ts_ms": 1792842336631, "name": "load_stream_vip", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:36.632Z", "ts_ms": 1792842336632, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:36.633Z", "ts_ms": 1792842336633, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_start", "ts": "2026-10-24T13:45:36.683Z", "ts_ms": 1792842336683, "name": "dst", "url": "http://192.168.13.15:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_connected", "ts_ms": 1792842336684, "name": "dst", "connection_id": "dst:1792842336683", "local_ip": "192.168.13.20", "local_port": 48230, "remote_ip": "192.168.13.15", "remote_port": 8080}
+{"type": "stream_chunk", "ts_ms": 1792842336742, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 65536}
+{"type": "stream_chunk", "ts_ms": 1792842336943, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 131072}
+{"type": "stream_start", "ts": "2026-10-24T13:45:37.131Z", "ts_ms": 1792842337131, "name": "load_stream_vip", "url": "http://192.168.13.50:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_connected", "ts_ms": 1792842337131, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "local_ip": "192.168.13.20", "local_port": 46082, "remote_ip": "192.168.13.50", "remote_port": 8080}
+{"type": "stream_start", "ts": "2026-10-24T13:45:37.133Z", "ts_ms": 1792842337133, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_chunk", "ts_ms": 1792842337133, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 65536}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:37.133Z", "ts_ms": 1792842337133, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842337143, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 196608}
+{"type": "stream_chunk", "ts_ms": 1792842337333, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 131072}
+{"type": "stream_chunk", "ts_ms": 1792842337343, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 262144}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:37.343Z", "ts_ms": 1792842337343, "name": "dst", "mode": "raw", "bytes_total": 262144, "dt_ms": 660, "inst_bps": 397187.879}
+{"type": "stream_chunk", "ts_ms": 1792842337533, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 196608}
+{"type": "stream_chunk", "ts_ms": 1792842337543, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 327680}
+{"type": "stream_start", "ts": "2026-10-24T13:45:37.634Z", "ts_ms": 1792842337634, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:37.634Z", "ts_ms": 1792842337634, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842337733, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 262144}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:37.733Z", "ts_ms": 1792842337733, "name": "load_stream_vip", "mode": "raw", "bytes_total": 262144, "dt_ms": 602, "inst_bps": 435455.15}
+{"type": "stream_chunk", "ts_ms": 1792842337743, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 393216}
+{"type": "stream_chunk", "ts_ms": 1792842337933, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 327680}
+{"type": "stream_chunk", "ts_ms": 1792842337943, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 458752}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:37.943Z", "ts_ms": 1792842337943, "name": "dst", "mode": "raw", "bytes_total": 458752, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842338133, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 393216}
+{"type": "stream_start", "ts": "2026-10-24T13:45:38.134Z", "ts_ms": 1792842338134, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:38.135Z", "ts_ms": 1792842338135, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842338143, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 524288}
+{"type": "stream_chunk", "ts_ms": 1792842338333, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 458752}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:38.333Z", "ts_ms": 1792842338333, "name": "load_stream_vip", "mode": "raw", "bytes_total": 458752, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842338344, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 589824}
+{"type": "stream_chunk", "ts_ms": 1792842338533, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 524288}
+{"type": "stream_chunk", "ts_ms": 1792842338544, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 655360}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:38.544Z", "ts_ms": 1792842338544, "name": "dst", "mode": "raw", "bytes_total": 655360, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-10-24T13:45:38.635Z", "ts_ms": 1792842338635, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:38.636Z", "ts_ms": 1792842338636, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842338734, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 589824}
+{"type": "stream_chunk", "ts_ms": 1792842338744, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 720896}
+{"type": "stream_chunk", "ts_ms": 1792842338934, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 655360}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:38.934Z", "ts_ms": 1792842338934, "name": "load_stream_vip", "mode": "raw", "bytes_total": 655360, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842338944, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 786432}
+{"type": "stream_chunk", "ts_ms": 1792842339134, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 720896}
+{"type": "stream_start", "ts": "2026-10-24T13:45:39.136Z", "ts_ms": 1792842339136, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:39.137Z", "ts_ms": 1792842339137, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842339144, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 851968}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:39.144Z", "ts_ms": 1792842339144, "name": "dst", "mode": "raw", "bytes_total": 851968, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842339334, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 786432}
+{"type": "stream_chunk", "ts_ms": 1792842339344, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 917504}
+{"type": "stream_chunk", "ts_ms": 1792842339534, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 851968}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:39.534Z", "ts_ms": 1792842339534, "name": "load_stream_vip", "mode": "raw", "bytes_total": 851968, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842339545, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 983040}
+{"type": "stream_start", "ts": "2026-10-24T13:45:39.637Z", "ts_ms": 1792842339637, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:39.637Z", "ts_ms": 1792842339637, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842339734, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 917504}
+{"type": "stream_chunk", "ts_ms": 1792842339745, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1048576}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:39.745Z", "ts_ms": 1792842339745, "name": "dst", "mode": "raw", "bytes_total": 1048576, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842339934, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 983040}
+{"type": "stream_chunk", "ts_ms": 1792842339945, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1114112}
+{"type": "stream_chunk", "ts_ms": 1792842340134, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1048576}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:40.134Z", "ts_ms": 1792842340134, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1048576, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:40.137Z", "ts_ms": 1792842340137, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:40.138Z", "ts_ms": 1792842340138, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842340145, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1179648}
+{"type": "stream_chunk", "ts_ms": 1792842340335, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1114112}
+{"type": "stream_chunk", "ts_ms": 1792842340345, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1245184}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:40.345Z", "ts_ms": 1792842340345, "name": "dst", "mode": "raw", "bytes_total": 1245184, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842340535, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1179648}
+{"type": "stream_chunk", "ts_ms": 1792842340545, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1310720}
+{"type": "stream_start", "ts": "2026-10-24T13:45:40.638Z", "ts_ms": 1792842340638, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:40.639Z", "ts_ms": 1792842340639, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842340735, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1245184}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:40.735Z", "ts_ms": 1792842340735, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1245184, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842340746, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1376256}
+{"type": "stream_chunk", "ts_ms": 1792842340935, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1310720}
+{"type": "stream_chunk", "ts_ms": 1792842340946, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1441792}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:40.946Z", "ts_ms": 1792842340946, "name": "dst", "mode": "raw", "bytes_total": 1441792, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842341135, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1376256}
+{"type": "stream_start", "ts": "2026-10-24T13:45:41.139Z", "ts_ms": 1792842341139, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:41.139Z", "ts_ms": 1792842341139, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842341146, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1507328}
+{"type": "stream_chunk", "ts_ms": 1792842341335, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1441792}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:41.335Z", "ts_ms": 1792842341335, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1441792, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842341347, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1572864}
+{"type": "stream_chunk", "ts_ms": 1792842341535, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1507328}
+{"type": "stream_chunk", "ts_ms": 1792842341547, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1638400}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:41.547Z", "ts_ms": 1792842341547, "name": "dst", "mode": "raw", "bytes_total": 1638400, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-10-24T13:45:41.640Z", "ts_ms": 1792842341640, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:41.640Z", "ts_ms": 1792842341640, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842341736, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1572864}
+{"type": "stream_chunk", "ts_ms": 1792842341747, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1703936}
+{"type": "stream_chunk", "ts_ms": 1792842341936, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1638400}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:41.936Z", "ts_ms": 1792842341936, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1638400, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842341947, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1769472}
+{"type": "stream_chunk", "ts_ms": 1792842342136, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1703936}
+{"type": "stream_start", "ts": "2026-10-24T13:45:42.140Z", "ts_ms": 1792842342140, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:42.141Z", "ts_ms": 1792842342141, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842342147, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1835008}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:42.147Z", "ts_ms": 1792842342147, "name": "dst", "mode": "raw", "bytes_total": 1835008, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842342336, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1769472}
+{"type": "stream_chunk", "ts_ms": 1792842342347, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1900544}
+{"type": "stream_chunk", "ts_ms": 1792842342536, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1835008}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:42.536Z", "ts_ms": 1792842342536, "name": "load_stream_vip", "mode": "raw", "bytes_total": 1835008, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842342547, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 1966080}
+{"type": "stream_start", "ts": "2026-10-24T13:45:42.641Z", "ts_ms": 1792842342641, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:42.641Z", "ts_ms": 1792842342641, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842342736, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1900544}
+{"type": "stream_chunk", "ts_ms": 1792842342748, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2031616}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:42.748Z", "ts_ms": 1792842342748, "name": "dst", "mode": "raw", "bytes_total": 2031616, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842342936, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 1966080}
+{"type": "stream_chunk", "ts_ms": 1792842342948, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2097152}
+{"type": "stream_chunk", "ts_ms": 1792842343137, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2031616}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:43.137Z", "ts_ms": 1792842343137, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2031616, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_start", "ts": "2026-10-24T13:45:43.142Z", "ts_ms": 1792842343142, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:43.142Z", "ts_ms": 1792842343142, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842343148, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2162688}
+{"type": "stream_chunk", "ts_ms": 1792842343337, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2097152}
+{"type": "stream_chunk", "ts_ms": 1792842343348, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2228224}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:43.348Z", "ts_ms": 1792842343348, "name": "dst", "mode": "raw", "bytes_total": 2228224, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842343537, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2162688}
+{"type": "stream_chunk", "ts_ms": 1792842343548, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2293760}
+{"type": "stream_start", "ts": "2026-10-24T13:45:43.642Z", "ts_ms": 1792842343642, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:43.643Z", "ts_ms": 1792842343643, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842343737, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2228224}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:43.737Z", "ts_ms": 1792842343737, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2228224, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842343748, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2359296}
+{"type": "stream_chunk", "ts_ms": 1792842343937, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2293760}
+{"type": "stream_chunk", "ts_ms": 1792842343949, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2424832}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:43.949Z", "ts_ms": 1792842343949, "name": "dst", "mode": "raw", "bytes_total": 2424832, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842344137, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2359296}
+{"type": "stream_start", "ts": "2026-10-24T13:45:44.143Z", "ts_ms": 1792842344143, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:44.143Z", "ts_ms": 1792842344143, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842344149, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2490368}
+{"type": "stream_chunk", "ts_ms": 1792842344338, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2424832}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:44.338Z", "ts_ms": 1792842344338, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2424832, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842344349, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2555904}
+{"type": "stream_chunk", "ts_ms": 1792842344538, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2490368}
+{"type": "stream_chunk", "ts_ms": 1792842344549, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2621440}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:44.549Z", "ts_ms": 1792842344549, "name": "dst", "mode": "raw", "bytes_total": 2621440, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:44.643Z", "ts_ms": 1792842344643, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:44.644Z", "ts_ms": 1792842344644, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842344738, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2555904}
+{"type": "stream_chunk", "ts_ms": 1792842344749, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2686976}
+{"type": "stream_chunk", "ts_ms": 1792842344938, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2621440}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:44.938Z", "ts_ms": 1792842344938, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2621440, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842344949, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2752512}
+{"type": "stream_chunk", "ts_ms": 1792842345139, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2686976}
+{"type": "stream_start", "ts": "2026-10-24T13:45:45.144Z", "ts_ms": 1792842345144, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:45.145Z", "ts_ms": 1792842345145, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842345150, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2818048}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:45.150Z", "ts_ms": 1792842345150, "name": "dst", "mode": "raw", "bytes_total": 2818048, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842345339, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2752512}
+{"type": "stream_chunk", "ts_ms": 1792842345351, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2883584}
+{"type": "stream_chunk", "ts_ms": 1792842345539, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2818048}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:45.539Z", "ts_ms": 1792842345539, "name": "load_stream_vip", "mode": "raw", "bytes_total": 2818048, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842345552, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 2949120}
+{"type": "stream_start", "ts": "2026-10-24T13:45:45.645Z", "ts_ms": 1792842345645, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:45.645Z", "ts_ms": 1792842345645, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842345739, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2883584}
+{"type": "stream_chunk", "ts_ms": 1792842345752, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3014656}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:45.752Z", "ts_ms": 1792842345752, "name": "dst", "mode": "raw", "bytes_total": 3014656, "dt_ms": 602, "inst_bps": 326591.362}
+{"type": "stream_chunk", "ts_ms": 1792842345939, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 2949120}
+{"type": "stream_chunk", "ts_ms": 1792842345952, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3080192}
+{"type": "stream_chunk", "ts_ms": 1792842346139, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3014656}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:46.139Z", "ts_ms": 1792842346139, "name": "load_stream_vip", "mode": "raw", "bytes_total": 3014656, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:46.145Z", "ts_ms": 1792842346145, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:46.146Z", "ts_ms": 1792842346146, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842346152, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3145728}
+{"type": "stream_chunk", "ts_ms": 1792842346340, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3080192}
+{"type": "stream_chunk", "ts_ms": 1792842346352, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3211264}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:46.352Z", "ts_ms": 1792842346352, "name": "dst", "mode": "raw", "bytes_total": 3211264, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842346540, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3145728}
+{"type": "stream_chunk", "ts_ms": 1792842346553, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3276800}
+{"type": "stream_start", "ts": "2026-10-24T13:45:46.646Z", "ts_ms": 1792842346646, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:46.646Z", "ts_ms": 1792842346646, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842346740, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3211264}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:46.740Z", "ts_ms": 1792842346740, "name": "load_stream_vip", "mode": "raw", "bytes_total": 3211264, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842346753, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3342336}
+{"type": "stream_chunk", "ts_ms": 1792842346940, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3276800}
+{"type": "stream_chunk", "ts_ms": 1792842346953, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3407872}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:46.953Z", "ts_ms": 1792842346953, "name": "dst", "mode": "raw", "bytes_total": 3407872, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_chunk", "ts_ms": 1792842347140, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3342336}
+{"type": "stream_start", "ts": "2026-10-24T13:45:47.147Z", "ts_ms": 1792842347147, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:47.147Z", "ts_ms": 1792842347147, "name": "src", "mode": "raw", "duration_ms": 0, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842347153, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3473408}
+{"type": "stream_chunk", "ts_ms": 1792842347340, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3407872}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:47.341Z", "ts_ms": 1792842347340, "name": "load_stream_vip", "mode": "raw", "bytes_total": 3407872, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_chunk", "ts_ms": 1792842347353, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3538944}
+{"type": "stream_chunk", "ts_ms": 1792842347541, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3473408}
+{"type": "stream_chunk", "ts_ms": 1792842347553, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3604480}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:47.553Z", "ts_ms": 1792842347553, "name": "dst", "mode": "raw", "bytes_total": 3604480, "dt_ms": 600, "inst_bps": 327680.0}
+{"type": "stream_start", "ts": "2026-10-24T13:45:47.647Z", "ts_ms": 1792842347647, "name": "src", "url": "http://192.168.13.10:8080/stream?interval_ms=200&limit=0&payload_kb=64&format=raw", "mode": "raw"}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:47.648Z", "ts_ms": 1792842347648, "name": "src", "mode": "raw", "duration_ms": 1, "bytes": 0, "err": "[Errno 111] Connection refused"}
+{"type": "stream_chunk", "ts_ms": 1792842347741, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3538944}
+{"type": "stream_chunk", "ts_ms": 1792842347754, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3670016}
+{"type": "stream_chunk", "ts_ms": 1792842347941, "name": "load_stream_vip", "connection_id": "load_stream_vip:1792842337131", "bytes": 65536, "bytes_total": 3604480}
+{"type": "stream_progress", "ts": "2026-10-24T13:45:47.941Z", "ts_ms": 1792842347941, "name": "load_stream_vip", "mode": "raw", "bytes_total": 3604480, "dt_ms": 601, "inst_bps": 327134.775}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:47.941Z", "ts_ms": 1792842347941, "name": "load_stream_vip", "mode": "raw", "duration_ms": 10810, "bytes": 3604480, "err": ""}
+{"type": "stream_chunk", "ts_ms": 1792842347954, "name": "dst", "connection_id": "dst:1792842336683", "bytes": 65536, "bytes_total": 3735552}
+{"type": "stream_disconnect", "ts": "2026-10-24T13:45:47.954Z", "ts_ms": 1792842347954, "name": "dst", "mode": "raw", "duration_ms": 11271, "bytes": 3735552, "err": ""}
