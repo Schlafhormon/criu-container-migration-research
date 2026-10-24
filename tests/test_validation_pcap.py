@@ -31,7 +31,7 @@ def packet(ts, src, sport, dst, dport, seq, ack_seq=0, length=0, **flags):
 
 
 class PcapAnalysisTests(unittest.TestCase):
-    def decode(self, reset=False, drops=0):
+    def decode(self, reset=False, drops=0, recording=None):
         client, vip = "192.168.13.20", "192.168.13.50"
         rows = [packet(80, client, 40000, vip, 8080, 100, syn=True),
                 packet(81, vip, 8080, client, 40000, 500, 101, syn=True, ack=True),
@@ -49,7 +49,8 @@ class PcapAnalysisTests(unittest.TestCase):
             folder = Path(tmp) / "run/validation/monitor"
             folder.mkdir(parents=True)
             (folder / "traffic.pcap").write_bytes(b"synthetic")
-            (folder / "stopped.json").write_text('{"complete":true,"start_ms":0,"end_ms":250}')
+            (folder / "stopped.json").write_text(json.dumps(
+                recording if recording is not None else {"complete": True, "start_ms": 0, "end_ms": 250}))
             (folder / "tcpdump.log").write_text(f"6 packets captured\n{drops} packets dropped by kernel\n")
             with patch("clm.validation_analysis.shutil.which", return_value="tshark"), \
                  patch("clm.validation_analysis.subprocess.Popen", return_value=FakeDecoder(text.getvalue())), \
@@ -73,6 +74,23 @@ class PcapAnalysisTests(unittest.TestCase):
         result = self.decode(drops=2)
         self.assertFalse(result["stream_classification_reliable"])
         self.assertIsNone(result["survival_fraction"])
+
+    def test_resource_end_does_not_extend_capture_coverage(self):
+        result = self.decode(recording={"complete": False, "start_ms": 0, "end_ms": 250,
+                                        "capture_start_ms": 10, "capture_end_ms": 180})
+        self.assertFalse(result["covers_window"])
+        self.assertFalse(result["stream_classification_reliable"])
+        self.assertIsNone(result["survival_fraction"])
+
+    def test_capture_readiness_after_window_start_is_not_full_coverage(self):
+        result = self.decode(recording={"complete": True, "start_ms": 0, "end_ms": 250,
+                                        "capture_start_ms": 110, "capture_end_ms": 240})
+        self.assertFalse(result["covers_window"])
+
+    def test_absent_capture_timestamps_do_not_fall_back_to_resource_times(self):
+        result = self.decode(recording={"complete": False, "start_ms": 0, "end_ms": 250,
+                                        "capture_start_ms": None, "capture_end_ms": None})
+        self.assertFalse(result["covers_window"])
 
 
 if __name__ == "__main__":

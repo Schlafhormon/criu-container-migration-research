@@ -1630,6 +1630,7 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
     # Run preflight checks.
 
     checks = []
+    using_validation = validation_settings(cfg)["enabled"]
 
     def add(name, ok, detail="", warn=False):
         checks.append({"name": name, "ok": ok, "warn": warn, "detail": detail})
@@ -1657,7 +1658,7 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
         add("monitor: repo git head", True, _short_git_head(head))
     except Exception as e:
         repo_head_errors["monitor"] = str(e)
-        add("monitor: repo git head", False, str(e))
+        add("monitor: repo git head", False, str(e), warn=using_validation)
 
     share_root = cfg["paths"]["share_root"]
     logs_root = cfg["paths"]["logs_root"]
@@ -1708,7 +1709,7 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
                 add(f"{role}: repo git head", True, _short_git_head(head))
             except Exception as e:
                 repo_head_errors[role] = str(e)
-                add(f"{role}: repo git head", False, str(e))
+                add(f"{role}: repo git head", False, str(e), warn=using_validation)
         else:
             add(f"{role}: repo git head", False, "repo nicht verfuegbar")
 
@@ -1772,7 +1773,8 @@ def preflight(cfg: dict, dry_run: bool = False) -> int:
             add(f"{role}: criu check --all", True, f"WARN: {e}", warn=True)
 
     in_sync, sync_detail = _repo_sync_check_result(repo_heads, repo_head_errors)
-    using_validation = validation_settings(cfg)["enabled"]
+    # Code-only validation deployments have no Git database. Their actual file
+    # hashes remain mandatory below; a missing Git HEAD is only provenance loss.
     add("repo: git commit synchron (monitor/source/dest)", in_sync, sync_detail,
         warn=using_validation and not in_sync)
     if using_validation:
@@ -1818,7 +1820,10 @@ def run_cli(
     analysis_config_path: str = "config/analysis.yaml",
     env_path: str = "config/env.yaml",
     cli_argv=None,
+    no_analysis: bool = False,
 ) -> int:
+    if no_analysis and auto_analyse:
+        die("--no-analysis cannot be combined with --analyse")
     validation = validation_settings(cfg)
     if validation["enabled"] and no_monitor:
         die("Validation recording requires the original monitor; remove --no-monitor.")
@@ -2135,6 +2140,11 @@ def run_cli(
                         "run_id": run_id,
                     })
                     rc_analyze = None
+                elif no_analysis:
+                    write_json(os.path.join(run_dir, "summary.json"), {
+                        "status": "deferred", "reason": "cli_no_analysis", "run_id": run_id,
+                    })
+                    status["analysis_status"] = "deferred"
                 elif not no_monitor:
                     progress.update(phase="analyze", run_index=i, done=i - 1, failed=failed_runs)
                     rc_analyze = analyze_run(cfg, base_out, events_log, run_dir)
@@ -2146,7 +2156,9 @@ def run_cli(
                     })
                     rc_analyze = None
 
-                if validation["enabled"]:
+                if validation["enabled"] and no_analysis:
+                    status["validation_analysis_status"] = "deferred"
+                elif validation["enabled"]:
                     try:
                         from clm.validation_analysis import analyze_validation_run
                         validation_result = analyze_validation_run(run_dir)
@@ -2504,6 +2516,7 @@ def main(argv=None) -> int:
     ap_run.add_argument("--no-monitor", action="store_true")
     ap_run.add_argument("--no-migrate", action="store_true")
     ap_run.add_argument("--no-cleanup", action="store_true", help="Run-spezifische Checkpoint-Artefakte nach dem Lauf nicht loeschen")
+    ap_run.add_argument("--no-analysis", action="store_true", help="Rohdaten aufzeichnen; Einzelrun-Auswertung auf spaeter verschieben")
     ap_run.add_argument("--analyse", "--analyze", action="store_true", dest="analyse", help="Batch nach Run analysieren + Plots erzeugen")
     ap_run.add_argument(
         "--analysis-config",
@@ -2561,6 +2574,7 @@ def main(argv=None) -> int:
             analysis_config_path=args.analysis_config,
             env_path=env_path,
             cli_argv=raw_argv,
+            no_analysis=args.no_analysis,
         )
     if args.cmd in ("analyse", "analyze"):
         if getattr(args, "run_id", None) or getattr(args, "run_dir", None):

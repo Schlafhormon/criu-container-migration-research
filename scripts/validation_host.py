@@ -155,17 +155,45 @@ def record(args):
     signal.signal(signal.SIGTERM, stop)
     capture = None
     capture_log = None
-    reason = "stop_requested"
+    resource_reason = "stop_requested"
+    issues = []
     started = time.monotonic()
     status = {"role": args.role, "pid": os.getpid(), "start_ms": time.time_ns() / 1e6,
               "capture_requested": args.capture, "capture_filter": args.filter,
-              "snaplen": args.snaplen, "interface": args.interface}
+              "snaplen": args.snaplen, "interface": args.interface, "capture_buffer_kib": 65536,
+              "max_capture_mb": args.max_capture_mb, "min_free_mb": args.min_free_mb,
+              "capture_active": False, "capture_start_ms": None, "capture_end_ms": None}
+
+    def issue(reason):
+        if reason not in issues:
+            issues.append(reason)
+
+    def stop_capture(reason):
+        if not status["capture_active"]:
+            return
+        # Coverage ends at the stop request, not at the resource recorder's end.
+        # Waiting for tcpdump also flushes its output file.
+        status.update(capture_active=False, capture_end_ms=time.time_ns() / 1e6,
+                      capture_stop_reason=reason)
+        if capture.poll() is None:
+            try:
+                capture.send_signal(signal.SIGINT)
+            except ProcessLookupError:
+                pass
+            try:
+                capture.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                capture.kill()
+                capture.wait()
+                issue("tcpdump_forced_kill")
+        if (folder / "ready.json").exists():
+            save(folder / "ready.json", {**status, "issues": issues})
     try:
         if args.capture:
             capture_log = open(folder / "tcpdump.log", "w", encoding="utf-8")
             capture = subprocess.Popen([
                 "tcpdump", "-n", "-U", "--immediate-mode", "-i", args.interface, "-s", str(args.snaplen),
-                "-B", "4096", "-Z", pwd.getpwuid(folder.stat().st_uid).pw_name,
+                "-B", "65536", "-Z", pwd.getpwuid(folder.stat().st_uid).pw_name,
                 "-w", str(folder / "traffic.pcap"), args.filter,
             ], stdout=subprocess.DEVNULL, stderr=capture_log, env={**os.environ, "LC_ALL": "C"})
             limit = time.monotonic() + 8
@@ -177,6 +205,7 @@ def record(args):
                 time.sleep(0.05)
             else:
                 raise RuntimeError("tcpdump readiness timeout")
+            status.update(capture_active=True, capture_start_ms=time.time_ns() / 1e6)
         save(folder / "ready.json", status)
         identity = {"available": False, "reason": "monitor_role"}
         last_discovery = 0
@@ -184,49 +213,53 @@ def record(args):
             while not stopping and not (folder / "STOP").exists():
                 tick = time.monotonic()
                 if tick - started >= args.max_duration_s:
-                    reason = "recording_duration_limit"
+                    resource_reason = "recording_duration_limit"
+                    issue(resource_reason)
                     break
                 if free_bytes(folder) < args.min_free_mb * 1024**2:
-                    reason = "local_disk_low"
-                    break
+                    issue("local_disk_low")
+                    stop_capture("local_disk_low")
                 pcap = folder / "traffic.pcap"
-                if args.capture and capture.poll() is not None:
-                    reason = "tcpdump_exited_early"
-                    break
-                if args.capture and pcap.exists() and pcap.stat().st_size >= args.max_capture_mb * 1024**2:
-                    reason = "capture_size_limit"
-                    break
+                if status["capture_active"] and capture.poll() is not None:
+                    issue("tcpdump_exited_early")
+                    stop_capture("tcpdump_exited_early")
+                if (status["capture_active"] and args.max_capture_mb > 0 and pcap.exists()
+                        and pcap.stat().st_size >= args.max_capture_mb * 1024**2):
+                    issue("capture_size_limit")
+                    stop_capture("capture_size_limit")
                 if args.role != "monitor" and tick - last_discovery >= 1:
                     identity = container_cgroup(args.container)
                     last_discovery = tick
                 fp.write(json.dumps(resources(identity)) + "\n")
                 time.sleep(max(0, args.resource_interval_ms / 1000 - (time.monotonic() - tick)))
     except Exception as exc:
-        reason = "collector_error"
+        resource_reason = "collector_error"
+        issue(resource_reason)
         status["error"] = str(exc)
     finally:
+        stop_capture(resource_reason)
+        # Reap a process that failed during startup, before it became ready.
         if capture is not None and capture.poll() is None:
-            capture.send_signal(signal.SIGINT)
-            try:
-                capture.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                capture.kill()
-                capture.wait()
-                reason = "tcpdump_forced_kill"
+            capture.kill()
+            capture.wait()
         if capture_log:
             capture_log.close()
-        if capture is not None and capture.returncode != 0 and reason == "stop_requested":
-            reason = "tcpdump_failed"
+        if capture is not None and capture.returncode != 0:
+            issue("tcpdump_failed")
         log_text = (folder / "tcpdump.log").read_text(errors="replace") if capture_log else ""
         dropped = re.search(r"(\d+) packets dropped by kernel", log_text)
         captured = re.search(r"(\d+) packets captured", log_text)
-        if dropped and int(dropped.group(1)) > 0 and reason == "stop_requested":
-            reason = "capture_kernel_drops"
-        status.update(end_ms=time.time_ns() / 1e6, stop_reason=reason,
+        if dropped and int(dropped.group(1)) > 0:
+            issue("capture_kernel_drops")
+        status.update(end_ms=time.time_ns() / 1e6, stop_reason=issues[0] if issues else resource_reason,
+                      issues=issues, resource_stop_reason=resource_reason,
+                      resource_complete=resource_reason == "stop_requested",
+                      capture_complete=(not issues and status.get("capture_stop_reason") == "stop_requested")
+                      if args.capture else None,
                       capture_rc=capture.returncode if capture else None,
                       kernel_drops=int(dropped.group(1)) if dropped else None,
                       captured_packets=int(captured.group(1)) if captured else None,
-                      complete=reason == "stop_requested")
+                      complete=not issues and resource_reason == "stop_requested")
         save(folder / "stopped.json", status)
     return 0 if status["complete"] else 1
 
@@ -313,14 +346,17 @@ def main(argv=None):
     parser.add_argument("--filter", default="tcp or arp")
     parser.add_argument("--snaplen", type=int, default=0)
     parser.add_argument("--min-free-mb", type=int, default=1024)
-    parser.add_argument("--max-capture-mb", type=int, default=512)
+    parser.add_argument("--max-capture-mb", type=int, default=0,
+                        help="Optional capture size limit in MiB; 0 disables it (free-space guard remains active)")
     parser.add_argument("--max-duration-s", type=int, default=600)
     parser.add_argument("--resource-interval-ms", type=int, default=100)
     parser.add_argument("--destination")
     parser.add_argument("--artifact", action="append", default=[])
     args = parser.parse_args(argv)
-    if min(args.min_free_mb, args.max_capture_mb, args.max_duration_s, args.resource_interval_ms) <= 0:
+    if min(args.min_free_mb, args.max_duration_s, args.resource_interval_ms) <= 0:
         parser.error("Storage/duration/resource limits must be positive")
+    if args.max_capture_mb < 0:
+        parser.error("--max-capture-mb must be nonnegative (0 disables the size limit)")
     if args.action == "check":
         result = check(args)
     elif args.action == "record":

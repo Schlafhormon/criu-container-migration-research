@@ -18,7 +18,7 @@ DEFAULTS = {
     "resource_interval_ms": 100, "max_recording_seconds": 600,
     "reference_interval_ms": 10, "reference_timeout_ms": 40,
     "reference_max_inflight": 32, "reference_watchdog_ms": 1000,
-    "capture_snaplen": 0, "max_capture_mb": 512,
+    "capture_snaplen": 0, "max_capture_mb": 0,
     "migration_capture_host": "source", "monitor_interface": "enp1s0",
 }
 
@@ -27,9 +27,11 @@ def settings(cfg):
     result = {**DEFAULTS, **(cfg.get("validation") or {})}
     for key in ("pre_seconds", "post_seconds", "min_free_mb", "resource_interval_ms",
                 "max_recording_seconds", "reference_interval_ms", "reference_timeout_ms",
-                "reference_max_inflight", "reference_watchdog_ms", "max_capture_mb"):
+                "reference_max_inflight", "reference_watchdog_ms"):
         if not isinstance(result[key], (int, float)) or result[key] <= 0:
             raise ValueError(f"validation.{key} must be positive")
+    if type(result["max_capture_mb"]) is not int or result["max_capture_mb"] < 0:
+        raise ValueError("validation.max_capture_mb must be a nonnegative integer (0 disables the size limit)")
     if result["migration_capture_host"] not in ("source", "dest"):
         raise ValueError("migration_capture_host must be source or dest")
     if not str(result["local_root"]).startswith("/") or str(result["local_root"]).rstrip("/") in ("", "/"):

@@ -287,8 +287,12 @@ def pcap_metrics(path, start, returned, end, vip, clock_offset_ms=0, pre_ms=5000
     text = tcp_log.read_text(errors="replace") if tcp_log.exists() else ""
     drops = re.search(r"(\d+) packets dropped by kernel", text)
     recording = load(Path(path).with_name("stopped.json"), {}) or {}
-    covers_window = (recording.get("start_ms", float("inf")) - clock_offset_ms <= start
-                     and recording.get("end_ms", float("-inf")) - clock_offset_ms >= end)
+    # Capture and resource recording can now end separately; retain legacy support.
+    capture_start = recording.get("capture_start_ms", recording.get("start_ms"))
+    capture_end = recording.get("capture_end_ms", recording.get("end_ms"))
+    covers_window = (capture_start is not None and capture_end is not None
+                     and capture_start - clock_offset_ms <= start
+                     and capture_end - clock_offset_ms >= end)
     capture_complete = bool(drops and int(drops.group(1)) == 0 and recording.get("complete") and covers_window)
     reliable_streams = capture_complete and not truncated
     counts = {key: sum(r["classification"] == key for r in stream_rows) for key in ("survived", "lost", "unclear")}

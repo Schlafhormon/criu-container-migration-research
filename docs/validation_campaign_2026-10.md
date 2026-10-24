@@ -5,6 +5,21 @@ Dieser Branch erweitert die vorhandene Messung. Es wird weiterhin die vorhandene
 mitgenommen. `main` bleibt auf seinem bisherigen Commit. Es wurden keine neuen
 Labormessungen durch den implementierenden Agenten ausgeführt.
 
+Stand 24.10.2026: Die drei VMs erhalten eine schlanke Installation ohne `.git`;
+die frühere Branchwechsel-Anleitung in Abschnitt 2 ist für diese Bereitstellung
+nicht anzuwenden. Vor dem Ersetzen wurden tatsächliche Bundlepfade und Mounts
+inventarisiert; alle `runc-bundle`-Verzeichnisse und die benötigte Infrastruktur
+bleiben erhalten. Historische Run-/Logbestände wurden einmalig gezielt bereinigt.
+Neue Validierungsdaten werden dadurch nicht automatisch gelöscht.
+Paketprüfsummen und Dateimanifest belegen den ausgelieferten Arbeitsstand.
+Im Validierungsmodus sind fehlende Git-Metadaten beim Preflight Warnungen;
+Werkzeug-, Speicher- und tatsächliche Codehashprüfungen bleiben verbindlich.
+Die vorhandene `.venv` auf benke3 wird weiterverwendet. `tcpdump` ist auf allen
+drei VMs bereits installiert; es sind keine Offlineinstallationen erforderlich.
+Echte Funktionsruns benötigen weiterhin Eriks ausdrückliches Go. Zuerst je
+einen Run pro bestätigter Workflow-/Szenariokombination mit `--repeats 1`, ohne
+`--analyse`; die 30er-Kampagne startet nicht automatisch.
+
 ## Konfiguration und Rollen
 
 | Rolle | Host | Aufgabe |
@@ -51,8 +66,15 @@ kopiert. Erst nach erfolgreichem Hashvergleich wird die jeweilige lokale
 Stagingablage entfernt. Checkpointimages werden nicht vollständig als Kopie
 archiviert: erhalten bleiben Größen-/Dateimanifeste, CRIU-Stats und Logs.
 
-Volle Pakete werden aufgezeichnet (`capture_snaplen: 0`). Gegenwärtig gilt pro
-Capture ein technisches Limit von 512 MiB und eine freie Reserve von 1024 MiB.
+Volle Pakete werden aufgezeichnet (`capture_snaplen: 0`). Die frühere feste
+512-MiB-Grenze ist deaktiviert (`max_capture_mb: 0`). Die freie Reserve von
+1024 MiB und die maximale Aufzeichnungsdauer von 600 s bleiben aktiv.
+Ein positiver Wert für `max_capture_mb` aktiviert bei Bedarf wieder eine Größenbegrenzung.
+Bei Platzmangel, einem expliziten Größenlimit oder einem tcpdump-Abbruch endet
+nur der Paketmitschnitt; das Ressourcensampling läuft bis zum angeforderten
+Stopp bzw. zum Zeitlimit weiter. Capture- und Ressourcenstatus sowie ihre
+Endzeitpunkte werden getrennt gespeichert. Die Reserveschwelle wird periodisch
+geprüft und kann zwischen zwei Prüfungen unterschritten werden; sie ist keine Diskquote.
 Ein erreichtes Limit, Captureverlust oder zu wenig Platz ist **kein vollständiger
 Mitschnitt**: Der Run erhält den Fehler, und der Batch hält nach dem Run an.
 Lokale nicht archivierte Daten bleiben bei einem Kopierfehler erhalten. Diese

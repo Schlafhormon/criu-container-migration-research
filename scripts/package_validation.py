@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 MANIFEST = "VALIDATION-PAYLOAD.json"
-ROOT_FILES = {"README.md", "pyproject.toml", ".gitattributes", ".gitignore"}
+ROOT_FILES = {"README.md", "LICENSE", "LICENSE-DATA", "clm.py", "pyproject.toml", ".gitattributes", ".gitignore"}
 ROOTS = {"clm", "tools", "scripts", "config", "tests", "docs", "workload"}
 EXCLUDED_PARTS = {".git", ".venv", "__pycache__", ".agent-work", "hostinfo", "testruns", "testläufe"}
 SUFFIXES = {".py", ".sh", ".yaml", ".yml", ".toml", ".md", ".txt", ".json", ".lua"}
